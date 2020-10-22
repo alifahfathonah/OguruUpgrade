@@ -24,7 +24,7 @@
     <div class="container">
         <div class="row">
             <div class="col" style="padding: 35px;">
-                <?php echo get_frontend_settings('privacy_policy'); ?>
+                <?php echo get_frontend_settings('kebijakan_privasi'); ?>
             </div>
         </div>
     </div>

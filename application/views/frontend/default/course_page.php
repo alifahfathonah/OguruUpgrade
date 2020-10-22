@@ -441,12 +441,12 @@ $instructor_details = $this->user_model->get_all_user($course_details['user_id']
           <span class = "current-price"><span class="current-price"><?php echo get_phrase('free'); ?></span></span>
         <?php else: ?>
           <?php if ($course_details['discount_flag'] == 1): ?>
-            <span class = "current-price"><span class="current-price"><?php echo currency($course_details['discounted_price']); ?></span></span>
-            <span class="original-price"><?php echo currency($course_details['price']) ?></span>
-            <input type="hidden" id = "total_price_of_checking_out" value="<?php echo currency($course_details['discounted_price']); ?>">
+            <span class = "current-price"><span class="current-price"><?php echo "Rp. ".$course_details['discounted_price'].",-"; ?></span></span>
+            <span class="original-price"><?php echo "Rp. ".$course_details['discounted_price'].",-"; ?></span>
+            <input type="hidden" id = "total_price_of_checking_out" value="<?php echo "Rp. ".$course_details['discounted_price'].",-"; ?>">
           <?php else: ?>
-            <span class = "current-price"><span class="current-price"><?php echo currency($course_details['price']); ?></span></span>
-            <input type="hidden" id = "total_price_of_checking_out" value="<?php echo currency($course_details['price']); ?>">
+            <span class = "current-price"><span class="current-price"><?php echo "Rp. ".$course_details['price'].",-"; ?></span></span>
+            <input type="hidden" id = "total_price_of_checking_out" value='<?php echo "Rp. ".$course_details['price'].",-"; ?>'>
           <?php endif; ?>
         <?php endif; ?>
       </div>

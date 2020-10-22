@@ -1,25 +1,25 @@
         <footer class="footer-area">
-            <div class="container-xl">
+            <div class="container">
                 <div class="row text-center">
-                    <div class="col-md-2">
+                    <!-- <div class="col-md-2">
                         <a href="" class="nav-link" style="font-size: 14px; font-weight: bold;">Tentang</a>
-                        <a href="">Tentang Kami</a><br>
+                        <a href="<?php echo site_url().'home/tentang_kami' ?>">Tentang Kami</a><br>
                         <a href="">FAQ</a><br>
                         <a href="">Kontak Kami</a><br>
                         <a href="">Jadi Mitra</a>
-                    </div>
+                    </div> -->
 
                     <div class="col-md-4">
                         <a href="" class="nav-link" style="font-size: 14px; font-weight: bold;">Lainnya</a>
-                        <a href="">Syarat & Ketentuan</a><br>
-                        <a href="">Kebijakan Privasi</a><br>
+                        <a href="<?php echo site_url().'home/syarat_ketentuan' ?>">Syarat & Ketentuan</a><br>
+                        <a href="<?php echo site_url().'home/kebijakan_privasi' ?>">Kebijakan Privasi</a><br>
                     </div>
 
-                    <div class="col-md-2">
+                    <div class="col-md-4">
                         <a href="" class="nav-link" style="font-size: 16px; font-weight: bold;">Social Media</a>
-                        <a href="" style="font-size: 16px;"><i class="fab fa-whatsapp" area-hidden="true"> </i> 08576000000</a><br>
-                        <a href="" style="font-size: 16px;"><i class="fab fa-instagram" area-hidden="true"></i> oguru_indonesia</a><br>
-                        <a href="" style="font-size: 16px;"><i class="fab fa-youtube" area-hidden="true"></i> oguru_indonesia</a>
+                        <a href="http://api.whatsapp.com/send?phone=088805684218" style="font-size: 16px;" target="_blank"><i class="fab fa-whatsapp" area-hidden="true"> </i> 088805684218</a><br>
+                        <a href="https://www.instagram.com/oguruindonesia/" target="_blank" style="font-size: 16px;"><i class="fab fa-instagram" area-hidden="true"></i> oguru_indonesia</a><br>
+                        <a href="https://www.youtube.com/channel/UCHUIGc7M2ocYjGCpqELLOxQ" target="_blank" style="font-size: 16px;"><i class="fab fa-youtube" area-hidden="true"></i> oguru_indonesia</a>
                     </div>
 
                     <div class="col-md-4">

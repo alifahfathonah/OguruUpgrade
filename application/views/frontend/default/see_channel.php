@@ -1,27 +1,48 @@
-<section class="category-header-area">
-    <div class="container-lg">
-        <div class="row">
-            <div class="col">
-                <nav>
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="<?php echo site_url('home'); ?>"><i class="fas fa-home"></i></a></li>
-                        <li class="breadcrumb-item">
-                            <a href="#">
-                                <?php echo $page_title; ?>
-                            </a>
-                        </li>
-                    </ol>
-                </nav>
-            </div>
+<section class="page-header-area">
+    <div class="container-fluid">
+        <div class="form-group text-left">
+            <h5>Channel <?php echo $channel['first_name'].' '.$channel['last_name']; ?></h5>
+        </div>
+        <div class="container row" style="margin-left: 5%;">
+        	<div class="col-md-2">
+        		<div class="user-box">
+        			 <img src="<?php echo base_url().'uploads/user_image/'.$channel['id'].'.jpg';?>" alt="" class="img-fluid">
+        		</div>
+        	</div>
+        	<div class="col-md-7" style="margin-left: 20px;">
+        		<h4 class="form-group"><?php echo $channel['first_name'].' '.$channel['last_name']; ?></h4>
+        		<i><h6 class="form-group"><?php echo $jumlah_follower; ?> Pengikut</h6></i>
+        		<h6 class="form-group"><?php echo $channel['deskripsi_channel']; ?></h6>
+        	</div>
+        	<div class="col-md-2 text-center">
+        		<div class="form-group"></div>
+        		<?php if ($is_follower) { ?>
+                    <div id="unfollow" class="col-md-1" style="margin: auto;">
+                      <a href="" onclick="unfollow()">diikuti</a>
+                    </div>
+                    <?php
+                    } else{ ?>
+                    <div id="follow" class="col-md-1" style="margin: auto;">
+                      <?php 
+                        if ($this->session->userdata('user_login') != true) {
+                            echo '<a href="#login" data-target="#login" data-toggle="modal" class="btn btn-primary">+ ikuti </a>';
+                        }
+                        else{
+                          echo '<a onclick="follow()" href="" class="btn btn-primary">+ ikuti </a>';
+                        }
+                       ?>
+                    </div> 
+                  <?php } ?>
+        	</div>
         </div>
     </div>
 </section>
 
 <section class="category-course-list-area">
     <div class="container">
-        <div class="category-filter-box filter-box clearfix">
-            
-        </div>
+        <div class="category-filter-box">
+			<p> Total Ovidi : <?php echo $jumlah_semua; ?></p>            
+        </div>  
         <div class="row">
             <div class="col-lg-3 filter-area">
                 <div class="card">
@@ -82,8 +103,9 @@
 </section>
 
 <script type="text/javascript">
+    var id_channel = "<?php echo $channel['id'] ?>";
     function get_url() {
-        var urlPrefix   = "<?php echo site_url('home/ovidi?'); ?>";
+        var urlPrefix   = "<?php echo site_url('home/lihat_channel/"+id_channel+"?'); ?>";
         var urlSuffix = "";
         var slectedCategory = "";
 

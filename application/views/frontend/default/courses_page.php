@@ -1,7 +1,7 @@
 <?php
 isset($layout) ? "": $layout = "list";
 isset($selected_category_id) ? "": $selected_category_id = "all";
-isset($selected_level) ? "": $selected_level = "all";
+// isset($selected_level) ? "": $selected_level = "all";
 isset($selected_rating) ? "": $selected_rating = "all";
 isset($selected_price) ? "": $selected_price = "all";
 // echo $selected_category_id.'-'.$selected_level.'-'.$selected_language.'-'.$selected_rating.'-'.$selected_price;
@@ -42,7 +42,6 @@ if (isset($sub_category_id)) {
         </div>
     </div>
 </section>
-
 
 <section class="category-course-list-area">
     <div class="container">
@@ -113,8 +112,8 @@ if (isset($sub_category_id)) {
                                     </ul>
                                 </div>
                             </div>
-                            <hr>
-                            <div class="filter_type">
+                            <!-- <hr> -->
+                            <!-- <div class="filter_type">
                                 <h6><?php echo get_phrase('level'); ?></h6>
                                 <ul>
                                     <li>
@@ -136,7 +135,7 @@ if (isset($sub_category_id)) {
                                         </div>
                                     </li>
                                 </ul>
-                            </div>
+                            </div> -->
                             <hr>
                             <div class="filter_type">
                                 <h6><?php echo get_phrase('ratings'); ?></h6>
@@ -207,9 +206,9 @@ function get_url() {
     });
 
     // Get selected difficulty Level
-    $('.level:checked').each(function() {
-        selectedLevel = $(this).attr('value');
-    });
+    // $('.level:checked').each(function() {
+    //     selectedLevel = $(this).attr('value');
+    // });
 
     // Get selected difficulty Level
     $('.languages:checked').each(function() {
@@ -221,7 +220,7 @@ function get_url() {
         selectedRating = $(this).attr('value');
     });
 
-    urlSuffix = "kategori="+slectedCategory+"&&harga="+selectedPrice+"&&level="+selectedLevel+"&&rating="+selectedRating;
+    urlSuffix = "kategori="+slectedCategory+"&&harga="+selectedPrice+"&&rating="+selectedRating;
     var url = urlPrefix+urlSuffix;
     return url;
 }

@@ -72,22 +72,22 @@ label {
 .tooltip{
     pointer-events: none;
 }
-.btn {
-    color: #fff;
-    background-color: #5290ec;
-    border-color: #5290ec;
-    padding: 11px 12px;
-    font-size: 15px;
-    border-radius: 2px;
-    line-height: 1.35135;
-    font-weight: 600;
-}
-.btn:hover,
-.btn:focus {
-    background-color: #365d96;
-    border-color: #365d96;
-    color: #fff;
-}
+/*.btn {*/
+/*    color: #fff;*/
+/*    background-color: #5290ec;*/
+/*    border-color: #5290ec;*/
+/*    padding: 11px 12px;*/
+/*    font-size: 15px;*/
+/*    border-radius: 2px;*/
+/*    line-height: 1.35135;*/
+/*    font-weight: 600;*/
+/*}*/
+/*.btn:hover,*/
+/*.btn:focus {*/
+/*    background-color: #365d96;*/
+/*    border-color: #365d96;*/
+/*    color: #fff;*/
+/*}*/
 textarea:focus,
 .form-control:focus,
 input:focus {

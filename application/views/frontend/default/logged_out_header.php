@@ -1,66 +1,75 @@
-<section class="menu-area">
-  <div class="container-xl">
-    <div class="row">
-      <div class="col">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+ <nav class="navbar navbar-expand-sm   navbar-light bg-light">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <a class="navbar-brand" href="<?php   echo base_url(); ?>">
+    <img src="<?php echo base_url().'uploads/system/logo-dark.png'; ?>" alt="logo" style="height: 30px; width: auto;">
+  </a>
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <?php include 'menuvokasional_resp.php'; ?>
+      <?php include 'menuakademik_resp.php'; ?>
+      <li class="nav-item">
+        <a class="nav-link" href="<?php echo site_url().'home/ovidi' ?>">
+          <i class="fas fa-video d-inline mr-2"> </i>
+          <span>Ovidi</span>
+          
+        </a>
+      </li>
 
-          <ul class="mobile-header-buttons">
-            <li><a class="mobile-nav-trigger" href="#mobile-primary-nav">Menu<span></span></a></li>
-            <li><a class="mobile-search-trigger" href="#mobile-search">Search<span></span></a></li>
-          </ul>
+      <li class="nav-item">
+        <a class="nav-link" href="#" disabled>
+          <i class="fas fa-book-open d-inline mr-2"> </i>
+          <span>Obook</span>
+          
+        </a>
+      </li>
 
-          <a href="<?php echo site_url(''); ?>" class="navbar-brand" href="#"><img src="<?php echo base_url().'uploads/system/logo-dark.png'; ?>" alt="" height="35"></a>
+      <li class="nav-item">
+        <a class="nav-link" href="<?php echo site_url().'home/bantuan' ?>">
+          <i class="fas fa-question-circle d-inline  mr-2"> </i>
+          <span>Bantuan</span>
+          
+        </a>
+      </li>
 
-          <?php include 'menuvokasional.php'; ?>
-
-          <?php include 'menuakademik.php'; ?>
-
-          <div class="main-nav-wrap">
-            <div class="mobile-overlay"></div>
-
-            <ul class="mobile-main-nav">
-              <div class="mobile-menu-helper-top"></div>
-
-              <li>
-                <a href="<?php echo site_url().'home/video' ?>">
-                  <i class="fas fa-video d-inline"> </i>
-                  <span>Video</span>
-                  <span class="has-sub-category"><i class="fas fa-angle-right"></i></span>
-                </a>
-              </li>
-              <div class="mobile-menu-helper-bottom"></div>
-            </ul>
-          </div>
-
-          <form class="inline-form" action="<?php echo site_url('home/cari'); ?>" method="get" style="width: 100%;">
-            <div class="input-group search-box mobile-search">
-              <input type="text" name = 'query' class="form-control" placeholder="Mau Cari Apa ?">
-              <div class="input-group-append">
-                <button class="btn" type="submit"><i class="fas fa-search"></i></button>
-              </div>
-            </div>
-          </form>
-
-          <?php if ($this->session->userdata('admin_login')): ?>
-            <div class="instructor-box menu-icon-box">
-              <div class="icon">
-                <a href="<?php echo site_url('admin'); ?>" style="border: 1px solid transparent; margin: 10px 10px; font-size: 14px; width: 100%; border-radius: 0;"><?php echo get_phrase('administrator'); ?></a>
-              </div>
-            </div>
-          <?php endif; ?>
-          <span class="signin-box-move-desktop-helper"></span>
-          <div class="sign-in-box btn-group">
-
-            <a href="#login" data-target="#login" data-toggle="modal" class="btn btn-sign-in">Masuk</a>
-
-            <a href="" data-target="#register" data-toggle="modal" class="btn btn-sign-up">Daftar</a>
-
-          </div> <!--  sign-in-box end -->
-        </nav>
+      <li class="nav-item">
+        <a class="nav-link" href="<?php echo site_url().'home/tentang_kami' ?>">
+          <i class="fas fa-address-card d-inline  mr-2"> </i>
+          <span>Tentang Kami</span>
+          
+        </a>
+      </li>
+    </ul>
+    
+    <!-- <form class="inline-form " action="<?php echo site_url('home/cari'); ?>" method="get" ">
+      <div class="input-group search-box1" >
+        <input type="text" name = 'query' class="form-control" placeholder="Mau Cari Apa ?">
+        <div class="input-group-append">
+          <button class="btn" type="submit"><i class="fas fa-search"></i></button>
+        </div>
       </div>
+    </form> -->
+    <div class="mt-2 mr-2 ml-2"></div>
+
+    <?php if ($this->session->userdata('admin_login')): ?>
+      
+      <div>
+        <a href="<?php echo site_url('admin'); ?>" class="btn btn-light text-muted" style="background-color: white; width: 100%; border-radius: 2px">Administrator</a>
+      </div>
+    <div class="mt-3 mr-2 ml-2"></div>
+    <?php endif; ?>
+
+    <div>
+      <button data-target="#login" data-toggle="modal" class="btn btn-outline-secondary" style="width: 100%; border-radius: 2px">Masuk</button>
     </div>
+    <div class="mt-2 mr-1 ml-1"></div>
+    <div>
+      <button data-target="#register" data-toggle="modal" class="btn btn-primary" style="width: 100%; border-radius: 2px;">Daftar</button>
+    </div>
+    <div class="mt-2"></div>
   </div>
-</section>
+</nav>
 
 <div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -202,6 +211,15 @@
       $("#forgot").on("show.bs.modal", function (e) {
           $('#login').modal("hide");
           $('#register').modal("hide");
+      });
+  });
+
+
+  $(document).ready(function () {
+  $('.navbar-light .dmenu').hover(function () {
+          $(this).find('.sm-menu').first().stop(true, true).slideDown(250);
+      }, function () {
+          $(this).find('.sm-menu').first().stop(true, true).slideUp(205)
       });
   });
 </script>

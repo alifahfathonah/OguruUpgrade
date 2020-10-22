@@ -128,7 +128,7 @@
     </div>
 </section>
 
-
+<script type="text/javascript" src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="SB-Mid-client-8R1sjHXU1hMqPaWV"></script>
 <script type="text/javascript">
 
     var blank_nama = document.getElementById("form_nama");
@@ -141,7 +141,7 @@
     var total_bayar = total_1;
     var countEl = document.getElementById("count");
     var i = 1;
-    console.log(total_bayar);
+    // console.log(total_bayar);
 
     function removeFromCartList(elem) {
         url1 = '<?php echo site_url('home/handleCartItems');?>';
@@ -199,6 +199,7 @@
                 }else {
                     event.preventDefault();
                     $(this).attr("disabled", "disabled");
+                    console.log('<?php echo $nama; ?>');
                     $.ajax({
                         url: '<?php echo site_url()."/snap/token/" ?>' + total_bayar +'<?php echo "/".$nama."_" ?>' + countEl.value,
                         cache: false,
@@ -284,7 +285,7 @@
 
     var count = 1;
     var id_total = document.getElementById("total_bayar");
-    console.log(id_total);
+    // console.log(id_total);
     function plus(){
         count++;
         countEl.value = count;

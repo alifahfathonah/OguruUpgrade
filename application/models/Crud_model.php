@@ -40,15 +40,15 @@ class Crud_model extends CI_Model {
         }
 
         // category thumbnail adding
-        // if (!file_exists('uploads/thumbnails/category_thumbnails')) {
-        //     mkdir('uploads/thumbnails/category_thumbnails', 0777, true);
-        // }
-        // if ($_FILES['category_thumbnail']['name'] == "") {
-        //     $data['thumbnail'] = 'category-thumbnail.png';
-        // }else {
-        //     $data['thumbnail'] = md5(rand(10000000, 20000000)).'.jpg';
-        //     move_uploaded_file($_FILES['category_thumbnail']['tmp_name'], 'uploads/thumbnails/category_thumbnails/'.$data['thumbnail']);
-        // }
+        if (!file_exists('uploads/thumbnails/category_thumbnails')) {
+            mkdir('uploads/thumbnails/category_thumbnails', 0777, true);
+        }
+        if ($_FILES['category_thumbnail']['name'] == "") {
+            $data['thumbnail'] = 'category-thumbnail.png';
+        }else {
+            $data['thumbnail'] = md5(rand(10000000, 20000000)).'.jpg';
+            move_uploaded_file($_FILES['category_thumbnail']['tmp_name'], 'uploads/thumbnails/category_thumbnails/'.$data['thumbnail']);
+        }
         $data['date_added'] = strtotime(date('D, d-M-Y'));
         $this->db->insert('category', $data);
     }
@@ -66,13 +66,13 @@ class Crud_model extends CI_Model {
 
         echo '<script type="text/javascript"> console.log("icon = '.$this->input->post('font_awesome_class').'")</script>';
         // category thumbnail adding
-        // if (!file_exists('uploads/category_thumbnails')) {
-        //     mkdir('uploads/category_thumbnails', 0777, true);
-        // }
-        // if ($_FILES['category_thumbnail']['name'] != "") {
-        //     $data['thumbnail'] = md5(rand(10000000, 20000000)).'.jpg';
-        //     move_uploaded_file($_FILES['category_thumbnail']['tmp_name'], 'uploads/thumbnails/category_thumbnails/'.$data['thumbnail']);
-        // }
+        if (!file_exists('uploads/category_thumbnails')) {
+            mkdir('uploads/category_thumbnails', 0777, true);
+        }
+        if ($_FILES['category_thumbnail']['name'] != "") {
+            $data['thumbnail'] = md5(rand(10000000, 20000000)).'.jpg';
+            move_uploaded_file($_FILES['category_thumbnail']['tmp_name'], 'uploads/thumbnails/category_thumbnails/'.$data['thumbnail']);
+        }
         $data['last_modified'] = strtotime(date('D, d-M-Y'));
         $this->db->where('id', $param1);
         $this->db->update('category', $data);
@@ -366,7 +366,7 @@ class Crud_model extends CI_Model {
         $data['short_description'] = $this->input->post('short_description');
         $data['description'] = $this->input->post('description');
         $data['outcomes'] = $outcomes;
-        $data['language'] = $this->input->post('language_made_in');
+        // $data['language'] = $this->input->post('language_made_in');
         $data['sub_category_id'] = $this->input->post('sub_category_id');
         $data['tipe'] = $this->input->post('tipe');
         $data['tanggal'] = $this->input->post('tanggal');
@@ -396,7 +396,7 @@ class Crud_model extends CI_Model {
 
         $data['date_added'] = strtotime(date('D, d-M-Y'));
         $data['section'] = json_encode(array());
-        $data['is_top_course'] = $this->input->post('is_top_course');
+        // $data['is_top_course'] = $this->input->post('is_top_course');
         $data['user_id'] = $this->session->userdata('user_id');
         $data['meta_description'] = $this->input->post('meta_description');
         $data['meta_keywords'] = $this->input->post('meta_keywords');
@@ -450,7 +450,7 @@ class Crud_model extends CI_Model {
         $data['short_description'] = $this->input->post('short_description');
         $data['description'] = $this->input->post('description');
         $data['outcomes'] = $outcomes;
-        $data['language'] = $this->input->post('language_made_in');
+        // $data['language'] = $this->input->post('language_made_in');
         $data['category_id'] = $this->input->post('category_id');
         $data['sub_category_id'] = $this->input->post('sub_category_id');
         $data['tipe'] = $this->input->post('tipe');
@@ -462,7 +462,7 @@ class Crud_model extends CI_Model {
         $data['live'] = $this->input->post('live');
         $data['durasi'] = $this->input->post('durasi');
         $data['requirements'] = $requirements;
-        $data['is_free_course'] = $this->input->post('is_free_course');
+        // $data['is_free_course'] = $this->input->post('is_free_course');
         $data['price'] = $this->input->post('price');
         $data['discount_flag'] = $this->input->post('discount_flag');
         $data['discounted_price'] = $this->input->post('discounted_price');
@@ -1303,7 +1303,7 @@ class Crud_model extends CI_Model {
         }
 
         // version 1.4
-        function filter_course($selected_category_id = "", $selected_price = "", $selected_level = "", $selected_language = "", $selected_rating = ""){
+        function filter_course($selected_category_id = "", $selected_price = "", $selected_rating = ""){
             //echo $selected_category_id.' '.$selected_price.' '.$selected_level.' '.$selected_language.' '.$selected_rating;
 
             $course_ids = array();
@@ -1317,14 +1317,6 @@ class Crud_model extends CI_Model {
                 }elseif ($selected_price == "free") {
                     $this->db->where('is_free_course', 1);
                 }
-            }
-
-            if ($selected_level != "all") {
-                $this->db->where('level', $selected_level);
-            }
-
-            if ($selected_language != "all") {
-                $this->db->where('language', $selected_language);
             }
             $this->db->where('status', 'active');
             $courses = $this->db->get('course')->result_array();
@@ -1696,13 +1688,49 @@ class Crud_model extends CI_Model {
 
         public function filter_video($param1 = "")
         {
-            $video = $this->db->get_where('video', array('id_kategori' => $param1));
+            $video = $this->db->get_where('video', array('id_kategori' => $param1, 'status' => 1));
             if($video->num_rows() > 0){
                 return $video->result_array();
             }
             else{
                 return array();
             }
+        }
+
+        public function filter_video_channel($param1 = "", $param2 = "")
+        {
+            $video = $this->db->get_where('video', array('id_kategori' => $param1, 'status' => 1, 'id_user' => $param2));
+            if($video->num_rows() > 0){
+                return $video->result_array();
+            }
+            else{
+                return array();
+            }
+        }
+
+        public function add_ovidi($param1 = '', $param2 = '', $param3 = '', $param4 = '')
+        {
+            $data['id_kategori'] = $param1;
+            $data['judul'] = $param2;
+            $data['deskripsi'] = $param3;
+            $data['id_user'] = $param4;
+            $data['date_added'] = strtotime(date("Y-m-d H:i:s"));
+            if (!file_exists('uploads/ovidi')) {
+                mkdir('uploads/ovidi', 0777, true);
+            }
+            if ($_FILES['file_ovidi']['name'] != "") {
+                $data['link'] = $_FILES['file_ovidi']['name'];
+                move_uploaded_file($_FILES['file_ovidi']['tmp_name'], 'uploads/ovidi/'.$data['link']);
+            }
+            $this->db->insert('video', $data);
+        }
+
+        public function follow($param1='', $param2 = '')
+        {
+            $data['id_user'] = $param1;
+            $data['id_channel'] = $param2;
+            $data['date_added'] = strtotime(date("Y-m-d H:i:s"));
+            $this->db->insert('follower_video', $data);
         }
 }
 

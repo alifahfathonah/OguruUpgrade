@@ -161,8 +161,8 @@
     "frontend_settings": "Frontend settings",
     "banner_title": "Banner title",
     "banner_sub_title": "Banner sub title",
-    "about_us": "About us",
-    "terms_and_condition": "Terms and condition",
+    "about_us": "Tentang Kami",
+    "terms_and_condition": "Syarat dan Ketentuan",
     "update_banner_image": "Update banner image",
     "upload_banner_image": "Upload banner image",
     "update_light_logo": "Update light logo",
@@ -661,5 +661,6 @@
     "faktur": "Faktur",
     "saldo": "Saldo",
     "kategori": "Kategori",
-    "email_duplication" : "Email sudah terdaftar"
+    "email_duplication" : "Email sudah terdaftar",
+    "kebijakan_privasi" : "Kebijakan Privasi"
 }

@@ -9,7 +9,7 @@ class Home extends CI_Controller {
         // Your own constructor code
         $this->load->database();
         $this->load->library('session');
-        $params = array('server_key' => 'SB-Mid-server-e9U28P4tDbuHoreVHCsnDtRL', 'production' => false);
+        $params = array('server_key' => 'SB-Mid-server--dO7ib2YnIPAO1AWYA_P7PPu', 'production' => false);
         $this->load->library('veritrans');
         $this->veritrans->config($params);
         // $this->load->library('stripe');
@@ -61,8 +61,8 @@ class Home extends CI_Controller {
         $layout = $this->session->userdata('layout');
         $selected_category_id = "all";
         $selected_price = "all";
-        $selected_level = "all";
-        $selected_language = "all";
+        // $selected_level = "all";
+        // $selected_language = "all";
         $selected_rating = "all";
         // Get the category ids
         if (isset($_GET['kategori']) && !empty($_GET['kategori'] && $_GET['kategori'] != "all")) {
@@ -74,15 +74,15 @@ class Home extends CI_Controller {
             $selected_price = $_GET['harga'];
         }
 
-        // Get the selected level
-        if (isset($_GET['level']) && !empty($_GET['level'])) {
-            $selected_level = $_GET['level'];
-        }
+        // // Get the selected level
+        // if (isset($_GET['level']) && !empty($_GET['level'])) {
+        //     $selected_level = $_GET['level'];
+        // }
 
-        // Get the selected language
-        if (isset($_GET['language']) && !empty($_GET['language'])) {
-            $selected_language = $_GET['language'];
-        }
+        // // Get the selected language
+        // if (isset($_GET['language']) && !empty($_GET['language'])) {
+        //     $selected_language = $_GET['language'];
+        // }
 
         // Get the selected rating
         if (isset($_GET['rating']) && !empty($_GET['rating'])) {
@@ -90,7 +90,7 @@ class Home extends CI_Controller {
         }
 
 
-        if ($selected_category_id == "all" && $selected_price == "all" && $selected_level == 'all' && $selected_language == 'all' && $selected_rating == 'all') {
+        if ($selected_category_id == "all" && $selected_price == "all" && $selected_rating == 'all') {
             $this->db->where(array('status' => 'active', 'parent_category' => 2));
             $total_rows = $this->db->get('course')->num_rows();
             $config = array();
@@ -98,7 +98,7 @@ class Home extends CI_Controller {
             $config['base_url']  = site_url('home/akademik/');
             $page_data['courses'] = $this->db->where(array('status' => 'active', 'parent_category' => 2))->get('course', $config['per_page'], $this->uri->segment(3))->result_array();
         }else {
-            $courses = $this->crud_model->filter_course($selected_category_id, $selected_price, $selected_level, $selected_language, $selected_rating);
+            $courses = $this->crud_model->filter_course($selected_category_id, $selected_price, $selected_rating);
             $page_data['courses'] = $courses;
         }
 
@@ -108,8 +108,8 @@ class Home extends CI_Controller {
         $page_data['layout']     = $layout;
         $page_data['selected_category_id']     = $selected_category_id;
         $page_data['selected_price']     = $selected_price;
-        $page_data['selected_level']     = $selected_level;
-        $page_data['selected_language']     = $selected_language;
+        // $page_data['selected_level']     = $selected_level;
+        // $page_data['selected_language']     = $selected_language;
         $page_data['selected_rating']     = $selected_rating;
         $this->load->view('frontend/'.get_frontend_settings('theme').'/index', $page_data);
     }
@@ -121,8 +121,8 @@ class Home extends CI_Controller {
         $layout = $this->session->userdata('layout');
         $selected_category_id = "all";
         $selected_price = "all";
-        $selected_level = "all";
-        $selected_language = "all";
+        // $selected_level = "all";
+        // $selected_language = "all";
         $selected_rating = "all";
         // Get the category ids
         if (isset($_GET['kategori']) && !empty($_GET['kategori'] && $_GET['kategori'] != "all")) {
@@ -134,15 +134,15 @@ class Home extends CI_Controller {
             $selected_price = $_GET['harga'];
         }
 
-        // Get the selected level
-        if (isset($_GET['level']) && !empty($_GET['level'])) {
-            $selected_level = $_GET['level'];
-        }
+        // // Get the selected level
+        // if (isset($_GET['level']) && !empty($_GET['level'])) {
+        //     $selected_level = $_GET['level'];
+        // }
 
-        // Get the selected language
-        if (isset($_GET['language']) && !empty($_GET['language'])) {
-            $selected_language = $_GET['language'];
-        }
+        // // Get the selected language
+        // if (isset($_GET['language']) && !empty($_GET['language'])) {
+        //     $selected_language = $_GET['language'];
+        // }
 
         // Get the selected rating
         if (isset($_GET['rating']) && !empty($_GET['rating'])) {
@@ -150,16 +150,17 @@ class Home extends CI_Controller {
         }
 
 
-        if ($selected_category_id == "all" && $selected_price == "all" && $selected_level == 'all' && $selected_language == 'all' && $selected_rating == 'all') {
+        if ($selected_category_id == "all" && $selected_price == "all" && $selected_rating == 'all') {
             $this->db->where(array('status' => 'active', 'parent_category' => 1));
             $total_rows = $this->db->get('course')->num_rows();
             $config = array();
             $config = pagintaion($total_rows, 6);
-            $config['base_url']  = site_url('home/vokasional/');
+            $config['base_url']  = site_url('home/vokasional');
             $page_data['courses'] = $this->db->where(array('status' => 'active', 'parent_category' => 1))->get('course', $config['per_page'], $this->uri->segment(3))->result_array();
         }else {
-            $courses = $this->crud_model->filter_course($selected_category_id, $selected_price, $selected_level, $selected_language, $selected_rating);
+            $courses = $this->crud_model->filter_course($selected_category_id, $selected_price, $selected_rating);
             $page_data['courses'] = $courses;
+
         }
 
         $page_data['page_name']  = "courses_page";
@@ -168,8 +169,8 @@ class Home extends CI_Controller {
         $page_data['layout']     = $layout;
         $page_data['selected_category_id']     = $selected_category_id;
         $page_data['selected_price']     = $selected_price;
-        $page_data['selected_level']     = $selected_level;
-        $page_data['selected_language']     = $selected_language;
+        // $page_data['selected_level']     = $selected_level;
+        // $page_data['selected_language']     = $selected_language;
         $page_data['selected_rating']     = $selected_rating;
         $this->load->view('frontend/'.get_frontend_settings('theme').'/index', $page_data);
     }
@@ -521,21 +522,28 @@ class Home extends CI_Controller {
         $this->crud_model->rate($data);
     }
 
-    public function about_us() {
+    public function tentang_kami() {
         $page_data['page_name'] = 'about_us';
         $page_data['page_title'] = get_phrase('about_us');
         $this->load->view('frontend/'.get_frontend_settings('theme').'/index', $page_data);
     }
 
-    public function terms_and_condition() {
-        $page_data['page_name'] = 'terms_and_condition';
+    public function bantuan()
+    {
+        $page_data['page_name'] = 'bantuan';
+        $page_data['page_title'] = 'Bantuan';
+        $this->load->view('frontend/'.get_frontend_settings('theme').'/index', $page_data);
+    }
+
+    public function syarat_ketentuan() {
+        $page_data['page_name'] = 'syarat_ketentuan';
         $page_data['page_title'] = get_phrase('terms_and_condition');
         $this->load->view('frontend/'.get_frontend_settings('theme').'/index', $page_data);
     }
 
-    public function privacy_policy() {
-        $page_data['page_name'] = 'privacy_policy';
-        $page_data['page_title'] = get_phrase('privacy_policy');
+    public function kebijakan_privasi() {
+        $page_data['page_name'] = 'kebijakan_privasi';
+        $page_data['page_title'] = get_phrase('kebijakan_privasi');
         $this->load->view('frontend/'.get_frontend_settings('theme').'/index', $page_data);
     }
 
@@ -826,7 +834,7 @@ class Home extends CI_Controller {
         redirect(site_url('home'), 'refresh');
     }
 
-    public function video()
+    public function ovidi()
     {
         $selected_category_id = "all";
         // Get the category ids
@@ -838,25 +846,47 @@ class Home extends CI_Controller {
             $total_rows = $this->db->get('video')->num_rows();
             $config = array();
             $config = pagintaion($total_rows, 6);
-            $config['base_url']  = site_url('home/video');
-            $page_data['video'] = $this->db->get('video', $config['per_page'], $this->uri->segment(3))->result_array();
+            $config['base_url']  = site_url('home/ovidi');
+            $page_data['video'] = $this->db->where('status', 1)->get('video', $config['per_page'], $this->uri->segment(6))->result_array();
         }else {
             $video = $this->crud_model->filter_video($selected_category_id);
             $page_data['video'] = $video;
         }
 
         $page_data['page_name']  = "videos";
-        $page_data['page_title'] = "Video";
-        $page_data['selected_category_id']     = $selected_category_id;
+        $page_data['page_title'] = "Ovidi(Online Video)";
+        $page_data['selected_category_id'] = $selected_category_id;
         $this->load->view('frontend/'.get_frontend_settings('theme').'/index', $page_data);
     }
 
     public function tonton($param1='')
     {
         $video = $this->db->get_where('video', array('id' => $param1))->row_array();
+        $get_follow = $this->db->get_where('follower_video', array('id_user' => $this->session->userdata('user_id')));
+        // echo '<script type="text/javascript"> console.log("'.$get_follow->num_rows().'")</script>';
+        if($get_follow->num_rows() > 0){
+            foreach ($get_follow->result_array() as $follow) {
+                if($follow['id_channel'] == $video['id_user']){
+                    $page_data['id_follow'] = $follow['id'];
+                    $page_data['is_follower'] = true;
+                }
+            }
+        }
         $page_data['video'] = $video;
+        $page_data['page_title'] = "Tonton Ovidi";
         $page_data['page_name']  = "tonton";
         $this->load->view('frontend/'.get_frontend_settings('theme').'/index', $page_data);
+    }
+
+    public function follow($param1='', $param2 = '')
+    {
+        if($param2 == 'follow'){
+            $id_user = $this->session->userdata('user_id');
+            $this->crud_model->follow($id_user, $param1);
+        }
+        else{
+            $this->db->where('id', $param1)->delete('follower_video');
+        }
     }
 
     public function channel()
@@ -864,9 +894,119 @@ class Home extends CI_Controller {
         if ($this->session->userdata('user_login') != 1){
             redirect('home', 'refresh');
         }
-        // $video = $this->db->get_where('video', array('id' => $param1))->row_array();
-        // $page_data['video'] = $video;
+        $selected_category = $_GET['kategori'];
+        $select = 1;
+
+        if ($selected_category == "aktif") {
+            $select = 1;
+        }
+        else if($selected_category == "tunda"){
+            $select = 0;
+        }
+        else{
+            $select = -1;
+        }
+        $total = $this->db->get_where('video', array('id_user' => $this->session->userdata('user_id')))->num_rows();
+        $total_aktif = $this->db->get_where('video', array('id_user' => $this->session->userdata('user_id'), 'status' => 1))->num_rows();
+        $total_tunda = $this->db->get_where('video', array('id_user' => $this->session->userdata('user_id'), 'status' => 0))->num_rows();
+        $total_non = $this->db->get_where('video', array('id_user' => $this->session->userdata('user_id'), 'status' => -1))->num_rows();
+        $page_data['jumlah_semua'] = $total;
+        $page_data['jumlah_aktif'] = $total_aktif;
+        $page_data['jumlah_tunda'] = $total_tunda;
+        $page_data['jumlah_batal'] = $total_non;
+
+        $follower = $this->db->get_where('follower_video', array('id_channel' => $this->session->userdata('user_id')))->num_rows();
+        $page_data['jumlah_follower'] = $follower;
+
+        $total_rows = $this->db->get_where('video', array('id_user' => $this->session->userdata('user_id'), 'status' => $select))->num_rows();
+        $config = array();
+        $config = pagintaion($total_rows, 6);
+        $config['base_url']  = site_url('home/ovidi');
+        $page_data['video'] = $this->db->where(array('id_user' => $this->session->userdata('user_id'), 'status' => $select))->get('video', $config['per_page'], $this->uri->segment(3))->result_array();
+        $page_data['selected_category'] = $selected_category;
+        $page_data['page_title'] = "Channel";
         $page_data['page_name']  = "my_channel";
+        $this->load->view('frontend/'.get_frontend_settings('theme').'/index', $page_data);
+    }
+
+    public function crud_ovidi($param1)
+    {
+        if ($this->session->userdata('user_login') != 1){
+            redirect('home', 'refresh');
+        }
+        if($param1 == 'add'){
+            $kategori= $_POST['pilih_kategori'];
+            $judul = $_POST['judul_ovidi'];
+            $deskripsi = $_POST['deskripsi_ovidi'];
+            $this->crud_model->add_ovidi($kategori, $judul, $deskripsi, $this->session->userdata('user_id'));
+        }
+        elseif($param1 == 'delete'){
+            $this->db->where('id', $_GET['id_video']);
+            $this->db->delete('video');
+            if (file_exists('uploads/ovidi/'.$_GET['file_ovidi'])) {
+                unlink('uploads/ovidi/'.$_GET['file_ovidi']);   
+            }
+            redirect(site_url('home/channel?kategori=aktif'), 'refresh');
+        }
+    }
+
+    public function ubah_deskripsi()
+    {
+        if ($this->session->userdata('user_login') != 1){
+            redirect('home', 'refresh');
+        }
+        $deskripsi['deskripsi_channel'] = $_POST['deskripsi'];
+        $this->db->where('id', $this->session->userdata('user_id'));
+        $this->db->update('users', $deskripsi);
+        redirect(site_url('home/channel?kategori='.$_POST['select_kategori']), 'refresh');
+    }
+
+    public function tonton_channel($param1='')
+    {
+        if ($this->session->userdata('user_login') != 1){
+            redirect('home', 'refresh');
+        }
+        $video = $this->db->get_where('video', array('id' => $param1))->row_array();
+        $kategori = $this->db->get_where('category', array('id' => $video['id_kategori']))->row_array();
+        $page_data['kategori'] = $kategori['name'];
+        $page_data['video'] = $video;
+        $page_data['page_name']  = "tonton_channel";
+        $page_data['page_title'] = "Tonton Channel";
+        $this->load->view('frontend/'.get_frontend_settings('theme').'/index', $page_data);
+    }
+
+    public function lihat_channel($param1 = '')
+    {
+        $channel = $this->db->get_where('users', array('id' => $param1))->row_array();
+        $follower = $this->db->get_where('follower_video', array('id_channel' => $param1))->num_rows();
+        $selected_category_id = "all";
+
+        if (isset($_GET['kategori']) && !empty($_GET['kategori'] && $_GET['kategori'] != "all")) {
+            $selected_category_id = $this->crud_model->get_category_id($_GET['kategori']);
+        }
+
+        if ($selected_category_id == "all") {
+            $total_rows = $this->db->where(array('id_user' => $param1, 'status' => 1))->get('video')->num_rows();
+            $config = array();
+            $config = pagintaion($total_rows, 6);
+            $config['base_url']  = site_url('home/lihat_channel');
+            $page_data['video'] = $this->db->where(array('id_user' => $param1, 'status' => 1))->get('video', $config['per_page'], $this->uri->segment(6))->result_array();
+            echo '<script type="text/javascript"> console.log("'.$total_rows.'")</script>';
+        }else {
+            $video = $this->crud_model->filter_video_channel($selected_category_id, $param1);
+            $page_data['video'] = $video;
+        }
+        $total = $this->db->get_where('video', array('id_user' => $param1, 'status' => 1))->num_rows();
+        $get_follow = $this->db->get_where('follower_video', array('id_user' => $this->session->userdata('user_id'), 'id_channel' => $param1));
+        if($get_follow->num_rows() > 0){
+            $page_data['is_follower'] = true;
+        }
+        $page_data['jumlah_semua'] = $total;
+        $page_data['jumlah_follower'] = $follower;
+        $page_data['channel'] = $channel;
+        $page_data['page_name']  = "see_channel";
+        $page_data['page_title'] = "Lihat Channel";
+        $page_data['selected_category_id']     = $selected_category_id;
         $this->load->view('frontend/'.get_frontend_settings('theme').'/index', $page_data);
     }
 

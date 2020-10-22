@@ -24,7 +24,7 @@ class Snap extends CI_Controller {
 	public function __construct()
     {
         parent::__construct();
-        $params = array('server_key' => 'SB-Mid-server-e9U28P4tDbuHoreVHCsnDtRL', 'production' => false);
+        $params = array('server_key' => 'SB-Mid-server--dO7ib2YnIPAO1AWYA_P7PPu', 'production' => false);
 		$this->load->library('midtrans');
 		$this->midtrans->config($params);
 		$this->load->database();
@@ -39,6 +39,7 @@ class Snap extends CI_Controller {
     public function token($total_price, $nama)
     {
     	$nama_detail = explode('_', $nama);
+        $name_item = str_replace('%20', ' ', $nama_detail[3]);
 		// Required
 		$transaction_details = array(
 		  'order_id' => rand(),
@@ -50,7 +51,7 @@ class Snap extends CI_Controller {
 		  'id' => $nama_detail[2],
 		  'price' => $total_price/$nama_detail[6],
 		  'quantity' => $nama_detail[6],
-		  'name' => $nama_detail[3]
+		  'name' => $name_item
 		);
 
 		// Optional

@@ -24,7 +24,7 @@
     <div class="container">
         <div class="row">
             <div class="col" style="padding: 35px;">
-                <?php echo get_frontend_settings('terms_and_condition'); ?>
+                <?php echo get_frontend_settings('syarat_ketentuan'); ?>
             </div>
         </div>
     </div>

@@ -60,13 +60,15 @@ class Email_model extends CI_Model {
 
 		//SMTP & mail configuration
 		$config = array(
-			'protocol'  => get_settings('protocol'),
-			'smtp_host' => get_settings('smtp_host'),
-			'smtp_port' => get_settings('smtp_port'),
-			'smtp_user' => get_settings('smtp_user'),
-			'smtp_pass' => get_settings('smtp_pass'),
+			'protocol'  => "smtp",
+			'smtp_host' => "ssl://smtp.gmail.com",
+			'smtp_port' => "465",
+			'smtp_user' => "indonesiaoguru@gmail.com",
+			'smtp_pass' => "oguru2019",
 			'mailtype'  => 'html',
-			'charset'   => 'utf-8'
+			'charset'   => 'utf-8',
+			'smtp_timeout' => '400',
+			'crlf' => "\r\n",
 		);
 		$this->email->initialize($config);
 		$this->email->set_mailtype("html");

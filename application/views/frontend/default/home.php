@@ -5,7 +5,7 @@
                 <div class="home-banner-wrap">
                     <h2>Belajar apa saja di Oguru Indonesia</h2>
                     <p>Belajar hal baru dimana saja dan kapan saja dengan Oguru Indonesia</p>
-                    <form class="" action="<?php echo site_url('home/search'); ?>" method="get">
+                    <form class="" action="<?php echo site_url('home/cari'); ?>" method="get">
                         <div class="input-group">
                             <input type="text" class="form-control" name = "query" placeholder="Apa yang ingin anda pelajari ?">
                             <div class="input-group-append">
@@ -70,7 +70,6 @@
                     <div class="course-box-wrap">
                         <a href="<?php echo site_url('home/course/'.slugify($top_course['title']).'/'.$top_course['id']); ?>" class="has-popover">
                             <div class="course-box">
-                                <!-- <div class="course-badge position best-seller">Best seller</div> -->
                                 <div class="course-image">
                                     <img src="<?php echo $this->crud_model->get_course_thumbnail_url($top_course['id']); ?>" alt="" class="img-fluid">
                                 </div>
@@ -124,23 +123,6 @@
                                 <span class=""><i class="fas fa-play-circle"></i>
                                     <?php echo $this->crud_model->get_lessons('course', $top_course['id'])->num_rows().' '.get_phrase('lessons'); ?>
                                 </span>
-                                <!-- <span class=""><i class="far fa-clock"></i>
-                                    <?php
-                                    $total_duration = 0;
-                                    $lessons = $this->crud_model->get_lessons('course', $top_course['id'])->result_array();
-                                    foreach ($lessons as $lesson) {
-                                        if ($lesson['lesson_type'] != "other") {
-                                            $time_array = explode(':', $lesson['duration']);
-                                            $hour_to_seconds = $time_array[0] * 60 * 60;
-                                            $minute_to_seconds = $time_array[1] * 60;
-                                            $seconds = $time_array[2];
-                                            $total_duration += $hour_to_seconds + $minute_to_seconds + $seconds;
-                                        }
-                                    }
-                                    echo gmdate("H:i:s", $total_duration).' '.get_phrase('hours');
-                                    ?>
-                                </span>
-                                <span class=""><i class="fas fa-closed-captioning"></i><?php echo ucfirst($top_course['language']); ?></span> -->
                             </div>
                             <div class="course-subtitle"><?php echo $top_course['short_description']; ?></div>
                             <div class="what-will-learn">
@@ -193,7 +175,7 @@
     <div class="container-lg">
         <div class="row">
             <div class="col">
-                <h2 class="course-carousel-title">10 Kelas Teratas</h2>
+                <h2 class="course-carousel-title">Kelas Terbaru</h2>
                 <div class="course-carousel">
                     <?php
                     $latest_courses = $this->crud_model->get_latest_10_course();

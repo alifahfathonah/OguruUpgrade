@@ -160,7 +160,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="form-group row mb-3 hidden">
+                                            <!-- <div class="form-group row mb-3 hidden">
                                                 <label class="col-md-2 col-form-label" for="language_made_in"><?php echo get_phrase('language_made_in'); ?></label>
                                                 <div class="col-md-10">
                                                     <select class="form-control select2" data-toggle="select2" name="language_made_in" id="language_made_in">
@@ -169,15 +169,15 @@
                                                         <?php endforeach; ?>
                                                     </select>
                                                 </div>
-                                            </div>
-                                            <div class="form-group row mb-3 hidden">
+                                            </div> -->
+                                            <!-- <div class="form-group row mb-3 hidden">
                                                 <div class="offset-md-2 col-md-10">
                                                     <div class="custom-control custom-checkbox">
                                                         <input type="checkbox" class="custom-control-input" name="is_top_course" id="is_top_course" value="1">
                                                         <label class="custom-control-label" for="is_top_course"><?php echo get_phrase('check_if_this_course_is_top_course'); ?></label>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div> -->
                                         </div> <!-- end col -->
                                     </div> <!-- end row -->
                                 </div> <!-- end tab pane -->
