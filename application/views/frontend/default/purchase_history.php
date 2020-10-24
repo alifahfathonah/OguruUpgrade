@@ -9,7 +9,7 @@
                 <h1 class="page-title"><?php echo get_phrase('my_courses'); ?></h1>
                 <ul>
                   <li><a href="<?php echo site_url('home/kelas_saya'); ?>"><?php echo get_phrase('all_courses'); ?></a></li>
-                  <li><a href="<?php echo site_url('home/pesan'); ?>"><?php echo get_phrase('my_messages'); ?></a></li>
+                  <!-- <li><a href="<?php echo site_url('home/pesan'); ?>"><?php echo get_phrase('my_messages'); ?></a></li> -->
                   <li class="active"><a href="<?php echo site_url('home/riwayat_pembayaran'); ?>"><?php echo get_phrase('purchase_history'); ?></a></li>
                   <li><a href="<?php echo site_url('home/profil/profil_saya'); ?>"><?php echo get_phrase('user_profile'); ?></a></li>
                 </ul>
@@ -32,7 +32,7 @@
                                             <div class="col-sm-3"> <?php echo get_phrase('date'); ?> </div>
                                             <div class="col-sm-3"> <?php echo get_phrase('total_price'); ?> </div>
                                             <div class="col-sm-4"> <?php echo get_phrase('payment_type'); ?> </div>
-                                            <div class="col-sm-2"> </div>
+                                            <div class="col-sm-2"> Order Id </div>
                                         </div>
                                     </div>
                                 </div>
@@ -49,7 +49,7 @@
                                         <div class="row">
                                             <div class="col-sm-6">
                                                 <div class="purchase-history-course-img">
-                                                    <img src="<?php echo $this->crud_model->get_course_thumbnail_url($each_purchase['course_id']);?>" class="img-fluid">
+                                                    <img src="<?php echo $this->crud_model->get_course_thumbnail_url($each_purchase['id_course']);?>" class="img-fluid">
                                                 </div>
                                                 <a class="purchase-history-course-title" href="<?php echo site_url('home/'.$parent.'/'.slugify($course_details['title']).'/'.$course_details['id']); ?>" >
                                                     <?php
@@ -69,7 +69,7 @@
                                                         <?php echo ucfirst($each_purchase['payment_type']); ?>
                                                     </div>
                                                     <div class="col-sm-2">
-                                                        <!-- <a href="" class="btn btn-receipt">Receipt</a> -->
+                                                        <?php echo ucfirst($each_purchase['order_id']); ?>
                                                     </div>
                                                 </div>
                                             </div>

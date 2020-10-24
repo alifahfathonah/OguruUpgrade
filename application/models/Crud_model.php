@@ -888,25 +888,28 @@ class Crud_model extends CI_Model {
     }
 
     public function update_frontend_settings() {
-        $data['value'] = html_escape($this->input->post('banner_title'));
-        $this->db->where('key', 'banner_title');
-        $this->db->update('frontend_settings', $data);
+        // $data['value'] = html_escape($this->input->post('banner_title'));
+        // $this->db->where('key', 'banner_title');
+        // $this->db->update('frontend_settings', $data);
 
-        $data['value'] = html_escape($this->input->post('banner_sub_title'));
-        $this->db->where('key', 'banner_sub_title');
-        $this->db->update('frontend_settings', $data);
-
+        // $data['value'] = html_escape($this->input->post('banner_sub_title'));
+        // $this->db->where('key', 'banner_sub_title');
+        // $this->db->update('frontend_settings', $data);
 
         $data['value'] = $this->input->post('about_us');
         $this->db->where('key', 'about_us');
         $this->db->update('frontend_settings', $data);
 
         $data['value'] = $this->input->post('terms_and_condition');
-        $this->db->where('key', 'terms_and_condition');
+        $this->db->where('key', 'syarat_ketentuan');
         $this->db->update('frontend_settings', $data);
 
-        $data['value'] = $this->input->post('privacy_policy');
-        $this->db->where('key', 'privacy_policy');
+        $data['value'] = $this->input->post('kebijakan_privasi');
+        $this->db->where('key', 'kebijakan_privasi');
+        $this->db->update('frontend_settings', $data);
+
+        $data['value'] = $this->input->post('bantuan');
+        $this->db->where('key', 'bantuan');
         $this->db->update('frontend_settings', $data);
     }
 
@@ -1642,6 +1645,9 @@ class Crud_model extends CI_Model {
                         }
                     }
                 }
+                else if($notif['tipe'] == 'edukator' && $notif['id_target'] == 'wait'){
+                    $jumlah++;
+                }
             }
 
             if($jumlah == 0){
@@ -1671,7 +1677,7 @@ class Crud_model extends CI_Model {
             $data['nik']        = $this->input->post('nik');
             $data['is_edukator'] = 2;
             $fileName           = $_FILES['ktp']['name'];
-            echo '<script type="text/javascript"> console.log("'.$filename.'")</script>';
+            // echo '<script type="text/javascript"> console.log("'.$filename.'")</script>';
             $tmp                = explode('.', $fileName);
             $fileExtension      = end($tmp);
             echo '<script type="text/javascript"> console.log("'.$tmp.'")</script>';
@@ -1684,6 +1690,12 @@ class Crud_model extends CI_Model {
             move_uploaded_file($_FILES['ktp']['tmp_name'], 'uploads/edukator_file/'.$uploadable_file);
             $this->db->where('id', $this->session->userdata('user_id'))->update('users', $data);
             $this->session->set_flashdata('flash_message', 'Berhasil mendaftar, tunggu konfirmasi dari admin');
+
+            $data_notif['id_user'] = $this->session->userdata('user_id');
+            $data_notif['tipe'] = 'edukator';
+            $data_notif['id_target'] = 'wait';
+            $data_notif['date_add'] = strtotime(date("Y-m-d H:i:s"));
+            $this->db->insert('notifikasi', $data_notif);
         }
 
         public function filter_video($param1 = "")

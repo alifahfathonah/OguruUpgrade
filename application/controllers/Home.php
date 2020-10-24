@@ -10,6 +10,7 @@ class Home extends CI_Controller {
         $this->load->database();
         $this->load->library('session');
         $params = array('server_key' => 'SB-Mid-server--dO7ib2YnIPAO1AWYA_P7PPu', 'production' => false);
+        // $params = array('server_key' => 'Mid-server-1UAY4wNGm8ww4_QjgC2cWJHu', 'production' => true);
         $this->load->library('veritrans');
         $this->veritrans->config($params);
         // $this->load->library('stripe');
@@ -19,7 +20,7 @@ class Home extends CI_Controller {
         if (!$this->session->userdata('cart_items')) {
             $this->session->set_userdata('cart_items', array());
         }
-        // $this->update_notif();
+        // $this->finish();
         // echo '<script type="text/javascript"> console.log("'.$this->session->userdata('is_edukator').'")</script>';
     }
 
@@ -239,6 +240,7 @@ class Home extends CI_Controller {
 
     public function notifikasi() {
         $page_data['notifikasi'] = $this->db->get_where('notifikasi', array('id_user' => $this->session->userdata('user_id')))->result_array();
+        // echo '<script type="text/javascript"> console.log("'.count($page_data["notifikasi"]).'")</script>';
         $page_data['page_name'] = "my_notifications";
         $page_data['page_title'] = get_phrase('my_notifications');
         $this->load->view('frontend/'.get_frontend_settings('theme').'/index', $page_data);
@@ -779,7 +781,7 @@ class Home extends CI_Controller {
         }
     }
 
-    public function update_notif()
+    public function finish()
     {
         if($this->session->userdata('user_id')){
             $data_payment = $this->db->get_where('payment_mid', array('transaction_status' => 'pending'))->result_array();
@@ -813,6 +815,12 @@ class Home extends CI_Controller {
                 }
             }
         }
+    }
+
+    public function finish_payment()
+    {
+        $this->finish();
+        redirect(site_url('home'), 'refresh');
     }
 
     public function status($order_id)

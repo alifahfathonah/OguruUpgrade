@@ -128,6 +128,7 @@
     </div>
 </section>
 
+<!-- <script type="text/javascript" src="https://app.midtrans.com/snap/snap.js" data-client-key="Mid-client-yT5PnoIdnTpNlleH"></script> -->
 <script type="text/javascript" src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="SB-Mid-client-8R1sjHXU1hMqPaWV"></script>
 <script type="text/javascript">
 

@@ -33,6 +33,7 @@ class Login extends CI_Controller {
         $query = $this->db->get_where('users', $credential);
 
         if ($query->num_rows() > 0) {
+            $url = substr($this->input->post('urli'), 26);
             $row = $query->row();
             if($row->status == 1){
                 $this->session->set_userdata('user_id', $row->id);
@@ -46,17 +47,16 @@ class Login extends CI_Controller {
                     redirect(site_url('admin/dashboard'), 'refresh');
                 }else if($row->role_id == 2){
                     $this->session->set_userdata('user_login', '1');
-                    $url = substr($this->input->post('urli'), 26);
                     redirect(site_url($url), 'refresh');
                 }
             }
             else{
                 $this->session->set_flashdata('error_message','Verifikasi email anda!');
-                redirect(site_url('home'), 'refresh');
+                redirect(site_url($url), 'refresh');
             }
         }else {
             $this->session->set_flashdata('error_message',get_phrase('invalid_login_credentials'));
-            redirect(site_url('home'), 'refresh');
+            redirect(site_url($url), 'refresh');
 
         }
 

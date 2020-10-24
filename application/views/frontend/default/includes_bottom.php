@@ -1,5 +1,4 @@
 <script src="<?php echo base_url().'assets/frontend/default/js/vendor/modernizr-3.5.0.min.js'; ?>"></script>
-<script src="<?php echo base_url().'assets/frontend/default/js/vendor/jquery-3.2.1.min.js'; ?>"></script>
 <script src="<?php echo base_url().'assets/frontend/default/js/popper.min.js'; ?>"></script>
 <script src="<?php echo base_url().'assets/frontend/default/js/bootstrap.min.js'; ?>"></script>
 <script src="<?php echo base_url().'assets/frontend/default/js/slick.min.js'; ?>"></script>

@@ -25,6 +25,7 @@ class Snap extends CI_Controller {
     {
         parent::__construct();
         $params = array('server_key' => 'SB-Mid-server--dO7ib2YnIPAO1AWYA_P7PPu', 'production' => false);
+        // $params = array('server_key' => 'Mid-server-1UAY4wNGm8ww4_QjgC2cWJHu', 'production' => true);
 		$this->load->library('midtrans');
 		$this->midtrans->config($params);
 		$this->load->database();
@@ -33,7 +34,7 @@ class Snap extends CI_Controller {
 
     public function index()
     {
-    	$this->load->view('checkout_snap');
+    	$this->load->view('frontend/default/checkout_snap');
     }
 
     public function token($total_price, $nama)
@@ -183,6 +184,6 @@ class Snap extends CI_Controller {
         $this->db->insert('payment_mid', $data);
         // $url = substr($this->input->post('id_url'), 26);
         $this->session->set_flashdata('flash_message', 'Pembelian berhasil');
-        redirect(site_url('home'), 'refresh');
+        redirect(site_url('home/finish_payment'), 'refresh');
     }
 }

@@ -64,47 +64,47 @@ $user_details = $this->user_model->get_user($this->session->userdata('user_id'))
     <?php endif; ?>
 
     <div class="user-box menu-icon-box">
-                        <div class="icon">
-                            <a href="" style="border: 1px solid transparent; margin: 10px 0px; font-size: 14px; width: 100%; border-radius: 0; min-width: 100px; ">Pengguna <span class="badge badge-primary"><?php echo $this->crud_model->get_notif_sum(); ?></span></a>
+        <div class="icon">
+            <a href="" style="border: 1px solid transparent; margin: 10px 0px; font-size: 14px; width: 100%; border-radius: 0; min-width: 100px; ">Pengguna <span class="badge badge-primary"><?php echo $this->crud_model->get_notif_sum(); ?></span></a>
+        </div>
+        <div class="dropdown user-dropdown corner-triangle top-right">
+            <ul class="user-dropdown-menu">
+                <li class="dropdown-user-info">
+                    <a href="<?php echo site_url('home/profil/profil_saya'); ?>">
+                        <div class="clearfix">
+                            <div class="user-image float-left">
+                                <?php if (file_exists('uploads/user_image/'.$user_details['id'].'.jpg')): ?>
+                                    <img src="<?php echo base_url().'uploads/user_image/'.$user_details['id'].'.jpg';?>" alt="" class="img-fluid">
+                                <?php else: ?>
+                                    <img src="<?php echo base_url().'uploads/user_image/placeholder.png';?>" alt="" class="img-fluid">
+                                <?php endif; ?>
+                            </div>
+                            <div class="user-details">
+                                <div class="user-name">
+                                    <span class="hi"><?php echo get_phrase('hi'); ?>,</span>
+                                    <?php echo $user_details['first_name'].' '.$user_details['last_name']; ?>
+                                </div>
+                                <div class="user-email">
+                                    <span class="email"><?php echo $user_details['email']; ?></span>
+                                    <span class="welcome"><?php echo get_phrase("welcome_back"); ?></span>
+                                </div>
+                            </div>
                         </div>
-                        <div class="dropdown user-dropdown corner-triangle top-right">
-                            <ul class="user-dropdown-menu">
-                                <li class="dropdown-user-info">
-                                    <a href="<?php echo site_url('home/profil/profil_saya'); ?>">
-                                        <div class="clearfix">
-                                            <div class="user-image float-left">
-                                                <?php if (file_exists('uploads/user_image/'.$user_details['id'].'.jpg')): ?>
-                                                    <img src="<?php echo base_url().'uploads/user_image/'.$user_details['id'].'.jpg';?>" alt="" class="img-fluid">
-                                                <?php else: ?>
-                                                    <img src="<?php echo base_url().'uploads/user_image/placeholder.png';?>" alt="" class="img-fluid">
-                                                <?php endif; ?>
-                                            </div>
-                                            <div class="user-details">
-                                                <div class="user-name">
-                                                    <span class="hi"><?php echo get_phrase('hi'); ?>,</span>
-                                                    <?php echo $user_details['first_name'].' '.$user_details['last_name']; ?>
-                                                </div>
-                                                <div class="user-email">
-                                                    <span class="email"><?php echo $user_details['email']; ?></span>
-                                                    <span class="welcome"><?php echo get_phrase("welcome_back"); ?></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
+                    </a>
+                </li>
 
-                                <li class="user-dropdown-menu-item">
-                                    <a href="<?php echo site_url('home/notifikasi'); ?>"><i class="far fa-bell"></i>Notifikasi 
-                                        <span class="badge badge-primary"><?php echo $this->crud_model->get_notif_sum(); ?></span>
-                                    </a>
-                                </li>
-                                <li class="user-dropdown-menu-item"><a href="<?php echo site_url('home/kelas_saya'); ?>"><i class="fa fa-book"></i>Kelas Saya</a></li>
-                                <li class="user-dropdown-menu-item"><a href="<?php echo site_url('home/channel?kategori=aktif'); ?>"><i class="far fa-play-circle"></i>Channel Saya</a></li>
-                                <!-- <li class="user-dropdown-menu-item"><a href=""><i class="fas fa-wrench"></i>Pengaturan</a></li> -->
-                                <!-- <li class="user-dropdown-menu-item"><a href="<?php echo site_url('home/riwayat_pembayaran'); ?>"><i class="fas fa-history"></i>Riwayat Pembayaran</a></li> -->
-                                <li class="user-dropdown-menu-item"><a href="<?php echo site_url('login/logout/user'); ?>"><i class="fas fa-sign-out-alt"></i>Keluar</a></li>
-                            </ul>
-                        </div>
+                <li class="user-dropdown-menu-item">
+                    <a href="<?php echo site_url('home/notifikasi'); ?>"><i class="far fa-bell"></i>Notifikasi 
+                        <span class="badge badge-primary"><?php echo $this->crud_model->get_notif_sum(); ?></span>
+                    </a>
+                </li>
+                <li class="user-dropdown-menu-item"><a href="<?php echo site_url('home/kelas_saya'); ?>"><i class="fa fa-book"></i>Kelas Saya</a></li>
+                <li class="user-dropdown-menu-item"><a href="<?php echo site_url('home/channel?kategori=aktif'); ?>"><i class="far fa-play-circle"></i>Channel Saya</a></li>
+                <!-- <li class="user-dropdown-menu-item"><a href=""><i class="fas fa-wrench"></i>Pengaturan</a></li> -->
+                <!-- <li class="user-dropdown-menu-item"><a href="<?php echo site_url('home/riwayat_pembayaran'); ?>"><i class="fas fa-history"></i>Riwayat Pembayaran</a></li> -->
+                <li class="user-dropdown-menu-item"><a href="<?php echo site_url('login/logout/user'); ?>"><i class="fas fa-sign-out-alt"></i>Keluar</a></li>
+            </ul>
+        </div>
     </div>
 
     <div class="instructor-box menu-icon-box">

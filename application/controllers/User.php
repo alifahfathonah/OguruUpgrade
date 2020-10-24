@@ -28,6 +28,13 @@ class User extends CI_Controller {
         }
     }
 
+    public function update_notif_accept($id = '')
+    {
+        $data_notif['id_target'] = 'delete';
+        $this->db->where('id', $id)->update('notifikasi', $data_notif);
+        $this->kelas();
+    }
+
     public function kelas() {
         if ($this->session->userdata('user_login') != true) {
             redirect(site_url('login'), 'refresh');

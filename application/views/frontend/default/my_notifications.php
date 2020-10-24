@@ -59,9 +59,10 @@
                                             if($kls[0]['transaction_status'] == 'pending'){
                                                 $kls1 = $this->db->get_where('course', array('id' => $kls[0]['id_course']))->result_array();
                                         ?>
-
                                         <li>
-                                            <a href="#" data-target="#wait" data-toggle="modal">
+                                            <a href="#" data-target="#wait" data-toggle="modal" data-kelas="<?php echo $kls1[0]['title'] ?>" data-jumlah="<?php 
+                                            echo $this->db->get_where('sertifikat', array('order_id' => $kls[0]['order_id']))->num_rows();
+                                            ?>">
                                                 <div class="notification clearfix">
                                                     <div class="notification-details">
                                                         <p class="notification-text">
@@ -69,6 +70,59 @@
                                                         </p>
                                                         <p class="notification-time">
                                                             <?php echo date('D, d-M-Y', $notif['date_add']); ?>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </li>
+                                <?php
+                                        }
+                                    }
+                                    elseif ($notif['tipe'] == 'edukator'){
+                                        if ($notif['id_target'] == 'wait') {
+                                    ?>
+                                        <li>
+                                            <div class="notification clearfix">
+                                                <div class="notification-details">
+                                                    <p class="notification-text">
+                                                        <b>Menunggu konfirmasi pendaftaran edukator dari admin</b>
+                                                    </p>
+                                                    <p class="notification-time">
+                                                        <?php echo date('D, d-M-Y', $notif['date_add']); ?>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                <?php
+                                        }
+                                        elseif ($notif['id_target'] == 'terima'){ ?>
+                                        <li>
+                                            <a href="<?php echo site_url().'user/update_notif_accept'; ?>">
+                                                <div class="notification clearfix">
+                                                    <div class="notification-details">
+                                                        <p class="notification-text">
+                                                            <b>Selamat pendaftaran menjadi edukator berhasil</b>
+                                                        </p>
+                                                        <p class="notification-time">
+                                                            <?php echo date('D, d-M-Y', $notif['date_edit']); ?>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </li>
+                                <?php
+                                        }
+                                        elseif ($notif['id_target'] == 'tolak'){
+                                        ?>
+                                        <li>
+                                            <a href="<?php echo site_url().'user'; ?>">
+                                                <div class="notification clearfix">
+                                                    <div class="notification-details">
+                                                        <p class="notification-text">
+                                                            <b>Mohon maaf pendaftaran edukator anda belum diterima oleh admin</b>
+                                                        </p>
+                                                        <p class="notification-time">
+                                                            <?php echo date('D, d-M-Y', $notif['date_edit']); ?>
                                                         </p>
                                                     </div>
                                                 </div>
@@ -97,14 +151,12 @@
             <div class="modal-body">
                 <div class="form-group">
                     <label>Kelas</label>
-                    <div class="form-control"><?php echo $kls1[0]['title']; ?></div>
+                    <div id="nama_kelas" class="form-control"></div>
                 </div>
                 <div class="form-group">
                     <label>Jumlah Tiket</label>
-                    <div class="form-control">
-                       <?php 
-                            echo $this->db->get_where('sertifikat', array('order_id' => $kls[0]['order_id']))->num_rows();
-                         ?>
+                    <div id="jumlah_ticket" class="form-control">
+                       
                     </div>
                 </div>
                 <div class="form-group">
@@ -114,3 +166,12 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    $('#wait').on('show.bs.modal', function(e) {
+        var kelas = $(e.relatedTarget).data('kelas');
+        var jumlah = $(e.relatedTarget).data('jumlah');
+        document.getElementById("jumlah_ticket").innerHTML = jumlah;
+        document.getElementById("nama_kelas").innerHTML = kelas;
+    });
+</script>

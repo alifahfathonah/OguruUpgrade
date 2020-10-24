@@ -17,7 +17,7 @@ foreach ($my_courses as $my_course) {
                 <h1 class="page-title"><?php echo get_phrase('my_courses'); ?></h1>
                 <ul>
                   <li class="active"><a href="<?php echo site_url('home/kelas_saya'); ?>"><?php echo get_phrase('all_courses'); ?></a></li>
-                  <li><a href="<?php echo site_url('home/pesan'); ?>"><?php echo get_phrase('my_messages'); ?></a></li>
+                  <!-- <li><a href="<?php echo site_url('home/pesan'); ?>"><?php echo get_phrase('my_messages'); ?></a></li> -->
                   <li><a href="<?php echo site_url('home/riwayat_pembayaran'); ?>"><?php echo get_phrase('purchase_history'); ?></a></li>
                   <li><a href="<?php echo site_url('home/profil/profil_saya'); ?>"><?php echo get_phrase('user_profile'); ?></a></li>
                 </ul>
@@ -82,7 +82,6 @@ foreach ($my_courses as $my_course) {
                     $parent = 'Vokasional';
                 }
                 ?>
-
                 <div class="col-lg-3">
                     <div class="course-box-wrap">
                             <div class="course-box">
@@ -115,10 +114,10 @@ foreach ($my_courses as $my_course) {
                                 </div>
                                 <div class="row" style="padding: 5px;">
                                     <div class="col-md-6">
-                                        <a href="<?php echo site_url('home/'.$parent.'_/'.slugify($course_details['title']).'/'.$my_course['course_id']); ?>" class="btn"><?php echo get_phrase('course_detail'); ?></a>
+                                        <a href="<?php echo site_url('home/'.$parent.'_/'.slugify($course_details['title']).'/'.$my_course['course_id']); ?>" class="btn btn-primary"><?php echo get_phrase('course_detail'); ?></a>
                                     </div>
                                     <div class="col-md-6">
-                                         <a href="<?php echo site_url('home/belajar/'.slugify($course_details['title']).'/'.$my_course['course_id']); ?>" class="btn"><?php echo get_phrase('start_lesson'); ?></a>
+                                         <a href="<?php echo site_url('home/belajar/'.slugify($course_details['title']).'/'.$my_course['course_id']); ?>" class="btn btn-primary"><?php echo get_phrase('start_lesson'); ?></a>
                                     </div>
                                 </div>
                             </div>
