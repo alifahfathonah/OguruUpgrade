@@ -74,112 +74,112 @@
                                 </ul>
 
                                 <div class="tab-content b-0 mb-0">
-                                    <div class="tab-pane" id="basic">
-                                        <div class="row justify-content-center">
-                                            <div class="col-xl-8">
-                                                <div class="form-group row mb-3">
-                                                    <label class="col-md-2 col-form-label" for="course_title"><?php echo get_phrase('course_title'); ?> <span class="required">*</span> </label>
-                                                    <div class="col-md-10">
-                                                        <input type="text" class="form-control" id="course_title" name = "title" placeholder="<?php echo get_phrase('enter_course_title'); ?>" required>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group row mb-3">
-                                                    <label class="col-md-2 col-form-label" for="short_description"><?php echo get_phrase('short_description'); ?></label>
-                                                    <div class="col-md-10">
-                                                        <textarea name="short_description" id = "short_description" class="form-control"></textarea>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group row mb-3">
-                                                    <label class="col-md-2 col-form-label" for="description"><?php echo get_phrase('description'); ?></label>
-                                                    <div class="col-md-10">
-                                                        <textarea name="description" id = "description" class="form-control"></textarea>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group row mb-3">
-                                                    <label class="col-md-2 col-form-label" for="sub_category_id"><?php echo get_phrase('category'); ?><span class="required">*</span></label>
-                                                    <div class="col-md-10">
-                                                        <select class="form-control select2" data-toggle="select2" name="sub_category_id" id="sub_category_id" required>
-                                                            <option value=""><?php echo get_phrase('select_a_category'); ?></option>
-                                                                <optgroup label="Vokasional">
-                                                                    <?php $sub_categories = $this->crud_model->get_sub_categories(1);
-                                                                    foreach ($sub_categories as $category): ?>
-                                                                    <option value="<?php echo $category['id']; ?>"><?php echo $category['name']; ?></option>
-                                                                <?php endforeach; ?>
-                                                                </optgroup>
-                                                                <optgroup label="Akademik">
-                                                                    <?php $sub_categories = $this->crud_model->get_sub_categories(2);
-                                                                    foreach ($sub_categories as $category): ?>
-                                                                    <option value="<?php echo $category['id']; ?>"><?php echo $category['name']; ?></option>
-                                                                <?php endforeach; ?>
-                                                                </optgroup>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div id="level" class="form-group row mb-3">
-                                                <label class="col-md-2 col-form-label" for="level"><?php echo get_phrase('level'); ?></label>
+                                <div class="tab-pane" id="basic">
+                                    <div class="row justify-content-center">
+                                        <div class="col-xl-8">
+                                            <div class="form-group row mb-3">
+                                                <label class="col-md-2 col-form-label" for="course_title"><?php echo get_phrase('course_title'); ?> <span class="required">*</span> </label>
                                                 <div class="col-md-10">
-                                                    <select class="form-control select2" data-toggle="select2" name="level" id="level">
-                                                        <option value="beginner"><?php echo get_phrase('beginner'); ?></option>
-                                                        <option value="advanced"><?php echo get_phrase('advanced'); ?></option>
-                                                        <option value="intermediate"><?php echo get_phrase('intermediate'); ?></option>
-                                                    </select>
+                                                    <input type="text" class="form-control" id="course_title" name = "title" placeholder="<?php echo get_phrase('enter_course_title'); ?>" required>
                                                 </div>
                                             </div>
-                                             <div class="form-group row mb-3">
-                                                <label class="col-md-2 col-form-label" for="tipe">Tipe<span class="required">*</span></label>
+                                            <div class="form-group row mb-3">
+                                                <label class="col-md-2 col-form-label" for="short_description"><?php echo get_phrase('short_description'); ?></label>
                                                 <div class="col-md-10">
-                                                    <select class="form-control select2" data-toggle="select2" name="tipe" id="tipe" required onchange="show_web(this.value)">
-                                                        <option value="online">Online</option>
-                                                        <option value="webinar">Webinar</option>
-                                                    </select>
+                                                    <textarea name="short_description" id = "short_description" class="form-control"></textarea>
                                                 </div>
                                             </div>
-                                            <div id="webinar_div">
-                                                <div class="form-group row mb-3">
-                                                    <label class="col-md-2 col-form-label" for="kuota">Tanggal<span class="required">*</span></label>
-                                                    <div class="col-md-10">
-                                                        <input type="date" class="form-control" id="course_date" name = "tanggal" required>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group row mb-3">
-                                                    <label class="col-md-2 col-form-label" for="kuota">Waktu<span class="required">*</span></label>
-                                                    <div class="col-md-10">
-                                                        <input type="time" class="form-control" id="course_time" name = "waktu" required>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group row mb-3">
-                                                    <label class="col-md-2 col-form-label" for="durasi">Durasi (jam)<span class="required">*</span></label>
-                                                    <div class="col-md-10">
-                                                        <input type="number" class="form-control" id="course_durasi" name = "durasi" placeholder="Durasi webinar" required>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group row mb-3">
-                                                    <label class="col-md-2 col-form-label" for="kuota">Kuota<span class="required">*</span></label>
-                                                    <div class="col-md-10">
-                                                        <input type="number" class="form-control" id="course_kuota" name = "kuota" placeholder="Jumlah kuota" required>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- <div class="form-group row mb-3 hidden">
-                                                <label class="col-md-2 col-form-label" for="language_made_in"><?php echo get_phrase('language_made_in'); ?></label>
+                                            <div class="form-group row mb-3">
+                                                <label class="col-md-2 col-form-label" for="description"><?php echo get_phrase('description'); ?></label>
                                                 <div class="col-md-10">
-                                                    <select class="form-control select2" data-toggle="select2" name="language_made_in" id="language_made_in">
-                                                        <?php foreach ($languages as $language): ?>
-                                                            <option value="<?php echo $language; ?>"><?php echo ucfirst($language); ?></option>
-                                                        <?php endforeach; ?>
-                                                    </select>
+                                                    <textarea name="description" id = "description" class="form-control"></textarea>
                                                 </div>
-                                            </div> -->
-                                            <!-- <div class="form-group row mb-3 hidden">
-                                                <div class="offset-md-2 col-md-10">
-                                                    <div class="custom-control custom-checkbox">
-                                                        <input type="checkbox" class="custom-control-input" name="is_top_course" id="is_top_course" value="1">
-                                                        <label class="custom-control-label" for="is_top_course"><?php echo get_phrase('check_if_this_course_is_top_course'); ?></label>
-                                                    </div>
+                                            </div>
+                                            <div class="form-group row mb-3">
+                                                <label class="col-md-2 col-form-label" for="sub_category_id"><?php echo get_phrase('category'); ?><span class="required">*</span></label>
+                                                <div class="col-md-10">
+                                                    <select class="form-control select2" data-toggle="select2" name="sub_category_id" id="sub_category_id" required>
+                                                        <option value=""><?php echo get_phrase('select_a_category'); ?></option>
+                                                            <optgroup label="Vokasional">
+                                                                <?php $sub_categories = $this->crud_model->get_sub_categories(1);
+                                                                foreach ($sub_categories as $category): ?>
+                                                                <option value="<?php echo $category['id']; ?>"><?php echo $category['name']; ?></option>
+                                                            <?php endforeach; ?>
+                                                            </optgroup>
+                                                            <optgroup label="Akademik">
+                                                                <?php $sub_categories = $this->crud_model->get_sub_categories(2);
+                                                                foreach ($sub_categories as $category): ?>
+                                                                <option value="<?php echo $category['id']; ?>"><?php echo $category['name']; ?></option>
+                                                            <?php endforeach; ?>
+                                                            </optgroup>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div id="level" class="form-group row mb-3">
+                                            <label class="col-md-2 col-form-label" for="level"><?php echo get_phrase('level'); ?></label>
+                                            <div class="col-md-10">
+                                                <select class="form-control select2" data-toggle="select2" name="level" id="level">
+                                                    <option value="beginner"><?php echo get_phrase('beginner'); ?></option>
+                                                    <option value="advanced"><?php echo get_phrase('advanced'); ?></option>
+                                                    <option value="intermediate"><?php echo get_phrase('intermediate'); ?></option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                         <div class="form-group row mb-3">
+                                            <label class="col-md-2 col-form-label" for="tipe">Tipe<span class="required">*</span></label>
+                                            <div class="col-md-10">
+                                                <select class="form-control select2" data-toggle="select2" name="tipe" id="tipe" required onchange="show_web(this.value)">
+                                                    <option value="online">Online</option>
+                                                    <option value="webinar">Webinar</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div id="webinar_div">
+                                            <div class="form-group row mb-3">
+                                                <label class="col-md-2 col-form-label" for="kuota">Tanggal<span class="required">*</span></label>
+                                                <div class="col-md-10">
+                                                    <input type="date" class="form-control" id="course_date" name = "tanggal">
                                                 </div>
-                                            </div> -->
-                                        </div> <!-- end col -->
-                                    </div> <!-- end row -->
+                                            </div>
+                                            <div class="form-group row mb-3">
+                                                <label class="col-md-2 col-form-label" for="kuota">Waktu<span class="required">*</span></label>
+                                                <div class="col-md-10">
+                                                    <input type="time" class="form-control" id="course_time" name = "waktu">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row mb-3">
+                                                <label class="col-md-2 col-form-label" for="durasi">Durasi (jam)<span class="required">*</span></label>
+                                                <div class="col-md-10">
+                                                    <input type="number" class="form-control" id="course_durasi" name = "durasi" placeholder="Durasi webinar">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row mb-3">
+                                                <label class="col-md-2 col-form-label" for="kuota">Kuota<span class="required">*</span></label>
+                                                <div class="col-md-10">
+                                                    <input type="number" class="form-control" id="course_kuota" name = "kuota" placeholder="Jumlah kuota">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- <div class="form-group row mb-3 hidden">
+                                            <label class="col-md-2 col-form-label" for="language_made_in"><?php echo get_phrase('language_made_in'); ?></label>
+                                            <div class="col-md-10">
+                                                <select class="form-control select2" data-toggle="select2" name="language_made_in" id="language_made_in">
+                                                    <?php foreach ($languages as $language): ?>
+                                                        <option value="<?php echo $language; ?>"><?php echo ucfirst($language); ?></option>
+                                                    <?php endforeach; ?>
+                                                </select>
+                                            </div>
+                                        </div> -->
+                                        <!-- <div class="form-group row mb-3 hidden">
+                                            <div class="offset-md-2 col-md-10">
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" name="is_top_course" id="is_top_course" value="1">
+                                                    <label class="custom-control-label" for="is_top_course"><?php echo get_phrase('check_if_this_course_is_top_course'); ?></label>
+                                                </div>
+                                            </div>
+                                        </div> -->
+                                    </div> <!-- end col -->
+                                </div> <!-- end row -->
                                 </div> <!-- end tab pane -->
 
                                 <div class="tab-pane" id="requirements">
@@ -270,25 +270,26 @@
                                                 <label class="col-md-2 col-form-label" for="price"><?php echo get_phrase('course_price').' ( Rp )'; ?></label>
                                                 <div class="col-md-10">
                                                     <input type="number" class="form-control" id="price" name = "price" placeholder="<?php echo get_phrase('enter_course_course_price'); ?>" min="0">
+                                                    <small class="text-muted">Setiap transaksi akan dipotong sebesar 20% sebagai biaya admin Oguru</small>
                                                 </div>
                                             </div>
 
-                                            <div class="form-group row mb-3 hidden">
+                                            <!-- <div class="form-group row mb-3 hidden">
                                                 <div class="offset-md-2 col-md-10">
                                                     <div class="custom-control custom-checkbox">
                                                         <input type="checkbox" class="custom-control-input" name="discount_flag" id="discount_flag" value="1">
                                                         <label class="custom-control-label" for="discount_flag"><?php echo get_phrase('check_if_this_course_has_discount'); ?></label>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div> -->
 
-                                            <div class="form-group row mb-3 hidden">
+                                            <!-- <div class="form-group row mb-3 hidden">
                                                 <label class="col-md-2 col-form-label" for="discounted_price"><?php echo get_phrase('discounted_price').' ('.currency_code_and_symbol().')'; ?></label>
                                                 <div class="col-md-10">
                                                     <input type="number" class="form-control" name="discounted_price" id="discounted_price" onkeyup="calculateDiscountPercentage(this.value)" min="0">
                                                     <small class="text-muted"><?php echo get_phrase('this_course_has'); ?> <span id = "discounted_percentage" class="text-danger">0%</span> <?php echo get_phrase('discount'); ?></small>
                                                 </div>
-                                            </div>
+                                            </div> -->
                                         </div> <!-- end col -->
                                     </div> <!-- end row -->
                                 </div> <!-- end tab-pane -->
@@ -325,8 +326,8 @@
                                                         <div class="box" style="width: 250px;">
                                                             <div class="js--image-preview" style="background-image: url(<?php echo base_url('uploads/thumbnails/course_thumbnails/course-thumbnail.png'); ?>); background-color: #F5F5F5;"></div>
                                                             <div class="upload-options">
-                                                                <label for="course_thumbnail" class="btn"> <i class="mdi mdi-camera"></i> <?php echo get_phrase('course_thumbnail'); ?> <br> <small>(600 X 600)</small> </label>
-                                                                <input id="course_thumbnail" style="visibility:hidden;" type="file" class="image-upload" name="course_thumbnail" accept="image/*">
+                                                                <label for="course_thumbnail"> <i class="mdi mdi-camera"></i> <?php echo get_phrase('course_thumbnail'); ?> <br> <small>(600 X 600)</small> </label>
+                                                                <input id="course_thumbnail" type="file" class="image-upload" name="course_thumbnail" accept="image/*">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -382,8 +383,8 @@
                                                         <div class="box" style="width: 250px;">
                                                             <div class="js--image-preview" style="background-image: url(<?php echo base_url('uploads/thumbnails/course_thumbnails/course-thumbnail.png'); ?>); background-color: #F5F5F5;"></div>
                                                             <div class="upload-options">
-                                                                <label for="course_thumbnail" class="btn"> <i class="mdi mdi-camera"></i> <?php echo get_phrase('course_thumbnail'); ?> <br> <small>(600 X 600)</small> </label>
-                                                                <input id="course_thumbnail" style="visibility:hidden;" type="file" class="image-upload" name="course_thumbnail" accept="image/*">
+                                                                <label for="course_thumbnailb"> <i class="mdi mdi-camera"></i> <?php echo get_phrase('course_thumbnail'); ?> <br> <small>(600 X 600)</small> </label>
+                                                                <input id="course_thumbnailb"  type="file" class="image-upload" name="course_thumbnailb" accept="image/*">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -398,7 +399,7 @@
                                             <div class="form-group row mb-3">
                                                 <label class="col-md-2 col-form-label" for="website_keywords"><?php echo get_phrase('meta_keywords'); ?></label>
                                                 <div class="col-md-10">
-                                                    <input type="text" class="form-control bootstrap-tag-input" id = "meta_keywords" name="meta_keywords" data-role="tagsinput" style="width: 100%;"/>
+                                                    <input type="text" class="form-control bootstrap-tag-input" name="meta_keywords"/>
                                                 </div>
                                             </div>
                                         </div> <!-- end col -->
@@ -429,23 +430,23 @@
                                     </div> <!-- end row -->
                                 </div>
 
-                                <ul class="list-inline mb-0 wizard text-center">
+                                <!-- <ul class="list-inline mb-0 wizard text-center">
                                     <li class="previous list-inline-item">
                                         <a href="javascript::" class="btn btn-info"> <i class="mdi mdi-arrow-left-bold"></i> </a>
                                     </li>
                                     <li class="next list-inline-item">
                                         <a href="javascript::" class="btn btn-info"> <i class="mdi mdi-arrow-right-bold"></i> </a>
                                     </li>
-                                </ul>
+                                </ul> -->
 
                             </div> <!-- tab-content -->
-                        </div> <!-- end #progressbarwizard-->
-                    </form>
-                </div>
-            </div><!-- end row-->
-        </div> <!-- end card-body-->
-    </div> <!-- end card-->
-</div>
+                            </div> <!-- end #progressbarwizard-->
+                        </form>
+                    </div>
+                </div><!-- end row-->
+            </div> <!-- end card-body-->
+        </div> <!-- end card-->
+    </div>
 </div>
 
 
@@ -508,21 +509,21 @@ function isFreeCourseChecked(elem) {
   }
 }
 
-function calculateDiscountPercentage(discounted_price) {
-  if (discounted_price > 0) {
-    var actualPrice = jQuery('#price').val();
-    if ( actualPrice > 0) {
-      var reducedPrice = actualPrice - discounted_price;
-      var discountedPercentage = (reducedPrice / actualPrice) * 100;
-      if (discountedPercentage > 0) {
-        jQuery('#discounted_percentage').text(discountedPercentage.toFixed(2)+'%');
+// function calculateDiscountPercentage(discounted_price) {
+//   if (discounted_price > 0) {
+//     var actualPrice = jQuery('#price').val();
+//     if ( actualPrice > 0) {
+//       var reducedPrice = actualPrice - discounted_price;
+//       var discountedPercentage = (reducedPrice / actualPrice) * 100;
+//       if (discountedPercentage > 0) {
+//         jQuery('#discounted_percentage').text(discountedPercentage.toFixed(2)+'%');
 
-      }else {
-        jQuery('#discounted_percentage').text('<?php echo '0%'; ?>');
-      }
-    }
-  }
-}
+//       }else {
+//         jQuery('#discounted_percentage').text('<?php echo '0%'; ?>');
+//       }
+//     }
+//   }
+// }
 
 function show_web(param) {
     if (param === "online") {

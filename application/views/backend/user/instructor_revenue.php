@@ -1,6 +1,6 @@
 <?php
     $payment_histories = $this->crud_model->get_instructor_wise_payment_history($this->session->userdata('user_id'));
-    echo '<script type="text/javascript"> console.log("'.count($payment_histories).'")</script>';
+    // echo '<script type="text/javascript"> console.log("'.count($payment_histories).'")</script>';
 ?>
 
 <!-- start page title -->
@@ -52,7 +52,7 @@
                                 if ($payment['transaction_status'] != 'failure') {
                                    $user_data = $this->db->get_where('users', array('id' => $payment['user_id']))->row_array();
                                     $course_data = $this->db->get_where('course', array('id' => $payment['id_course']))->row_array();
-                                    echo '<script type="text/javascript"> console.log("'.$course_data['title'].'")</script>';
+                                    // echo '<script type="text/javascript"> console.log("'.$course_data['title'].'")</script>';
                                     $parent = 'Akademik';
                                     if($course_data['parent_id'] == 1){
                                         $parent = 'Vokasional';

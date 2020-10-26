@@ -82,25 +82,24 @@ class Login extends CI_Controller {
         $data['date_added'] = strtotime(date("Y-m-d H:i:s"));
         $social_links = array(
             'facebook' => "",
-            'twitter'  => "",
-            'linkedin' => ""
+            'twitter'  => ""
         );
         $data['social_links'] = json_encode($social_links);
         $data['role_id']  = 2;
 
-        // Add paypal keys
-        $paypal_info = array();
-        $paypal['production_client_id'] = "";
-        array_push($paypal_info, $paypal);
-        $data['paypal_keys'] = json_encode($paypal_info);
-        // Add Stripe keys
-        $stripe_info = array();
-        $stripe_keys = array(
-            'public_live_key' => "",
-            'secret_live_key' => ""
-        );
-        array_push($stripe_info, $stripe_keys);
-        $data['stripe_keys'] = json_encode($stripe_info);
+        // // Add paypal keys
+        // $paypal_info = array();
+        // $paypal['production_client_id'] = "";
+        // array_push($paypal_info, $paypal);
+        // $data['paypal_keys'] = json_encode($paypal_info);
+        // // Add Stripe keys
+        // $stripe_info = array();
+        // $stripe_keys = array(
+        //     'public_live_key' => "",
+        //     'secret_live_key' => ""
+        // );
+        // array_push($stripe_info, $stripe_keys);
+        // $data['stripe_keys'] = json_encode($stripe_info);
 
         $validity = $this->user_model->check_duplication('on_create', $data['email']);
         if ($validity) {

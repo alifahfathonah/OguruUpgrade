@@ -39,17 +39,13 @@
                                 <th><?php echo get_phrase('instructor'); ?></th>
                                 <th><?php echo get_phrase('instructor_revenue'); ?></th>
                                 <th><?php echo get_phrase('status'); ?></th>
-                                <th class="text-center"><?php echo get_phrase('actions'); ?></th>
+                                <!-- <th class="text-center"><?php echo get_phrase('actions'); ?></th> -->
                             </tr>
                         </thead>
                         <tbody>
                             <?php foreach ($payment_history as $payment):
-                                $user_data = $this->db->get_where('users', array('id' => $payment['user_id']))->row_array();
-                                $course_data = $this->db->get_where('course', array('id' => $payment['course_id']))->row_array();?>
-                                <?php
-                                $paypal_keys          = json_decode($user_data['paypal_keys'], true);
-                                $stripe_keys          = json_decode($user_data['stripe_keys'], true);
-                                ?>
+                                $user_data = $this->db->get_where('users', array('id' => $payment['id_penerima']))->row_array();
+                                $course_data = $this->db->get_where('course', array('id' => $payment['id_course']))->row_array();?>
                                 <tr class="gradeU">
                                     <td>
                                         <strong><a href="<?php echo site_url('home/course/'.slugify($course_data['title']).'/'.$course_data['id']); ?>" target="_blank"><?php echo ellipsis($course_data['title']); ?></a></strong><br>
@@ -57,18 +53,18 @@
                                     </td>
                                     <td><?php echo $user_data['first_name'].' '.$user_data['last_name']; ?></td>
                                     <td>
-                                        <?php echo currency($payment['instructor_revenue']); ?><br>
-                                        <small class="text-muted"><?php echo get_phrase('total_amount').': '.currency($payment['amount']); ?></small>
+                                        <?php echo 'Rp. '.$payment['edukator_revenue'].'.00'; ?><br>
+                                        <small class="text-muted"><?php echo get_phrase('total_amount').': Rp. '.$payment['gross_amount']; ?></small>
                                     </td>
-                                    <td style="text-align: center;">
-                                        <?php if ($payment['instructor_payment_status'] == 0): ?>
+                                    <td>
+                                        <?php if ($payment['transaction_status'] == 'pending'): ?>
                                             <div class="label label-secondary"><?php echo get_phrase('pending'); ?></div>
-                                        <?php elseif($payment['instructor_payment_status'] == 1): ?>
-                                            <div class="label label-success"><?php echo get_phrase('paid'); ?></div>
+                                        <?php elseif($payment['transaction_status'] == 'settlement'): ?>
+                                            <div class="label label-success">Lunas</div>
                                         <?php endif; ?>
                                     </td>
-                                    <td style="text-align: center;">
-                                        <?php if ($payment['instructor_payment_status'] == 0): ?>
+                                    <!-- <td style="text-align: center;">
+                                        <?php if ($payment['transaction_status'] == 0): ?>
                                             <?php if ($paypal_keys[0]['production_client_id'] != ""): ?>
                                                 <form action="<?php echo site_url('admin/paypal_checkout_for_instructor_revenue'); ?>" method="post">
                                                     <input type="hidden" name="amount_to_pay"        value="<?php echo $payment['instructor_revenue']; ?>">
@@ -97,7 +93,7 @@
                                         <?php else: ?>
                                             <a href="<?php echo site_url('admin/invoice/'.$payment['id']); ?>" class="btn btn-outline-primary btn-rounded btn-sm"><i class="mdi mdi-printer-settings"></i></a>
                                         <?php endif; ?>
-                                    </td>
+                                    </td> -->
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>

@@ -41,27 +41,27 @@ class User_model extends CI_Model {
             $data['password'] = sha1(html_escape($this->input->post('password')));
             $social_link['facebook'] = html_escape($this->input->post('facebook_link'));
             $social_link['twitter'] = html_escape($this->input->post('twitter_link'));
-            $social_link['linkedin'] = html_escape($this->input->post('linkedin_link'));
+            // $social_link['linkedin'] = html_escape($this->input->post('linkedin_link'));
             $data['social_links'] = json_encode($social_link);
             $data['biography'] = $this->input->post('biography');
             $data['role_id'] = 2;
             $data['date_added'] = strtotime(date("Y-m-d H:i:s"));
-            $data['wishlist'] = json_encode(array());
+            // $data['wishlist'] = json_encode(array());
             $data['watch_history'] = json_encode(array());
             $data['status'] = 1;
             // Add paypal keys
             $paypal_info = array();
-            $paypal['production_client_id'] = html_escape($this->input->post('paypal_client_id'));
-            array_push($paypal_info, $paypal);
-            $data['paypal_keys'] = json_encode($paypal_info);
-            // Add Stripe keys
-            $stripe_info = array();
-            $stripe_keys = array(
-                'public_live_key' => html_escape($this->input->post('stripe_public_key')),
-                'secret_live_key' => html_escape($this->input->post('stripe_secret_key'))
-            );
-            array_push($stripe_info, $stripe_keys);
-            $data['stripe_keys'] = json_encode($stripe_info);
+            // $paypal['production_client_id'] = html_escape($this->input->post('paypal_client_id'));
+            // array_push($paypal_info, $paypal);
+            // $data['paypal_keys'] = json_encode($paypal_info);
+            // // Add Stripe keys
+            // $stripe_info = array();
+            // $stripe_keys = array(
+            //     'public_live_key' => html_escape($this->input->post('stripe_public_key')),
+            //     'secret_live_key' => html_escape($this->input->post('stripe_secret_key'))
+            // );
+            // array_push($stripe_info, $stripe_keys);
+            // $data['stripe_keys'] = json_encode($stripe_info);
 
             $this->db->insert('users', $data);
             $user_id = $this->db->insert_id();
@@ -108,20 +108,6 @@ class User_model extends CI_Model {
             $data['biography'] = $this->input->post('biography');
             $data['title'] = html_escape($this->input->post('title'));
             $data['last_modified'] = strtotime(date("Y-m-d H:i:s"));
-
-            // Update paypal keys
-            $paypal_info = array();
-            $paypal['production_client_id'] = html_escape($this->input->post('paypal_client_id'));
-            array_push($paypal_info, $paypal);
-            $data['paypal_keys'] = json_encode($paypal_info);
-            // Update Stripe keys
-            $stripe_info = array();
-            $stripe_keys = array(
-                'public_live_key' => html_escape($this->input->post('stripe_public_key')),
-                'secret_live_key' => html_escape($this->input->post('stripe_secret_key'))
-            );
-            array_push($stripe_info, $stripe_keys);
-            $data['stripe_keys'] = json_encode($stripe_info);
 
             $this->db->where('id', $user_id);
             $this->db->update('users', $data);

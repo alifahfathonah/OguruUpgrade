@@ -45,11 +45,11 @@
                         <tbody>
                             <?php foreach ($payment_history as $payment):
                                 $user_data = $this->db->get_where('users', array('id' => $payment['user_id']))->row_array();
-                                $course_data = $this->db->get_where('course', array('id' => $payment['course_id']))->row_array();?>
+                                $course_data = $this->db->get_where('course', array('id' => $payment['id_course']))->row_array();?>
                                 <tr class="gradeU">
                                     <td><strong><a href="<?php echo site_url('admin/course_form/course_edit/'.$course_data['id']); ?>" target="_blank"><?php echo ellipsis($course_data['title']); ?></a></strong></td>
-                                    <td><?php echo currency($payment['amount']); ?></td>
-                                    <td><?php echo currency($payment['admin_revenue']); ?></td>
+                                    <td><?php echo 'Rp. '.$payment['gross_amount']; ?></td>
+                                    <td><?php echo 'Rp. '.$payment['admin_revenue'].'.00'; ?></td>
                                     <td><?php echo date('D, d-M-Y', $payment['date_added']); ?></td>
                                     <td>
                                         <button type="button" class="btn btn-outline-danger btn-icon btn-rounded btn-sm" onclick="confirm_modal('<?php echo site_url('admin/payment_history_delete/'.$payment['id'].'/admin_revenue'); ?>');"> <i class="dripicons-trash"></i> </button>

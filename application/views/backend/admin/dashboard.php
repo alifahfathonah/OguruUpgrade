@@ -126,11 +126,10 @@
                         <tbody>
 
                             <?php
-                                $this->db->where('instructor_payment_status', 0);
-                                $this->db->where('instructor_revenue >', 0);
-                                $unpaid_instructor_revenues = $this->db->get('payment')->result_array();
+                                $this->db->where('transaction_status', 'settlement');
+                                $unpaid_instructor_revenues = $this->db->get('payment_mid')->result_array();
                                 foreach ($unpaid_instructor_revenues as $key => $row):
-                                $course_details = $this->crud_model->get_course_by_id($row['course_id'])->row_array();
+                                $course_details = $this->crud_model->get_course_by_id($row['id_course'])->row_array();
                                 $instructor_details = $this->user_model->get_all_user($course_details['user_id'])->row_array();
                             ?>
                             <tr>
@@ -143,7 +142,7 @@
                                     <small><?php echo get_phrase('email'); ?>: <span class="text-muted font-13"><?php echo $instructor_details['email']; ?></span></small>
                                 </td>
                                 <td>
-                                    <h5 class="font-14 my-1"><a href="javascript:void(0);" class="text-body" style="cursor: auto;"><?php echo currency($row['instructor_revenue']); ?></a></h5>
+                                    <h5 class="font-14 my-1"><a href="javascript:void(0);" class="text-body" style="cursor: auto;"><?php echo 'Rp. '.$row['edukator_revenue'].'.00'; ?></a></h5>
                                     <small><span class="text-muted font-13"><?php echo get_phrase('instructor_revenue'); ?></span></small>
                                 </td>
                             </tr>

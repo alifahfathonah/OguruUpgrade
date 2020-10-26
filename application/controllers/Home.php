@@ -471,9 +471,18 @@ class Home extends CI_Controller {
     }
 
     public function Cari($search_string = "") {
+        $parent = '';
+        $parent_num = 1;
         if (isset($_GET['query']) && !empty($_GET['query'])) {
             $search_string = $_GET['query'];
             $page_data['courses'] = $this->crud_model->get_courses_by_search_string($search_string)->result_array();
+            if ($page_data['courses'][0]['parent_category'] == 1) {
+                $parent = 'Vokasional';
+            }
+            else{
+                $parent = 'Akademik';
+                $parent_num = 2;
+            }
         }else {
             $this->session->set_flashdata('error_message', get_phrase('no_search_value_found'));
             redirect(site_url(), 'refresh');
@@ -485,7 +494,8 @@ class Home extends CI_Controller {
         $page_data['layout']     = $this->session->userdata('layout');
         $page_data['page_name'] = 'courses_page';
         $page_data['search_string'] = $search_string;
-        $page_data['page_title'] = get_phrase('search_results');
+        $page_data['page_title'] = $parent;
+        $page_data['parent'] = $parent_num;
         $this->load->view('frontend/'.get_frontend_settings('theme').'/index', $page_data);
     }
     public function my_courses_by_search_string() {
@@ -1016,6 +1026,12 @@ class Home extends CI_Controller {
         $page_data['page_title'] = "Lihat Channel";
         $page_data['selected_category_id']     = $selected_category_id;
         $this->load->view('frontend/'.get_frontend_settings('theme').'/index', $page_data);
+    }
+
+    public function delete_notif($param1='')
+    {
+        $this->crud_model->delete_notif($param1);
+        redirect(site_url('home/notifikasi'), 'refresh');
     }
 
 }

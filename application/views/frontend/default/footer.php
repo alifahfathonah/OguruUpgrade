@@ -1,13 +1,11 @@
         <footer class="footer-area">
             <div class="container">
                 <div class="row text-center">
-                    <!-- <div class="col-md-2">
+                    <div class="col-md-2">
                         <a href="" class="nav-link" style="font-size: 14px; font-weight: bold;">Tentang</a>
                         <a href="<?php echo site_url().'home/tentang_kami' ?>">Tentang Kami</a><br>
-                        <a href="">FAQ</a><br>
-                        <a href="">Kontak Kami</a><br>
-                        <a href="">Jadi Mitra</a>
-                    </div> -->
+                        <a href="<?php echo site_url().'home/bantuan' ?>">Bantuan</a><br>
+                    </div>
 
                     <div class="col-md-4">
                         <a href="" class="nav-link" style="font-size: 14px; font-weight: bold;">Lainnya</a>
@@ -22,7 +20,7 @@
                         <a href="https://www.youtube.com/channel/UCHUIGc7M2ocYjGCpqELLOxQ" target="_blank" style="font-size: 16px;"><i class="fab fa-youtube" area-hidden="true"></i> oguru_indonesia</a>
                     </div>
 
-                    <div class="col-md-4">
+                    <div class="col-md-2">
                         <a href="" class="nav-link" style="font-size: 14px;"><i class="fa fa-map-marker-alt" area-hidden="true"></i> Surabaya, Jawa Timur 66264</a>
                     </div>
                 </div>

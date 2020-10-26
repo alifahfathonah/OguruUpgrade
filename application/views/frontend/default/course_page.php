@@ -302,7 +302,7 @@ $instructor_details = $this->user_model->get_all_user($course_details['user_id']
         <div class="about-instructor-details view-more-parent">
           <div class="view-more" onclick="viewMore(this)">+ <?php echo get_phrase('view_more'); ?></div>
           <div class="instructor-name">
-            <a href="<?php echo site_url('home/instructor_page/'.$course_details['user_id']); ?>"><?php echo $instructor_details['first_name'].' '.$instructor_details['last_name']; ?></a>
+            <a href="<?php echo site_url('home/edukator_info/'.$course_details['user_id']); ?>"><?php echo $instructor_details['first_name'].' '.$instructor_details['last_name']; ?></a>
           </div>
           <div class="instructor-title">
             <?php echo $instructor_details['title']; ?>

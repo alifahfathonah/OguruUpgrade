@@ -60,25 +60,18 @@ $course_details = $this->crud_model->get_course_by_id($course_id)->row_array();
                                             <span class="d-none d-sm-inline"><?php echo get_phrase('pricing'); ?></span>
                                         </a>
                                     </li>
-                                    <?php 
-                                        if ($course_details['tipe'] == 'online') { ?>
                                         <li class="nav-item" id="media_a">
                                             <a href="#media" data-toggle="tab" class="nav-link rounded-0 pt-2 pb-2">
                                                 <i class="mdi mdi-library-video mr-1"></i>
                                                 <span class="d-none d-sm-inline"><?php echo get_phrase('media'); ?></span>
                                             </a>
                                         </li>
-                                    <?php
-                                        }
-                                        else{
-                                     ?>
                                     <li class="nav-item" id="media_b">
                                         <a href="#mediab" data-toggle="tab" class="nav-link rounded-0 pt-2 pb-2">
                                             <i class="mdi mdi-library-video mr-1"></i>
                                             <span class="d-none d-sm-inline"><?php echo get_phrase('media'); ?></span>
                                         </a>
                                     </li>
-                                <?php } ?>
                                     <li class="nav-item">
                                         <a href="#seo" data-toggle="tab" class="nav-link rounded-0 pt-2 pb-2">
                                             <i class="mdi mdi-tag-multiple mr-1"></i>
@@ -139,16 +132,6 @@ $course_details = $this->crud_model->get_course_by_id($course_id)->row_array();
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="form-group row mb-3 hidden">
-                                            <label class="col-md-2 col-form-label" for="level"><?php echo get_phrase('level'); ?></label>
-                                            <div class="col-md-10">
-                                                <select class="form-control select2" data-toggle="select2" name="level" id="level">
-                                                    <option value="beginner" <?php if($course_details['level'] == "beginner") echo 'selected'; ?>><?php echo get_phrase('beginner'); ?></option>
-                                                    <option value="advanced" <?php if($course_details['level'] == "advanced") echo 'selected'; ?>><?php echo get_phrase('advanced'); ?></option>
-                                                    <option value="intermediate" <?php if($course_details['level'] == "intermediate") echo 'selected'; ?>><?php echo get_phrase('intermediate'); ?>
-                                                    </select>
-                                                </div>
-                                            </div>
                                             <div class="form-group row mb-3">
                                                 <label class="col-md-2 col-form-label" for="tipe">Tipe<span class="required">*</span></label>
                                                 <div class="col-md-10">
@@ -162,19 +145,19 @@ $course_details = $this->crud_model->get_course_by_id($course_id)->row_array();
                                                 <div class="form-group row mb-3">
                                                     <label class="col-md-2 col-form-label" for="kuota">Tanggal<span class="required">*</span></label>
                                                     <div class="col-md-10">
-                                                        <input type="date" class="form-control" id="course_date" name = "tanggal" value="<?php echo $course_details['tanggal'] ?>" required>
+                                                        <input type="date" class="form-control" id="course_date" name = "tanggal" value="<?php echo $course_details['tanggal'] ?>">
                                                     </div>
                                                 </div>
                                                 <div class="form-group row mb-3">
                                                     <label class="col-md-2 col-form-label" for="kuota">Waktu<span class="required">*</span></label>
                                                     <div class="col-md-10">
-                                                        <input type="time" class="form-control" id="course_time" name = "waktu" value="<?php echo $course_details['waktu'] ?>" required>
+                                                        <input type="time" class="form-control" id="course_time" name = "waktu" value="<?php echo $course_details['waktu'] ?>">
                                                     </div>
                                                 </div>
                                                 <div class="form-group row mb-3">
                                                     <label class="col-md-2 col-form-label" for="durasi">Durasi (jam)<span class="required">*</span></label>
                                                     <div class="col-md-10">
-                                                        <input type="number" class="form-control" id="course_durasi" name = "durasi" placeholder="Durasi webinar" value="<?php echo $course_details['durasi'] ?>" required>
+                                                        <input type="number" class="form-control" id="course_durasi" name = "durasi" placeholder="Durasi webinar" value="<?php echo $course_details['durasi'] ?>">
                                                     </div>
                                                 </div>
                                                 <div class="form-group row mb-3">
@@ -360,7 +343,7 @@ $course_details = $this->crud_model->get_course_by_id($course_id)->row_array();
                                         </div>
                                     </div>
 
-                                    <div class="form-group row mb-3 hidden">
+                                    <!-- <div class="form-group row mb-3 hidden">
                                         <div class="offset-md-2 col-md-10">
                                             <div class="custom-control custom-checkbox">
                                                 <input type="checkbox" class="custom-control-input" name="discount_flag" id="discount_flag" value="1" <?php if($course_details['discount_flag'] == 1) echo 'checked'; ?>>
@@ -375,7 +358,7 @@ $course_details = $this->crud_model->get_course_by_id($course_id)->row_array();
                                             <input type="number" class="form-control" name="discounted_price" id="discounted_price" onkeyup="calculateDiscountPercentage(this.value)" value="<?php echo $course_details['discounted_price']; ?>" min="0">
                                             <small class="text-muted"><?php echo get_phrase('this_course_has'); ?> <span id = "discounted_percentage" class="text-danger">0%</span> <?php echo get_phrase('discount'); ?></small>
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </div> <!-- end col -->
                             </div> <!-- end row -->
                         </div> <!-- end tab-pane -->
@@ -410,10 +393,10 @@ $course_details = $this->crud_model->get_course_by_id($course_id)->row_array();
                                         <div class="col-md-10">
                                             <div class="wrapper-image-preview" style="margin-left: -6px;">
                                                 <div class="box" style="width: 250px;">
-                                                    <div class="js--image-preview" style="background-image: url(<?php echo $this->crud_model->get_course_thumbnail_url($course_details['id']);?>); background-color: #F5F5F5;"></div>
+                                                    <div class="js--image-preview" style="background-image: url(<?php echo $this->crud_model->get_course_thumbnail_url($course_details['id']);?>);"></div>
                                                     <div class="upload-options">
                                                         <label for="course_thumbnail" class="btn"> <i class="mdi mdi-camera"></i> <?php echo get_phrase('course_thumbnail'); ?> <br> <small>(600 X 600)</small> </label>
-                                                        <input id="course_thumbnail" style="visibility:hidden;" type="file" class="image-upload" name="course_thumbnail" accept="image/*">
+                                                        <input id="course_thumbnail" type="file" class="image-upload" name="course_thumbnail" accept="image/*">
                                                     </div>
                                                 </div>
                                             </div>
@@ -467,10 +450,9 @@ $course_details = $this->crud_model->get_course_by_id($course_id)->row_array();
                                                 <div class="col-md-10">
                                                     <div class="wrapper-image-preview" style="margin-left: -6px;">
                                                         <div class="box" style="width: 250px;">
-                                                            <div class="js--image-preview" style="background-image: url(<?php echo base_url('uploads/thumbnails/course_thumbnails/course-thumbnail.png'); ?>); background-color: #F5F5F5;"></div>
                                                             <div class="upload-options">
-                                                                <label for="course_thumbnail" class="btn"> <i class="mdi mdi-camera"></i> <?php echo get_phrase('course_thumbnail'); ?> <br> <small>(600 X 600)</small> </label>
-                                                                <input id="course_thumbnail" style="visibility:hidden;" type="file" class="image-upload" name="course_thumbnail" accept="image/*">
+                                                                <label for="course_thumbnailb" class="btn"> <i class="mdi mdi-camera"></i> <?php echo get_phrase('course_thumbnail'); ?> <br> <small>(600 X 600)</small> </label>
+                                                                <input id="course_thumbnailb" type="file" class="image-upload" name="course_thumbnailb" accept="image/*">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -485,7 +467,7 @@ $course_details = $this->crud_model->get_course_by_id($course_id)->row_array();
                                     <div class="form-group row mb-3">
                                         <label class="col-md-2 col-form-label" for="website_keywords"><?php echo get_phrase('meta_keywords'); ?></label>
                                         <div class="col-md-10">
-                                            <input type="text" class="form-control bootstrap-tag-input" id = "meta_keywords" name="meta_keywords" data-role="tagsinput" style="width: 100%;" value="<?php echo $course_details['meta_keywords']; ?>"/>
+                                            <input type="text" class="form-control bootstrap-tag-input" id = "meta_keywords" name="meta_keywords" value="<?php echo $course_details['meta_keywords']; ?>"/>
                                         </div>
                                     </div>
                                 </div> <!-- end col -->
@@ -516,14 +498,14 @@ $course_details = $this->crud_model->get_course_by_id($course_id)->row_array();
                             </div> <!-- end row -->
                         </div>
 
-                        <ul class="list-inline mb-0 wizard text-center">
+                        <!-- <ul class="list-inline mb-0 wizard text-center">
                             <li class="previous list-inline-item">
                                 <a href="javascript::" class="btn btn-info"> <i class="mdi mdi-arrow-left-bold"></i> </a>
                             </li>
                             <li class="next list-inline-item">
                                 <a href="javascript::" class="btn btn-info"> <i class="mdi mdi-arrow-right-bold"></i> </a>
                             </li>
-                        </ul>
+                        </ul> -->
 
                     </div> <!-- tab-content -->
                 </div> <!-- end #progressbarwizard-->
@@ -542,6 +524,7 @@ $course_details = $this->crud_model->get_course_by_id($course_id)->row_array();
 </script>
 
 <script type="text/javascript">
+var tipe = '<?php echo $course_details["tipe"] ?>';
 var blank_outcome = jQuery('#blank_outcome_field').html();
 var blank_requirement = jQuery('#blank_requirement_field').html();
 jQuery(document).ready(function() {
@@ -550,6 +533,13 @@ jQuery(document).ready(function() {
     calculateDiscountPercentage($('#discounted_price').val());
     if (<?php echo $course_details['tipe'] == 'online'; ?>) { 
         $('#webinar_div').hide();
+    }
+    $('#media_a').hide();
+    $('#media_b').hide();
+    if(tipe == 'online'){
+        $('#media_a').show();
+    }else{
+        $('#media_b').show();
     }
 });
 function appendOutcome() {

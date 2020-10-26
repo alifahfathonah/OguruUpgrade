@@ -28,7 +28,7 @@ $user_details = $this->user_model->get_user($this->session->userdata('user_id'))
         </a>
       </li>
 
-      <li class="nav-item">
+      <!-- <li class="nav-item">
         <a class="nav-link" href="<?php echo site_url().'home/bantuan' ?>">
           <i class="fas fa-question-circle d-inline  mr-2"> </i>
           <span>Bantuan</span>
@@ -42,7 +42,7 @@ $user_details = $this->user_model->get_user($this->session->userdata('user_id'))
           <span>Tentang Kami</span>
           
         </a>
-      </li>
+      </li> -->
     </ul>
     
     <!-- <form class="inline-form " action="<?php echo site_url('home/cari'); ?>" method="get" ">

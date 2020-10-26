@@ -8,7 +8,7 @@
         $this->db->select_sum('admin_revenue');
         $this->db->where('date_added >=' , strtotime($first_day_of_month));
         $this->db->where('date_added <=' , strtotime($last_day_of_month));
-        $total_admin_revenue = $this->db->get('payment')->row()->admin_revenue;
+        $total_admin_revenue = $this->db->get('payment_mid')->row()->admin_revenue;
         $total_admin_revenue > 0 ? array_push($month_wise_income, $total_admin_revenue) : array_push($month_wise_income, 0);
     }
 

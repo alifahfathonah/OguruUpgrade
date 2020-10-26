@@ -35,12 +35,12 @@
                                     <span class="d-none d-sm-inline"><?php echo get_phrase('social_information'); ?></span>
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            <!-- <li class="nav-item">
                                 <a href="#payment_info" data-toggle="tab" class="nav-link rounded-0 pt-2 pb-2">
                                     <i class="mdi mdi-currency-eur mr-1"></i>
                                     <span class="d-none d-sm-inline"><?php echo get_phrase('payment_info'); ?></span>
                                 </a>
-                            </li>
+                            </li> -->
                             <li class="nav-item">
                                 <a href="#finish" data-toggle="tab" class="nav-link rounded-0 pt-2 pb-2">
                                     <i class="mdi mdi-checkbox-marked-circle-outline mr-1"></i>
@@ -124,12 +124,12 @@
                                                 <input type="text" id="twitter_link" name="twitter_link" class="form-control">
                                             </div>
                                         </div>
-                                        <div class="form-group row mb-3">
+                                        <!-- <div class="form-group row mb-3">
                                             <label class="col-md-3 col-form-label" for="linkedin_link"><?php echo get_phrase('linkedin'); ?></label>
                                             <div class="col-md-9">
                                                 <input type="text" id="linkedin_link" name="linkedin_link" class="form-control">
                                             </div>
-                                        </div>
+                                        </div> -->
                                     </div> <!-- end col -->
                                 </div> <!-- end row -->
                             </div>

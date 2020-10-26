@@ -117,9 +117,9 @@ class Crud_model extends CI_Model {
         $courses    = array();
         $admin_details = $this->user_model->get_admin_details()->row_array();
         if ($revenue_type == 'admin_revenue') {
-            //$this->db->where('user_id', $admin_details['id']);
-        }elseif ($revenue_type == 'instructor_revenue') {
-            $this->db->where('user_id !=', $admin_details['id']);
+            $this->db->where('transaction_status', 'settlement');
+        }elseif ($revenue_type == 'edukator_revenue') {
+            $this->db->where('id_penerima !=', $admin_details['id']);
             $this->db->select('id');
             $courses = $this->db->get('course')->result_array();
             foreach ($courses as $course) {
@@ -128,7 +128,7 @@ class Crud_model extends CI_Model {
                 }
             }
             if (sizeof($course_ids)) {
-                $this->db->where_in('course_id', $course_ids);
+                $this->db->where_in('id_course', $course_ids);
             }else {
                 return array();
             }
@@ -137,7 +137,7 @@ class Crud_model extends CI_Model {
         $this->db->order_by('date_added' , 'desc');
         $this->db->where('date_added >=' , $timestamp_start);
         $this->db->where('date_added <=' , $timestamp_end);
-        return $this->db->get('payment')->result_array();
+        return $this->db->get('payment_mid')->result_array();
     }
 
     public function get_instructor_revenue($timestamp_start = "", $timestamp_end = "") {
@@ -166,7 +166,7 @@ class Crud_model extends CI_Model {
 
     public function delete_payment_history($param1) {
         $this->db->where('id', $param1);
-        $this->db->delete('payment');
+        $this->db->delete('payment_mid');
     }
     public function delete_enrol_history($param1) {
         $this->db->where('id', $param1);
@@ -366,8 +366,7 @@ class Crud_model extends CI_Model {
         $data['short_description'] = $this->input->post('short_description');
         $data['description'] = $this->input->post('description');
         $data['outcomes'] = $outcomes;
-        // $data['language'] = $this->input->post('language_made_in');
-        $data['sub_category_id'] = $this->input->post('sub_category_id');
+        // $data['sub_category_id'] = $this->input->post('sub_category_id');
         $data['tipe'] = $this->input->post('tipe');
         $data['tanggal'] = $this->input->post('tanggal');
         $data['waktu'] = $this->input->post('waktu');
@@ -377,15 +376,12 @@ class Crud_model extends CI_Model {
         $data['live'] = $this->input->post('live');
         $data['durasi'] = $this->input->post('durasi');
         $category_details = $this->get_category_details_by_id($this->input->post('sub_category_id'))->row_array();
-        $data['category_id'] = $category_details['parent'];
+        $data['category_id'] = $this->input->post('sub_category_id');
         $parent = $this->db->get_where('category', array('id' => $data['category_id']))->row_array();
-        $data['parent_id'] = $parent['parent_id'];
+        $data['parent_category'] = $parent['parent'];
         $data['requirements'] = $requirements;
         $data['price'] = $this->input->post('price');
-        $data['discount_flag'] = $this->input->post('discount_flag');
-        $data['discounted_price'] = $this->input->post('discounted_price');
-        $data['level'] = $this->input->post('level');
-        $data['is_free_course'] = $this->input->post('is_free_course');
+        // $data['is_free_course'] = $this->input->post('is_free_course');
         $data['video_url'] = html_escape($this->input->post('course_overview_url'));
 
         if ($this->input->post('course_overview_url') != "") {
@@ -396,7 +392,7 @@ class Crud_model extends CI_Model {
 
         $data['date_added'] = strtotime(date('D, d-M-Y'));
         $data['section'] = json_encode(array());
-        // $data['is_top_course'] = $this->input->post('is_top_course');
+        $data['is_top_course'] = 0;
         $data['user_id'] = $this->session->userdata('user_id');
         $data['meta_description'] = $this->input->post('meta_description');
         $data['meta_keywords'] = $this->input->post('meta_keywords');
@@ -419,9 +415,12 @@ class Crud_model extends CI_Model {
             mkdir('uploads/thumbnails/course_thumbnails', 0777, true);
         }
 
-        if ($_FILES['course_thumbnail']['name'] != "") {
-            move_uploaded_file($_FILES['course_thumbnail']['tmp_name'], 'uploads/thumbnails/course_thumbnails/'.$course_id.'.jpg');
+        $ct = 'course_thumbnail';
+        if ($this->input->post('tipe') == 'webinar') {
+            $ct = 'course_thumbnailb';
         }
+        if ($_FILES[$ct]['name'] != "") {
+            move_uploaded_file($_FILES[$ct]['tmp_name'], 'uploads/thumbnails/course_thumbnails/'.$course_id.'.jpg');        }
         if ($data['status'] == 'approved') {
             $this->session->set_flashdata('flash_message', get_phrase('course_added_successfully'));
         }elseif ($data['status'] == 'pending') {
@@ -451,8 +450,6 @@ class Crud_model extends CI_Model {
         $data['description'] = $this->input->post('description');
         $data['outcomes'] = $outcomes;
         // $data['language'] = $this->input->post('language_made_in');
-        $data['category_id'] = $this->input->post('category_id');
-        $data['sub_category_id'] = $this->input->post('sub_category_id');
         $data['tipe'] = $this->input->post('tipe');
         $data['tanggal'] = $this->input->post('tanggal');
         $data['waktu'] = $this->input->post('waktu');
@@ -461,12 +458,13 @@ class Crud_model extends CI_Model {
         $data['linkgrup'] = $this->input->post('link_chat');
         $data['live'] = $this->input->post('live');
         $data['durasi'] = $this->input->post('durasi');
+        $category_details = $this->get_category_details_by_id($this->input->post('sub_category_id'))->row_array();
+        $data['category_id'] = $this->input->post('sub_category_id');
+        $parent = $this->db->get_where('category', array('id' => $data['category_id']))->row_array();
+        $data['parent_category'] = $parent['parent'];
         $data['requirements'] = $requirements;
-        // $data['is_free_course'] = $this->input->post('is_free_course');
+        $data['is_free_course'] = $this->input->post('is_free_course');
         $data['price'] = $this->input->post('price');
-        $data['discount_flag'] = $this->input->post('discount_flag');
-        $data['discounted_price'] = $this->input->post('discounted_price');
-        $data['level'] = $this->input->post('level');
         $data['video_url'] = $this->input->post('course_overview_url');
 
         if ($this->input->post('course_overview_url') != "") {
@@ -494,8 +492,12 @@ class Crud_model extends CI_Model {
         $this->db->where('id', $course_id);
         $this->db->update('course', $data);
 
-        if ($_FILES['course_thumbnail']['name'] != "") {
-            move_uploaded_file($_FILES['course_thumbnail']['tmp_name'], 'uploads/thumbnails/course_thumbnails/'.$course_id.'.jpg');
+        $ct = 'course_thumbnail';
+        if ($this->input->post('tipe') == 'webinar') {
+            $ct = 'course_thumbnailb';
+        }
+        if ($_FILES[$ct]['name'] != "") {
+            move_uploaded_file($_FILES[$ct]['tmp_name'], 'uploads/thumbnails/course_thumbnails/'.$course_id.'.jpg');
         }
         if ($data['status'] == 'approved') {
             $this->session->set_flashdata('flash_message', get_phrase('course_updated_successfully'));
@@ -1351,6 +1353,11 @@ class Crud_model extends CI_Model {
             return $this->db->get_where('course', array('category_id' => $category_id));
         }
 
+        public function get_courses_admin()
+        {
+            return $this->db->get_where('course', array('status' => 'active'));
+        }
+
         public function filter_course_for_backend($category_id, $instructor_id, $price, $status, $tipe) {
             if ($category_id != "all") {
                 $this->db->where('category_id', $category_id);
@@ -1645,7 +1652,7 @@ class Crud_model extends CI_Model {
                         }
                     }
                 }
-                else if($notif['tipe'] == 'edukator' && $notif['id_target'] == 'wait'){
+                else if($notif['tipe'] == 'edukator'){
                     $jumlah++;
                 }
             }
@@ -1656,6 +1663,12 @@ class Crud_model extends CI_Model {
             else{
                 return $jumlah;
             }
+        }
+
+        public function delete_notif($param1='')
+        {
+            $data_notif['id_target'] = 'delete';
+            $this->db->where('id', $param1)->delete('notifikasi');
         }
 
         public function get_payment($id_user)

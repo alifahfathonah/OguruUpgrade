@@ -140,7 +140,7 @@
                     </div>
                 </div>
 
-                <div class="col-xl-2">
+                <div class="container">
                     <label for=".." class="text-white"><?php echo get_phrase('..'); ?></label>
                     <button type="submit" class="btn btn-primary btn-block" name="button"><?php echo get_phrase('filter'); ?></button>
                 </div>

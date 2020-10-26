@@ -33,7 +33,7 @@
                         <label for="course_id"><?php echo get_phrase('course_to_enrol'); ?><span class="required">*</span> </label>
                         <select class="form-control select2" data-toggle="select2" name="course_id" id="course_id" required>
                             <option value=""><?php echo get_phrase('select_a_course'); ?></option>
-                            <?php $course_list = $this->crud_model->get_courses()->result_array();
+                            <?php $course_list = $this->crud_model->get_courses_admin()->result_array();
                                 foreach ($course_list as $course):
                                 if ($course['status'] != 'active')
                                     continue;?>

@@ -25,7 +25,7 @@
         </a>
       </li>
 
-      <li class="nav-item">
+      <!-- <li class="nav-item">
         <a class="nav-link" href="<?php echo site_url().'home/bantuan' ?>">
           <i class="fas fa-question-circle d-inline  mr-2"> </i>
           <span>Bantuan</span>
@@ -39,17 +39,17 @@
           <span>Tentang Kami</span>
           
         </a>
-      </li>
+      </li> -->
     </ul>
     
-    <!-- <form class="inline-form " action="<?php echo site_url('home/cari'); ?>" method="get" ">
-      <div class="input-group search-box1" >
+    <form class="inline-form " action="<?php echo site_url('home/cari'); ?>" method="get" ">
+      <div class="input-group search-box" >
         <input type="text" name = 'query' class="form-control" placeholder="Mau Cari Apa ?">
         <div class="input-group-append">
           <button class="btn" type="submit"><i class="fas fa-search"></i></button>
         </div>
       </div>
-    </form> -->
+    </form>
     <div class="mt-2 mr-2 ml-2"></div>
 
     <?php if ($this->session->userdata('admin_login')): ?>

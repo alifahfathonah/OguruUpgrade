@@ -66,9 +66,16 @@
                 <div class="course-carousel">
                     <?php $top_courses = $this->crud_model->get_top_courses()->result_array();
                     $cart_items = $this->session->userdata('cart_items');
-                    foreach ($top_courses as $top_course):?>
+                    $p = '';
+                    foreach ($top_courses as $top_course):
+                        if ($top_course['parent_category'] == 1) {
+                            $p = 'vokasional_';
+                        }else{
+                            $p = 'akademik_';
+                        }
+                        ?>
                     <div class="course-box-wrap">
-                        <a href="<?php echo site_url('home/course/'.slugify($top_course['title']).'/'.$top_course['id']); ?>" class="has-popover">
+                        <a href="<?php echo site_url('home/'.$p.'/'.slugify($top_course['title']).'/'.$top_course['id']); ?>" class="has-popover">
                             <div class="course-box">
                                 <div class="course-image">
                                     <img src="<?php echo $this->crud_model->get_course_thumbnail_url($top_course['id']); ?>" alt="" class="img-fluid">
@@ -137,7 +144,7 @@
                         <div class="popover-btns">
                             <?php if (is_purchased($top_course['id'])): ?>
                                 <div class="purchased">
-                                    <a href="<?php echo site_url('home/my_courses'); ?>"><?php echo get_phrase('already_purchased'); ?></a>
+                                    <a href="<?php echo site_url('home/kelas_saya'); ?>"><?php echo get_phrase('already_purchased'); ?></a>
                                 </div>
                             <?php else: ?>
                                 <?php if ($top_course['is_free_course'] == 1):
@@ -146,9 +153,14 @@
                                     }else {
                                         $url = site_url('home/get_enrolled_to_free_course/'.$top_course['id']);
                                     }?>
-                                    <a href="<?php echo $url; ?>" class="btn add-to-cart-btn big-cart-button" onclick="handleEnrolledButton()"><?php echo get_phrase('get_enrolled'); ?></a>
+                                    <div class="purchased">
+                                        <a href="<?php echo $url; ?>" onclick="handleEnrolledButton()"><?php echo get_phrase('get_enrolled'); ?></a>
+                                    </div>
                                 <?php else: ?>
-                                    <button type="button" class="btn add-to-cart-btn <?php if(in_array($top_course['id'], $cart_items)) echo 'addedToCart'; ?> big-cart-button-<?php echo $top_course['id'];?>" id = "<?php echo $top_course['id']; ?>" onclick="handleCartItems(this)">
+                                    <div class="purchased">
+                                        <a href="<?php echo site_url('home/daftar_kelas/'.$top_course['id']); ?>">Daftar</a>
+                                    </div>
+                                    <!-- <button type="button" class="btn add-to-cart-btn <?php if(in_array($top_course['id'], $cart_items)) echo 'addedToCart'; ?> big-cart-button-<?php echo $top_course['id'];?>" id = "<?php echo $top_course['id']; ?>" onclick="handleCartItems(this)">
                                         <?php
                                         if(in_array($top_course['id'], $cart_items))
                                         echo get_phrase('added_to_cart');
@@ -156,7 +168,7 @@
                                         echo get_phrase('add_to_cart');
                                         ?>
                                     </button>
-                                    <button type="button" class="wishlist-btn <?php if($this->crud_model->is_added_to_wishlist($top_course['id'])) echo 'active'; ?>" title="Add to wishlist" onclick="handleWishList(this)" id = "<?php echo $top_course['id']; ?>"><i class="fas fa-heart"></i></button>
+                                    <button type="button" class="wishlist-btn <?php if($this->crud_model->is_added_to_wishlist($top_course['id'])) echo 'active'; ?>" title="Add to wishlist" onclick="handleWishList(this)" id = "<?php echo $top_course['id']; ?>"><i class="fas fa-heart"></i></button> -->
                                 <?php endif; ?>
                             <?php endif; ?>
 
@@ -179,9 +191,15 @@
                 <div class="course-carousel">
                     <?php
                     $latest_courses = $this->crud_model->get_latest_10_course();
-                    foreach ($latest_courses as $latest_course):?>
+                    foreach ($latest_courses as $latest_course):
+                        if ($latest_course['parent_category'] == 1) {
+                            $parent = 'vokasional_';
+                        }else{
+                           $parent = 'akademik_'; 
+                        }
+                            ?>
                     <div class="course-box-wrap">
-                        <a href="<?php echo site_url('home/course/'.slugify($latest_course['title']).'/'.$latest_course['id']); ?>">
+                        <a href="<?php echo site_url('home/'.$parent.'/'.slugify($latest_course['title']).'/'.$latest_course['id']); ?>">
                             <div class="course-box">
                                 <div class="course-image">
                                     <img src="<?php echo $this->crud_model->get_course_thumbnail_url($latest_course['id']); ?>" alt="" class="img-fluid">

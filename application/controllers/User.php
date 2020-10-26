@@ -30,8 +30,7 @@ class User extends CI_Controller {
 
     public function update_notif_accept($id = '')
     {
-        $data_notif['id_target'] = 'delete';
-        $this->db->where('id', $id)->update('notifikasi', $data_notif);
+        $this->crud_model->delete_notif($id);
         $this->kelas();
     }
 
