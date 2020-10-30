@@ -1633,36 +1633,37 @@ class Crud_model extends CI_Model {
         public function get_notif_sum()
         {
             $user_id = $this->session->userdata('user_id');
-            $notifikasi = $this->db->get_where('notifikasi', array('id_user' => $user_id))->result_array();
-            $jumlah = 0;
-            foreach ($notifikasi as $notif) {
-                if($notif['tipe'] == 'message'){
-                    $data = $this->crud_model->get_message_notif($notif['id_target']);
-                    foreach ($data as $d) {
-                        if($d['sender'] != $user_id){
-                            $jumlah++;
-                        }
-                     }
-                 }
-                else if($notif['tipe'] == 'pembayaran'){
-                    $cek_notif = $this->db->get_where('payment_mid', array('order_id' => $notif['id_target']))->result_array();
-                    foreach ($cek_notif as $ck) {
-                        if($ck['transaction_status'] == 'pending'){
-                            $jumlah++;
-                        }
-                    }
-                }
-                else if($notif['tipe'] == 'edukator'){
-                    $jumlah++;
-                }
-            }
+            return $this->db->get_where('notifikasi', array('id_user' => $user_id, 'status' => 0))->num_rows();
+            // return $notifikasi;
+            // $jumlah = 0;
+            // foreach ($notifikasi as $notif) {
+            //     if($notif['tipe'] == 'message'){
+            //         $data = $this->crud_model->get_message_notif($notif['id_target']);
+            //         foreach ($data as $d) {
+            //             if($d['sender'] != $user_id){
+            //                 $jumlah++;
+            //             }
+            //          }
+            //      }
+            //     else if($notif['tipe'] == 'pembayaran'){
+            //         $cek_notif = $this->db->get_where('payment_mid', array('order_id' => $notif['id_target']))->result_array();
+            //         foreach ($cek_notif as $ck) {
+            //             if($ck['transaction_status'] == 'pending'){
+            //                 $jumlah++;
+            //             }
+            //         }
+            //     }
+            //     else if($notif['tipe'] == 'edukator'){
+            //         $jumlah++;
+            //     }
+            // }
 
-            if($jumlah == 0){
-                return '';
-            }
-            else{
-                return $jumlah;
-            }
+            // if($jumlah == 0){
+            //     return '';
+            // }
+            // else{
+            //     return $jumlah;
+            // }
         }
 
         public function delete_notif($param1='')

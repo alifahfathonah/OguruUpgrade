@@ -153,7 +153,9 @@ function initDropEffect(box){
 
 	// get clickable area for drop effect
 	area = box.querySelector('.js--image-preview');
-	area.addEventListener('click', fireRipple);
+	if(area){
+		area.addEventListener('click', fireRipple, false);
+	}
 
 	function fireRipple(e){
 		area = e.currentTarget

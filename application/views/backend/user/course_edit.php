@@ -531,9 +531,10 @@ jQuery(document).ready(function() {
     jQuery('#blank_outcome_field').hide();
     jQuery('#blank_requirement_field').hide();
     calculateDiscountPercentage($('#discounted_price').val());
-    if (<?php echo $course_details['tipe'] == 'online'; ?>) { 
+    if (tipe == 'online') { 
         $('#webinar_div').hide();
     }
+    console.log('tipe = '+tipe);
     $('#media_a').hide();
     $('#media_b').hide();
     if(tipe == 'online'){

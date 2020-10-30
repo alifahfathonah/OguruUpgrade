@@ -13,15 +13,12 @@ class Home extends CI_Controller {
         // $params = array('server_key' => 'Mid-server-1UAY4wNGm8ww4_QjgC2cWJHu', 'production' => true);
         $this->load->library('veritrans');
         $this->veritrans->config($params);
-        // $this->load->library('stripe');
-        /*cache control*/
         $this->output->set_header('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0');
         $this->output->set_header('Pragma: no-cache');
         if (!$this->session->userdata('cart_items')) {
             $this->session->set_userdata('cart_items', array());
         }
         // $this->finish();
-        // echo '<script type="text/javascript"> console.log("'.$this->session->userdata('is_edukator').'")</script>';
     }
 
     public function index() {
@@ -239,7 +236,7 @@ class Home extends CI_Controller {
     }
 
     public function notifikasi() {
-        $page_data['notifikasi'] = $this->db->get_where('notifikasi', array('id_user' => $this->session->userdata('user_id')))->result_array();
+        $page_data['notifikasi'] = $this->db->get_where('notifikasi', array('id_user' => $this->session->userdata('user_id'), 'status' => 0))->result_array();
         // echo '<script type="text/javascript"> console.log("'.count($page_data["notifikasi"]).'")</script>';
         $page_data['page_name'] = "my_notifications";
         $page_data['page_title'] = get_phrase('my_notifications');
@@ -798,27 +795,27 @@ class Home extends CI_Controller {
             if($data_payment){
                 foreach ($data_payment as $data) {
                     $cek = $this->status($data['order_id']);
-                    // echo '<script type="text/javascript"> console.log("'.$cek.'")</script>';
+                    $cek_notif = $this->db->get_where('notifikasi', array('id_target' => $data['order_id']));
                     if($cek == 'pending'){
-                        $cek_notif = $this->db->get_where('notifikasi', array('id_target' => $data['order_id']));
-                        // echo '<script type="text/javascript"> console.log("'.$cek_notif.'")</script>';
-                        $data_cek_notif = $cek_notif->row_array();
                         if($cek_notif->num_rows() == 0){
+                            $kelas = $this->db->get_where('course', array('id' => $data['id_course']))->row_array();
+                            $jumlah_sertif = $this->db->get_where('sertifikat', array('order_id' => $data['order_id']))->num_rows();
                             $notif = array(
                                 'id_user' => $data['id_pengirim'],
                                 'id_target' => $data['order_id'],
+                                'pesan' => 'Menunggu pembayaran untuk kelas '.$kelas['title'],
+                                'link' => 'href="#" data-target="#wait" data-toggle="modal" data-kelas="'.$kelas['title'].'" data-jumlah="'.$jumlah_sertif.'"',
                                 'tipe' => 'pembayaran',
+                                'status' => 0,
                                 'date_add' => strtotime(date("Y-m-d H:i:s"))
                             );
                             $this->db->insert('notifikasi', $notif);
                         }
                     }
                     else if($cek == 'settlement'){
-                        $cek_notif = $this->db->get_where('notifikasi', array('id_target' => $data['order_id']))->result_array();
-                        foreach ($cek_notif as $ck) {
-                            $cek1 = $ck['id_target'];
-                            // echo '<script type="text/javascript"> console.log("'.$cek1.'")</script>';
-                        }
+                        $data_cek_notif = $cek_notif->row_array();
+                        $notif['status'] = 1;
+                        $this->db->where('id', $data_cek_notif['id'])->update('notifikasi', $notif);
 
                         $this->crud_model->get_enrol($data['id_course'], $data['id_pengirim']);
                     }

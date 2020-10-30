@@ -88,20 +88,22 @@
                       <input type="hidden" name="harga_asli" value="<?php echo $total_price; ?>">
                         <p>Nama Penerima Sertifikat</p>
                         <small class="form-text text-muted">Tulis nama lengkap penerima sertifikat untuk kelas ini.</small>
-                        <div class="cart-course-wrapper">
-                            <label>Nama Lengkap : </label>
-                            <input class="form-control col-md-10" type="text" name="nama[]">
+                        <div id="form_nama">
+                            <div class="cart-course-wrapper">
+                                <label>Nama Lengkap : </label>
+                                <input class="form-control col-md-10" type="text" name="nama[]">
+                            </div>
                         </div>
                         <div>
                         </div>
                     </div>
                 </form>
-                <div id="form_nama">
+                <!-- <div id="form_nama">
                     <div class="cart-course-wrapper">
                         <label>Nama Lengkap : </label>
                         <input class="form-control col-md-10" type="text" name="nama[]">
                     </div>
-                </div>
+                </div> -->
             </div>
             <div class="col-lg-3">
                 <div class="cart-sidebar">
@@ -131,12 +133,6 @@
 <!-- <script type="text/javascript" src="https://app.midtrans.com/snap/snap.js" data-client-key="Mid-client-yT5PnoIdnTpNlleH"></script> -->
 <script type="text/javascript" src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="SB-Mid-client-8R1sjHXU1hMqPaWV"></script>
 <script type="text/javascript">
-
-    var blank_nama = document.getElementById("form_nama");
-    jQuery(document).ready(function() {
-      jQuery('#form_nama').hide();
-    });
-
     var total = parseInt("<?php echo $total_price; ?>");
     var total_1 = parseInt(total);
     var total_bayar = total_1;
@@ -186,7 +182,7 @@
     }
 
     <?php 
-        $nama = $user_details['first_name'].'_'.$user_details['last_name'].'_'.$course_details['id'].'_'.$course_details['title'].'_'.substr($user_details['email'], 0,-10).'_'.$user_details['id'];
+        // $nama = $user_details['first_name'].'_'.$user_details['last_name'].'_'.$course_details['id'].'_'.$course_details['title'].'_'.substr($user_details['email'], 0,-10).'_'.$user_details['id'];
         $url = substr(current_url(), 26);
      ?>
 
@@ -200,15 +196,24 @@
                 }else {
                     event.preventDefault();
                     $(this).attr("disabled", "disabled");
-                    console.log('<?php echo $nama; ?>');
                     $.ajax({
-                        url: '<?php echo site_url()."/snap/token/" ?>' + total_bayar +'<?php echo "/".$nama."_" ?>' + countEl.value,
+                        url: '<?php echo site_url()."/snap/token" ?>',
+                        data: {
+                            id_course : "<?php echo $course_details['id'] ?>",
+                            first_name : "<?php echo $user_details['first_name'] ?>",
+                            last_name : "<?php echo $user_details['last_name'] ?>",
+                            judul_course : "<?php echo $course_details['title'] ?>",
+                            email : "<?php echo $user_details['email'] ?>",
+                            id_user : "<?php echo $user_details['id'] ?>",
+                            total_bayar : total_bayar,
+                            jumlah : countEl.value
+                        },
                         cache: false,
 
                         success: function(data) {
                           //location = data;
 
-                          console.log('token = '+data);
+                          // console.log('token = '+data);
                           
                           var resultType = document.getElementById('result-type');
                           var resultData = document.getElementById('result-data');
@@ -286,7 +291,7 @@
 
     var count = 1;
     var id_total = document.getElementById("total_bayar");
-    // console.log(id_total);
+    var blank_nama = document.getElementById("form_nama");
     function plus(){
         count++;
         countEl.value = count;

@@ -37,30 +37,30 @@ class Snap extends CI_Controller {
     	$this->load->view('frontend/default/checkout_snap');
     }
 
-    public function token($total_price, $nama)
+    public function token()
     {
-    	$nama_detail = explode('_', $nama);
-        $name_item = str_replace('%20', ' ', $nama_detail[3]);
+    	// $nama_detail = explode('_', $nama);
+     //    $name_item = str_replace('%20', ' ', $nama_detail[3]);
 		// Required
 		$transaction_details = array(
 		  'order_id' => rand(),
-		  'gross_amount' => $total_price, // no decimal allowed for creditcard
+		  'gross_amount' => $_GET['total_bayar'], // no decimal allowed for creditcard
 		);
 
 		// Optional
 		$item1_details = array(
-		  'id' => $nama_detail[2],
-		  'price' => $total_price/$nama_detail[6],
-		  'quantity' => $nama_detail[6],
-		  'name' => $name_item
+		  'id' => $_GET['id_course'],
+		  'price' => $_GET['total_bayar']/$_GET['jumlah'],
+		  'quantity' => $_GET['jumlah'],
+		  'name' => $_GET['judul_course']
 		);
 
 		// Optional
 		$customer_details = array(
-            'id' => 5,
-		  'first_name'    => $nama_detail[0],
-		  'last_name'     => $nama_detail[1],
-		  'email'         => $nama_detail[4].'@gmail.com',
+          'id' => $_GET['id_user'],
+		  'first_name'    => $_GET['first_name'],
+		  'last_name'     => $_GET['last_name'],
+		  'email'         => $_GET['email'],
 		  // 'phone'         => "081122334455",
 		  'billing_address'  => $billing_address
 		);
@@ -168,10 +168,6 @@ class Snap extends CI_Controller {
             'edukator_revenue' => $edukator_revenue,
             'date_added' => strtotime(date('D, d-M-Y')),
     	];
-
-        // echo '<script type="text/javascript"> console.log("jumlah = '.$jum.'")</script>';
-        // echo '<script type="text/javascript"> console.log("jumlah = '.$this->input->post('harga_asli').'")</script>';
-        // echo '<script type="text/javascript"> console.log("jumlah = '. $this->input->post('nama')[1].'")</script>';
 
         foreach ($this->input->post("nama") as $nama) {
             $sertifikat = array(

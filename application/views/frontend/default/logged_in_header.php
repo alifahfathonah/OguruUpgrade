@@ -1,141 +1,141 @@
 <?php
 $user_details = $this->user_model->get_user($this->session->userdata('user_id'))->row_array();
 ?>
-<nav class="navbar navbar-expand-sm   navbar-light bg-light">
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <a class="navbar-brand" href="<?php   echo base_url(); ?>">
-    <img src="<?php echo base_url().'uploads/system/logo-dark.png'; ?>" alt="logo" style="height: 30px; width: auto;">
-  </a>
-  <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-      <?php include 'menuvokasional_resp.php'; ?>
-      <?php include 'menuakademik_resp.php'; ?>
-      <li class="nav-item">
-        <a class="nav-link" href="<?php echo site_url().'home/ovidi' ?>">
-          <i class="fas fa-video d-inline mr-2"> </i>
-          <span>Ovidi</span>
-          
+
+
+<nav class="navbar navbar-expand-md  navbar-light bg-light">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" href="<?php   echo base_url(); ?>">
+          <img src="<?php echo base_url().'uploads/system/logo-dark.png'; ?>" alt="logo" style="height: 30px; width: auto;">
         </a>
-      </li>
-
-      <li class="nav-item">
-        <a class="nav-link" href="#" disabled="disabled">
-          <i class="fas fa-book-open d-inline mr-2"> </i>
-          <span>Obook</span>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
           
-        </a>
-      </li>
+          <div class="mt-3 mr-2 ml-2"></div>
+          <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <?php include 'menuvokasional_resp.php'; ?>
+            <?php include 'menuakademik_resp.php'; ?>
+            <li class="nav-item">
+              <a class="nav-link" href="<?php echo site_url().'home/ovidi' ?>">
+                <i class="fas fa-video d-inline mr-2"> </i>
+                <span>Ovidi</span>
+                
+              </a>
+            </li>
 
-      <!-- <li class="nav-item">
-        <a class="nav-link" href="<?php echo site_url().'home/bantuan' ?>">
-          <i class="fas fa-question-circle d-inline  mr-2"> </i>
-          <span>Bantuan</span>
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                <i class="fas fa-book-open d-inline mr-2"> </i>
+                <span>Obook</span>
+                
+              </a>
+            </li>
+
+            <!-- <li class="nav-item">
+              <a class="nav-link" href="<?php //echo site_url().'home/video' ?>">
+                <i class="fas fa-question-circle d-inline  mr-2"> </i>
+                <span>Bantuan</span>
+                
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="<?php //echo site_url().'home/video' ?>">
+                <i class="fas fa-address-card d-inline  mr-2"> </i>
+                <span>Tentang Kami</span>
+                
+              </a>
+            </li> -->
+
+          </ul>
           
-        </a>
-      </li>
+          <form class="inline-form " action="<?php echo site_url('home/cari'); ?>" method="get" >
+            <div class="input-group search-box" >
+              <input type="text" name = 'query' class="form-control" placeholder="Mau Cari Apa ?">
+              <div class="input-group-append">
+                <button class="btn" type="submit"><i class="fas fa-search"></i></button>
+              </div>
+            </div>
+          </form>
+          <div class="mt-2 mr-2 ml-2"></div>
 
-      <li class="nav-item">
-        <a class="nav-link" href="<?php echo site_url().'home/tentang_kami' ?>">
-          <i class="fas fa-address-card d-inline  mr-2"> </i>
-          <span>Tentang Kami</span>
+          <!-- <?php //if ($this->session->userdata('admin_login')): ?>
+            
+            <div>
+              <a href="<?php //echo site_url('admin'); ?>" class="btn btn-light text-muted" style="width: 100%; border-radius: 2px;">Administrator</a>
+            </div>
+          <div class="mt-3 mr-2 ml-2"></div>
+          <?php //endif; ?> -->
+
           
-        </a>
-      </li> -->
-    </ul>
-    
-    <!-- <form class="inline-form " action="<?php echo site_url('home/cari'); ?>" method="get" ">
-      <div class="input-group search-box1" >
-        <input type="text" name = 'query' class="form-control" placeholder="Mau Cari Apa ?">
-        <div class="input-group-append">
-          <button class="btn" type="submit"><i class="fas fa-search"></i></button>
-        </div>
-      </div>
-    </form> -->
-    <div class="mt-2 mr-2 ml-2"></div>
 
-    <?php if ($this->session->userdata('admin_login')): ?>
-      
-      <div>
-        <a href="<?php echo site_url('admin'); ?>" class="btn btn-light text-muted" style="background-color: white; width: 100%; border-radius: 2px">Administrator</a>
-      </div>
-    <div class="mt-3 mr-2 ml-2"></div>
-    <?php endif; ?>
-
-    <div class="user-box menu-icon-box">
-        <div class="icon">
-            <a href="" style="border: 1px solid transparent; margin: 10px 0px; font-size: 14px; width: 100%; border-radius: 0; min-width: 100px; ">Pengguna <span class="badge badge-primary"><?php echo $this->crud_model->get_notif_sum(); ?></span></a>
-        </div>
-        <div class="dropdown user-dropdown corner-triangle top-right">
-            <ul class="user-dropdown-menu">
-                <li class="dropdown-user-info">
-                    <a href="<?php echo site_url('home/profil/profil_saya'); ?>">
-                        <div class="clearfix">
-                            <div class="user-image float-left">
-                                <?php if (file_exists('uploads/user_image/'.$user_details['id'].'.jpg')): ?>
-                                    <img src="<?php echo base_url().'uploads/user_image/'.$user_details['id'].'.jpg';?>" alt="" class="img-fluid">
-                                <?php else: ?>
-                                    <img src="<?php echo base_url().'uploads/user_image/placeholder.png';?>" alt="" class="img-fluid">
-                                <?php endif; ?>
-                            </div>
-                            <div class="user-details">
-                                <div class="user-name">
-                                    <span class="hi"><?php echo get_phrase('hi'); ?>,</span>
-                                    <?php echo $user_details['first_name'].' '.$user_details['last_name']; ?>
-                                </div>
-                                <div class="user-email">
-                                    <span class="email"><?php echo $user_details['email']; ?></span>
-                                    <span class="welcome"><?php echo get_phrase("welcome_back"); ?></span>
-                                </div>
-                            </div>
-                        </div>
+          <div class="nav-item dropdown dmenu" >
+              <a href="<?php //echo site_url('admin'); ?>" class="btn btn-light text-secondary nav-link text-dark nav-item dropdown dmenu" href="#" id="navbardrop" data-toggle="dropdown" style="width: 100%; border-radius: 2px; font-size: 15px; ">
+                      <?php
+                          if (file_exists('uploads/user_image/'.$user_details['id'].'.jpg')): ?>
+                          <img height="37" src="<?php echo base_url().'uploads/user_image/'.$user_details['id'].'.jpg';?>" alt="" class="mr-2">
+                      <?php else: ?>
+                          <img height="37" src="<?php echo base_url().'uploads/user_image/placeholder.png';?>" alt="" class="mr-2">
+                      <?php endif; ?>
+                
+                <?php echo $user_details['first_name'].' '.$user_details['last_name']; ?>
+              </a>
+              <div class="dropdown-menu dropdown-menu-right sm-menu" >
+                <?php if($this->session->userdata('is_edukator') == 1){ ?>
+                    <a class="dropdown-item pt-1 pb-1" href="<?php echo site_url().'user'; ?>">
+                      <span class="icon text-center" style="display: inline-block;width: 20px"><i class="fas fa-chalkboard-teacher text-muted"></i></span>
+                      <span class="text-dark ml-3" style="font-size: 14px;">Edukator</span>
+                    </a>            
+                <?php } else{ ?>
+                    <a class="dropdown-item pt-1 pb-1" data-target="#edukator" data-toggle="modal">
+                      <span class="icon text-center" style="display: inline-block;width: 20px"><i class="fas fa-chalkboard-teacher text-muted"></i></span>
+                      <span class="text-dark ml-3" style="font-size: 14px;">Edukator</span>
                     </a>
-                </li>
+                    
+                <?php } ?>
+                
+                <hr class="mt-1 mb-2">  
+                <a class="dropdown-item pt-1 pb-1" href="<?php echo site_url('profil/profil_saya'); ?>">
+                  <span class="icon text-center" style="display: inline-block;width: 20px"><i class="far fa-user text-muted"></i></span>
+                  <span class="text-dark ml-3" style="font-size: 14px;">Profil Saya</span>
+                </a>
 
-                <li class="user-dropdown-menu-item">
-                    <a href="<?php echo site_url('home/notifikasi'); ?>"><i class="far fa-bell"></i>Notifikasi 
-                        <span class="badge badge-primary"><?php echo $this->crud_model->get_notif_sum(); ?></span>
-                    </a>
-                </li>
-                <li class="user-dropdown-menu-item"><a href="<?php echo site_url('home/kelas_saya'); ?>"><i class="fa fa-book"></i>Kelas Saya</a></li>
-                <li class="user-dropdown-menu-item"><a href="<?php echo site_url('home/channel?kategori=aktif'); ?>"><i class="far fa-play-circle"></i>Channel Saya</a></li>
-                <!-- <li class="user-dropdown-menu-item"><a href=""><i class="fas fa-wrench"></i>Pengaturan</a></li> -->
-                <!-- <li class="user-dropdown-menu-item"><a href="<?php echo site_url('home/riwayat_pembayaran'); ?>"><i class="fas fa-history"></i>Riwayat Pembayaran</a></li> -->
-                <li class="user-dropdown-menu-item"><a href="<?php echo site_url('login/logout/user'); ?>"><i class="fas fa-sign-out-alt"></i>Keluar</a></li>
-            </ul>
+                <a class="dropdown-item pt-1 pb-1" href="<?php echo site_url('home/notifikasi'); ?>">
+                  <span class="icon text-center" style="display: inline-block;width: 20px"><i class="far fa-bell text-muted"></i></span>
+                  <span class="text-dark ml-3" style="font-size: 14px;">Notifikasi <span class="badge" 
+                    style=" top: -10px;
+                            right: -10px;
+                            padding: 5px 10px;
+                            border-radius: 20%;
+                            background-color: lightblue;
+                            color: white;"><?php echo $this->crud_model->get_notif_sum(); ?></span></span>
+                </a>
+
+                <a class="dropdown-item pt-1 pb-1" href="<?php echo site_url('home/kelas_saya'); ?>">
+                  <span class="icon text-center" style="display: inline-block;width: 20px"><i class="fa fa-book text-muted"></i></span>
+                  <span class="text-dark ml-3" style="font-size: 14px;">Kelas Saya</span>
+                </a>
+                
+                <a class="dropdown-item pt-1 pb-1" href="<?php echo site_url('home/channel'); ?>">
+                  <span class="icon text-center" style="display: inline-block;width: 20px"><i class="far fa-play-circle text-muted"></i></span>
+                  <span class="text-dark ml-3" style="font-size: 14px;">Channel Saya</span>
+                </a>
+
+                <hr class="mt-1 mb-2">  
+                <a class="dropdown-item pt-1 pb-1" href="<?php echo site_url('login/logout/user'); ?>">
+                  <span class="icon text-center" style="display: inline-block;width: 20px"><i class="fas fa-sign-out-alt text-muted"></i></span>
+                  <span class="text-dark ml-3" style="font-size: 14px;">Keluar</span>
+                </a>
+
+                
+              </div>
+
+            </div>
+
+          <div class="mt-3 mr-2 ml-2"></div>
         </div>
-    </div>
-
-    <div class="instructor-box menu-icon-box">
-        <div class="icon">
-            <p style="border: 1px solid transparent; margin: 10px 0px; font-size: 14px; border-radius: 0;">/</p>
-        </div>
-    </div>
-
-    <div class="instructor-box menu-icon-box">
-        <div class="icon">
-            <?php if($this->session->userdata('is_edukator') == 1){ ?>
-                <a href="<?php echo site_url().'user'; ?>" style="border: 1px solid transparent; margin: 10px 0px; font-size: 14px; width: 100%; border-radius: 0; min-width: 100px;">Edukator</a>
-            <?php } else{ ?>
-                <a href="javascript::" data-target="#edukator" data-toggle="modal" style="border: 1px solid transparent; margin: 10px 0px; font-size: 14px; width: 100%; border-radius: 0; min-width: 100px;">Edukator</a>
-            <?php } ?>
-        </div>
-    </div>
-
-    <div class="user-box menu-icon-box">
-        <div class="icon">
-            <a href="javascript::">
-                <?php
-                if (file_exists('uploads/user_image/'.$user_details['id'].'.jpg')): ?>
-                <img src="<?php echo base_url().'uploads/user_image/'.$user_details['id'].'.jpg';?>" alt="" class="img-fluid">
-            <?php else: ?>
-                <img src="<?php echo base_url().'uploads/user_image/placeholder.png';?>" alt="" class="img-fluid">
-            <?php endif; ?>
-        </a>
-    </div>
-  </div>
-</nav>
+      </nav>
 
 <div class="modal fade" id="edukator" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -175,7 +175,7 @@ $user_details = $this->user_model->get_user($this->session->userdata('user_id'))
                               </div>
                           </div>
                           <div class="content-update-box text-center">
-                              <button type="submit" class="btn">Daftar</button>
+                              <button type="submit" class="btn btn-primary">Daftar</button>
                           </div>
                       </form>
                 </div>
@@ -188,11 +188,12 @@ $user_details = $this->user_model->get_user($this->session->userdata('user_id'))
 </div>
 
 <script type="text/javascript">
-    $(document).ready(function () {
-    $('.navbar-light .dmenu').hover(function () {
+  $(document).ready(function () {
+  $('.navbar-light .dmenu').hover(function () {
           $(this).find('.sm-menu').first().stop(true, true).slideDown(250);
       }, function () {
-          $(this).find('.sm-menu').first().stop(true, true).slideUp(205)
+          $(this).find('.sm-menu').first().stop(true, true).slideUp(250)
       });
-    });
+  });
+
 </script>

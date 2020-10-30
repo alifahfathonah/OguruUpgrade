@@ -22,22 +22,22 @@
                         <ul>
                             <?php 
                             foreach ($notifikasi as $notif) {
-                                if($notif['tipe'] == 'message'){
-                                    $data = $this->crud_model->get_message_notif($notif['id_target']);
-                                    $jumlah = 0;
-                                    $sender_id = '';
-                                    foreach ($data as $d) {
-                                        if($d['sender'] != $this->session->userdata('user_id')){
-                                            $jumlah++;
-                                            $sender_id = $d['sender'];
-                                        }
-                                     }
+                                // if($notif['tipe'] == 'message'){
+                                //     $data = $this->crud_model->get_message_notif($notif['id_target']);
+                                //     $jumlah = 0;
+                                //     $sender_id = '';
+                                //     foreach ($data as $d) {
+                                //         if($d['sender'] != $this->session->userdata('user_id')){
+                                //             $jumlah++;
+                                //             $sender_id = $d['sender'];
+                                //         }
+                                //      }
                                      
-                                    $user_detail = $this->db->get_where('users', array('id' => $sender_id))->row_array();
-                                    $go = 'home/pesan/baca_pesan/'.$notif['id_target'];
-                                    if($jumlah > 0){
+                                //     $user_detail = $this->db->get_where('users', array('id' => $sender_id))->row_array();
+                                //     $go = 'home/pesan/baca_pesan/'.$notif['id_target'];
+                                //     if($jumlah > 0){
                                 ?>
-                                    <li>
+                                    <!-- <li>
                                         <a href="<?php echo site_url($go); ?>">
                                             <div class="notification clearfix">
                                                 <div class="notification-details">
@@ -50,23 +50,18 @@
                                                 </div>
                                             </div>
                                         </a>
-                                    </li>
+                                    </li> -->
                             <?php    
-                                    }
-                                }
-                                elseif ($notif['tipe'] == 'pembayaran') {
-                                        $kls = $this->db->get_where('payment_mid', array('order_id' => $notif['id_target']))->result_array();
-                                        if($kls[0]['transaction_status'] == 'pending'){
-                                            $kls1 = $this->db->get_where('course', array('id' => $kls[0]['id_course']))->result_array();
+                                //     }
+                                // }
+                                if($notif['tipe'] == 'pembayaran') {
                                     ?>
                                     <li>
-                                        <a href="#" data-target="#wait" data-toggle="modal" data-kelas="<?php echo $kls1[0]['title'] ?>" data-jumlah="<?php 
-                                        echo $this->db->get_where('sertifikat', array('order_id' => $kls[0]['order_id']))->num_rows();
-                                        ?>">
+                                        <a <?php echo $notif['link']; ?>>
                                             <div class="notification clearfix">
                                                 <div class="notification-details">
                                                     <p class="notification-text">
-                                                        <b>Menunggu pembayaran untuk kelas <?php echo $kls1[0]['title'] ?></b>
+                                                        <b><?php echo $notif['pesan']; ?></b>
                                                     </p>
                                                     <p class="notification-time">
                                                         <?php echo date('D, d-M-Y', $notif['date_add']); ?>
@@ -78,60 +73,6 @@
                             <?php
                                     }
                                 }
-                                elseif ($notif['tipe'] == 'edukator'){
-                                    if ($notif['id_target'] == 'wait') {
-                                ?>
-                                    <li>
-                                        <div class="notification clearfix">
-                                            <div class="notification-details">
-                                                <p class="notification-text">
-                                                    <b>Menunggu konfirmasi pendaftaran edukator dari admin</b>
-                                                </p>
-                                                <p class="notification-time">
-                                                    <?php echo date('D, d-M-Y', $notif['date_add']); ?>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </li>
-                            <?php
-                                    }
-                                    elseif ($notif['id_target'] == 'terima'){ ?>
-                                    <li>
-                                        <a href="<?php echo site_url().'user/update_notif_accept/'.$notif['id']; ?>">
-                                            <div class="notification clearfix">
-                                                <div class="notification-details">
-                                                    <p class="notification-text">
-                                                        <b>Selamat pendaftaran menjadi edukator berhasil</b>
-                                                    </p>
-                                                    <p class="notification-time">
-                                                        <?php echo date('D, d-M-Y', $notif['date_edit']); ?>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </li>
-                            <?php
-                                    }
-                                    elseif ($notif['id_target'] == 'tolak'){
-                                    ?>
-                                    <li>
-                                        <a href="#" data-target="#tolak" data-toggle="modal" data-id="<?php echo $notif['id'] ?>">
-                                            <div class="notification clearfix">
-                                                <div class="notification-details">
-                                                    <p class="notification-text">
-                                                        <b>Mohon maaf pendaftaran edukator anda belum diterima oleh admin</b>
-                                                    </p>
-                                                    <p class="notification-time">
-                                                        <?php echo date('D, d-M-Y', $notif['date_edit']); ?>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </li>
-                            <?php
-                                    }
-                                }
-                            }
                              ?>
                         </ul>
                         <?php } ?>
