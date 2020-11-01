@@ -55,6 +55,23 @@
 				</a>
 			</li>
 
+			<li class="side-nav-item <?php if ($page_name == 'edukator' || $page_name == 'konfirmasi_edukator'): ?> active <?php endif; ?>">
+				<a href="javascript: void(0);" class="side-nav-link <?php if ($page_name == 'edukator' || $page_name == 'konfirmasi_edukator'): ?> active <?php endif; ?>">
+					<i class="dripicons-user"></i>
+					<span> Edukator </span>
+					<span class="menu-arrow"></span>
+				</a>
+				<ul class="side-nav-second-level" aria-expanded="false">
+					<li class = "<?php if($page_name == 'edukator') echo 'active'; ?>">
+						<a href="<?php echo site_url('admin/edukator'); ?>">Daftar Edukator</a>
+					</li>
+
+					<li class = "<?php if($page_name == 'konfirmasi_edukator') echo 'active'; ?>">
+						<a href="<?php echo site_url('admin/konfirmasi_edukator'); ?>">Konfirmasi Edukator</a>
+					</li>
+				</ul>
+			</li>
+
 			<li class="side-nav-item <?php if ($page_name == 'enrol_history' || $page_name == 'enrol_student'): ?> active <?php endif; ?>">
 				<a href="javascript: void(0);" class="side-nav-link <?php if ($page_name == 'enrol_history' || $page_name == 'enrol_student'): ?> active <?php endif; ?>">
 					<i class="dripicons-network-3"></i>

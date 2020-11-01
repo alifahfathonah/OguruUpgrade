@@ -16,7 +16,7 @@
                     <div class="notification-list">
                         <?php 
                             if(count($notifikasi) == 0){
-                                echo '<div class="container text-center">Tidak ada notifikasi</div><br><br>';
+                                echo '<br><br><br><div class="container text-center">Tidak ada notifikasi</div><br><br><br><br><br><br>';
                             }else{
                          ?>
                         <ul>
@@ -71,8 +71,47 @@
                                         </a>
                                     </li>
                             <?php
+                                }
+                                elseif ($notif['tipe'] == 'edukator') { 
+                                    if ($notif['id_target'] == 'terima') {
+                                    ?>
+                                    <li>
+                                        <a href="<?php echo site_url().'home/update_notif_accept/'.$notif['id']; ?>">
+                                            <div class="notification clearfix">
+                                                <div class="notification-details">
+                                                    <p class="notification-text">
+                                                        <b>Selamat !!
+                                                        akunmu disetujui admin Oguru, kamu sekarang seorang edukator.</b>
+                                                    </p>
+                                                    <p class="notification-time">
+                                                        <?php echo date('D, d-M-Y', $notif['date_add']); ?>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                            <?php
+                                    }
+                                    else{ ?>
+                                    <li>
+                                        <a <?php echo $notif['link']; ?>>
+                                            <div class="notification clearfix">
+                                                <div class="notification-details">
+                                                    <p class="notification-text">
+                                                        <b>Mohon maaf !!
+                                                        akunmu belum disetujui admin Oguru untuk menjadi edukator.</b>
+                                                    </p>
+                                                    <p class="notification-time">
+                                                        <?php echo date('D, d-M-Y', $notif['date_add']); ?>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                            <?php
                                     }
                                 }
+                            }
                              ?>
                         </ul>
                         <?php } ?>
@@ -143,6 +182,8 @@
 
     $('#tolak').on('show.bs.modal', function(e) {
         var id = $(e.relatedTarget).data('id');
+        var pesan = $(e.relatedTarget).data('pesan');
+        document.getElementById("pesan_penolakan").innerHTML = pesan;
         $('#hapus_notif').attr('href', '<?php echo site_url()."home/delete_notif/" ?>'+id);
     });
 </script>

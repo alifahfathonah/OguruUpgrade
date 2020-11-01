@@ -24,7 +24,12 @@
                 <div class="user-dashboard-box">
                     <div class="user-dashboard-sidebar">
                         <div class="user-box">
-                            <img src="<?php echo base_url().'uploads/user_image/'.$this->session->userdata('user_id').'.jpg';?>" alt="" class="img-fluid">
+                            <?php
+                              if (file_exists('uploads/user_image/'.$user_details['id'].'.jpg')): ?>
+                              <img src="<?php echo base_url().'uploads/user_image/'.$user_details['id'].'.jpg';?>" alt="" class="img-fluid">
+                          <?php else: ?>
+                              <img src="<?php echo base_url().'uploads/user_image/placeholder.png';?>" alt="" class="img-fluid">
+                          <?php endif; ?>
                             <div class="name">
                                 <div class="name"><?php echo $user_details['first_name'].' '.$user_details['last_name']; ?></div>
                             </div>

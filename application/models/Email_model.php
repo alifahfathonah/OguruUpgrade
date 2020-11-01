@@ -56,7 +56,7 @@ class Email_model extends CI_Model {
 		$this->load->library('email');
 
 		if($from == NULL)
-			$from		=	$this->db->get_where('settings' , array('key' => 'system_email'))->row()->value;
+		$from		=	$this->db->get_where('settings' , array('key' => 'system_email'))->row()->value;
 
 		//SMTP & mail configuration
 		$config = array(

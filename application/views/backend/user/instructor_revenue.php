@@ -19,7 +19,7 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="mb-3 header-title"><?php echo get_phrase('instructor_revenue'); ?></h4>
-                <div class="row justify-content-md-center">
+                <!-- <div class="row justify-content-md-center">
                     <div class="col-xl-6">
                         <form class="form-inline" action="<?php echo site_url('user/pendapatan/filter_by_date_range') ?>" method="get">
                             <div class="col-xl-10">
@@ -36,7 +36,7 @@
                             </div>
                         </form>
                     </div>
-                </div>
+                </div> -->
                 <div class="table-responsive-sm mt-4">
                     <table class="table table-striped table-centered mb-0">
                         <thead>
@@ -67,14 +67,14 @@
                                             <?php echo 'Rp. '.$payment['edukator_revenue'].',-'; ?><br>
                                             <small class="text-muted"><?php echo get_phrase('total_amount').': Rp. '.$payment['gross_amount'].',-'; ?></small>
                                         </td>
-                                        <td style="text-align: center;">
+                                        <td>
                                             <?php if ($payment['transaction_status'] == 'pending'): ?>
                                                 <div class="badge badge-danger"><?php echo get_phrase('pending'); ?></div>
                                             <?php elseif($payment['transaction_status'] == 'settlement'): ?>
                                                 <div class="badge badge-success">Dibayar</div>
                                             <?php endif; ?>
                                         </td>
-                                        <td class="text-center">
+                                        <td>
                                             <a href="<?php echo site_url('user/faktur/'.$payment['id']); ?>" class="btn btn-outline-primary btn-rounded btn-sm"><i class="mdi mdi-printer-settings"></i></a>
                                         </td>
                                     </tr> 

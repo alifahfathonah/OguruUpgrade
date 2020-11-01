@@ -124,6 +124,8 @@ foreach ($my_courses as $my_course) {
                     </div>
                 </div>
             <?php endforeach; ?>
+            <br>
+            <br>
         </div>
     </div>
 </section>

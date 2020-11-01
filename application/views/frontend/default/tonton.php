@@ -38,12 +38,12 @@
     <div class="container">
         <div class="row">
             <div class="video-box-2" style="margin: auto;">
-              <div class="video-image" style="margin-right: -100px;">
+              <div class="video-image" style="margin-right: -150px;">
                    <a href="<?php echo site_url('home/lihat_channel/'.$channel['id']); ?>"><img src="<?php echo $this->user_model->get_user_image_url($channel['id']); ?>" alt="" class="img-fluid" style="border-radius: 50%; width: 30% ;"></a>
                </div>
                <div class="course-details">
                 <div class="row">
-                  <div class="col-md-11 text-left">
+                  <div class="col-md-10 text-left">
                       <p class="instructors"><b><?php echo $video['judul']; ?></b></p>
                        <br>
                        <a href="<?php echo site_url('home/lihat_channel/'.$channel['id']); ?>"><p class="instructors" style="margin-top: -25px;"><i>

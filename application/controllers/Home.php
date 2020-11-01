@@ -912,6 +912,10 @@ class Home extends CI_Controller {
         $selected_category = $_GET['kategori'];
         $select = 1;
 
+        if ($selected_category == null) {
+            $selected_category = "aktif";
+        }
+
         if ($selected_category == "aktif") {
             $select = 1;
         }
@@ -1006,7 +1010,7 @@ class Home extends CI_Controller {
             $config = pagintaion($total_rows, 6);
             $config['base_url']  = site_url('home/lihat_channel');
             $page_data['video'] = $this->db->where(array('id_user' => $param1, 'status' => 1))->get('video', $config['per_page'], $this->uri->segment(6))->result_array();
-            echo '<script type="text/javascript"> console.log("'.$total_rows.'")</script>';
+            // echo '<script type="text/javascript"> console.log("'.$total_rows.'")</script>';
         }else {
             $video = $this->crud_model->filter_video_channel($selected_category_id, $param1);
             $page_data['video'] = $video;
@@ -1025,10 +1029,21 @@ class Home extends CI_Controller {
         $this->load->view('frontend/'.get_frontend_settings('theme').'/index', $page_data);
     }
 
-    public function delete_notif($param1='')
+    public function delete_notif($id='')
     {
-        $this->crud_model->delete_notif($param1);
+        $data_user['is_edukator'] = 0;
+        $data_notif['status']     = 1;
+        $this->db->where('id', $this->session->userdata('user_id'))->update('users', $data_user);
+        $this->db->where('id', $id)->update('notifikasi', $data_notif);
         redirect(site_url('home/notifikasi'), 'refresh');
+    }
+
+    public function update_notif_accept($id = '')
+    {
+        $this->session->set_userdata('is_edukator', 1);
+        $data_notif['status'] = 1;
+        $this->db->where('id', $id)->update('notifikasi', $data_notif);
+        redirect(site_url('user'), 'refresh');
     }
 
 }

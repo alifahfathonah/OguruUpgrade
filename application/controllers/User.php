@@ -28,12 +28,6 @@ class User extends CI_Controller {
         }
     }
 
-    public function update_notif_accept($id = '')
-    {
-        $this->crud_model->delete_notif($id);
-        $this->kelas();
-    }
-
     public function kelas() {
         if ($this->session->userdata('user_login') != true) {
             redirect(site_url('login'), 'refresh');
@@ -136,6 +130,7 @@ class User extends CI_Controller {
             $date_range                   = explode(" - ", $date_range);
             $page_data['timestamp_start'] = strtotime($date_range[0]);
             $page_data['timestamp_end']   = strtotime($date_range[1]);
+            // echo '<script type="text/javascript"> console.log("'.$date_range[1].'")</script>';
         }else {
             $page_data['timestamp_start'] = strtotime('-29 days', time());
             $page_data['timestamp_end']   = strtotime(date("m/d/Y"));

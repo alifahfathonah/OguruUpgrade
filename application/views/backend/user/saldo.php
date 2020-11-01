@@ -57,10 +57,10 @@
                                     <td>
                                         <?php 
                                             if($history['status'] == 0){
-                                                echo "Diproses";
+                                                echo '<div class="badge badge-danger">Diproses</div>';
                                             }
                                             else{
-                                                echo "Berhasil";
+                                                echo '<div class="badge badge-success">Berhasil</div>';
                                             } ?>
                                     </td>
                                 </tr>

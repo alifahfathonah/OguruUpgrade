@@ -42,7 +42,7 @@
       </li> -->
     </ul>
     
-    <form class="inline-form " action="<?php echo site_url('home/cari'); ?>" method="get" ">
+    <form class="inline-form " action="<?php echo site_url('home/cari'); ?>" method="get">
       <div class="input-group search-box" >
         <input type="text" name = 'query' class="form-control" placeholder="Mau Cari Apa ?">
         <div class="input-group-append">

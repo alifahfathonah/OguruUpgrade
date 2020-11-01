@@ -141,22 +141,8 @@ class Crud_model extends CI_Model {
     }
 
     public function get_instructor_revenue($timestamp_start = "", $timestamp_end = "") {
-        // $course_ids = array();
-        // $courses    = array();
 
         $this->db->where('id_penerima', $this->session->userdata('user_id'));
-        // $this->db->select('id');
-        // $courses = $this->db->get('course')->result_array();
-        // foreach ($courses as $course) {
-        //     if (!in_array($course['id'], $course_ids)) {
-        //         array_push( $course_ids, $course['id'] );
-        //     }
-        // }
-        // if (sizeof($course_ids)) {
-        //     $this->db->where_in('course_id', $course_ids);
-        // }else {
-        //     return array();
-        // }
 
         $this->db->order_by('date_added' , 'desc');
         $this->db->where('date_added >=' , $timestamp_start);
@@ -206,10 +192,6 @@ class Crud_model extends CI_Model {
         $this->db->where('key', 'slogan');
         $this->db->update('settings', $data);
 
-        $data['value'] = html_escape($this->input->post('language'));
-        $this->db->where('key', 'language');
-        $this->db->update('settings', $data);
-
         $data['value'] = html_escape($this->input->post('text_align'));
         $this->db->where('key', 'text_align');
         $this->db->update('settings', $data);
@@ -252,6 +234,18 @@ class Crud_model extends CI_Model {
 
         $data['value'] = html_escape($this->input->post('website_description'));
         $this->db->where('key', 'website_description');
+        $this->db->update('settings', $data);
+
+        $data['value'] = html_escape($this->input->post('link_wa'));
+        $this->db->where('key', 'whatsapp_link');
+        $this->db->update('settings', $data);
+
+        $data['value'] = html_escape($this->input->post('link_ig'));
+        $this->db->where('key', 'instagram_link');
+        $this->db->update('settings', $data);
+
+        $data['value'] = html_escape($this->input->post('link_yt'));
+        $this->db->where('key', 'youtube_link');
         $this->db->update('settings', $data);
 
         $data['value'] = html_escape($this->input->post('student_email_verification'));
@@ -1666,12 +1660,6 @@ class Crud_model extends CI_Model {
             // }
         }
 
-        public function delete_notif($param1='')
-        {
-            $data_notif['id_target'] = 'delete';
-            $this->db->where('id', $param1)->delete('notifikasi');
-        }
-
         public function get_payment($id_user)
         {
             return $this->db->get_where('payment_mid', array('id_pengirim' => $id_user, 'transaction_status' => 'pending'))->row_array();
@@ -1704,12 +1692,6 @@ class Crud_model extends CI_Model {
             move_uploaded_file($_FILES['ktp']['tmp_name'], 'uploads/edukator_file/'.$uploadable_file);
             $this->db->where('id', $this->session->userdata('user_id'))->update('users', $data);
             $this->session->set_flashdata('flash_message', 'Berhasil mendaftar, tunggu konfirmasi dari admin');
-
-            $data_notif['id_user'] = $this->session->userdata('user_id');
-            $data_notif['tipe'] = 'edukator';
-            $data_notif['id_target'] = 'wait';
-            $data_notif['date_add'] = strtotime(date("Y-m-d H:i:s"));
-            $this->db->insert('notifikasi', $data_notif);
         }
 
         public function filter_video($param1 = "")
@@ -1757,6 +1739,28 @@ class Crud_model extends CI_Model {
             $data['id_channel'] = $param2;
             $data['date_added'] = strtotime(date("Y-m-d H:i:s"));
             $this->db->insert('follower_video', $data);
+        }
+
+        public function add_notif_edukator()
+        {
+            $data['id_user'] = $_POST['id_user'];
+            $data['id_target'] = $_POST['konfir'];
+            $data['tipe'] = 'edukator';
+            $data['pesan'] = $_POST['pesan'];
+            $data['status'] = 0;
+            $data['date_add'] = strtotime(date('D, d-M-Y'));
+            $this->db->insert('notifikasi', $data);
+
+            $id = $this->db->insert_id();
+            $status = 1;
+            if($data['id_target'] == 'tolak'){
+                $data1['link'] = 'href="#" data-target="#tolak" data-toggle="modal" data-id="'.$id.'" data-pesan="'.$data['pesan'].'"';
+                $status = 0;
+                $this->db->where('id', $id)->update('notifikasi', $data1);
+            }
+
+            $data_user['is_edukator'] = $status;
+            $this->db->where('id', $data['id_user'])->update('users', $data_user);
         }
 }
 

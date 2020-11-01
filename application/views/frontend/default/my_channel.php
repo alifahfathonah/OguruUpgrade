@@ -9,7 +9,12 @@
         <div class="container row" style="margin-left: 5%;">
         	<div class="col-md-2">
         		<div class="user-box">
-        			 <img src="<?php echo base_url().'uploads/user_image/'.$this->session->userdata('user_id').'.jpg';?>" alt="" class="img-fluid">
+        			 <?php
+                  if (file_exists('uploads/user_image/'.$user_details['id'].'.jpg')): ?>
+                  <img src="<?php echo base_url().'uploads/user_image/'.$user_details['id'].'.jpg';?>" alt="" class="img-fluid">
+              <?php else: ?>
+                  <img src="<?php echo base_url().'uploads/user_image/placeholder.png';?>" alt="" class="img-fluid">
+              <?php endif; ?>
         		</div>
         	</div>
         	<div class="col-md-7" style="margin-left: 20px;">

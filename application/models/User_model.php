@@ -23,6 +23,17 @@ class User_model extends CI_Model {
         return $this->db->get('users');
     }
 
+    public function get_edukator($param1 = '')
+    {
+        if ($param1 != '') {
+            $this->db->where('is_edukator', 2);
+        }else{
+            $this->db->where('is_edukator', 1);
+        }
+        $this->db->where('role_id', 2);
+        return $this->db->get('users');
+    }
+
     public function get_all_user($user_id = 0) {
         if ($user_id > 0) {
             $this->db->where('id', $user_id);

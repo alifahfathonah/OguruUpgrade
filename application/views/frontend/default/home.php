@@ -5,15 +5,17 @@
                 <div class="home-banner-wrap">
                     <h2>Belajar apa saja di Oguru Indonesia</h2>
                     <p>Belajar hal baru dimana saja dan kapan saja dengan Oguru Indonesia</p>
-                    <form class="" action="<?php echo site_url('home/cari'); ?>" method="get">
+                    <!-- <form class="" action="<?php echo site_url('home/cari'); ?>" method="get">
                         <div class="input-group">
                             <input type="text" class="form-control" name = "query" placeholder="Apa yang ingin anda pelajari ?">
                             <div class="input-group-append">
                                 <button class="btn" type="submit"><i class="fas fa-search"></i></button>
                             </div>
                         </div>
-                    </form>
+                    </form> -->
                 </div>
+                <br>
+                <br>
             </div>
         </div>
     </div>

@@ -848,4 +848,32 @@ class Admin extends CI_Controller {
     $question_json = $this->input->post('itemJSON');
     $this->crud_model->sort_question($question_json);
   }
+
+  public function edukator()
+  {
+    if ($this->session->userdata('admin_login') != 1)
+    redirect(site_url('login'), 'refresh');
+
+    $page_data['page_name'] = 'edukator';
+    $page_data['page_title'] = "Edukator";
+    $page_data['users'] = $this->user_model->get_edukator();
+    $this->load->view('backend/index', $page_data);
+  }
+
+  public function konfirmasi_edukator($param1 = '')
+  {
+    if ($this->session->userdata('admin_login') != 1)
+    redirect(site_url('login'), 'refresh');
+
+    if ($param1 != '') {
+      $this->crud_model->add_notif_edukator();
+      $this->session->set_flashdata('flash_message', 'Berhasil konfirmasi edukator');
+      redirect(site_url('admin/konfirmasi_edukator'), 'refresh');
+    }
+    $page_data['page_name'] = 'konfirmasi_edukator';
+    $page_data['page_title'] = "Konfirmasi Edukator";
+    $page_data['users'] = $this->user_model->get_edukator('konfirmasi');
+    $this->load->view('backend/index', $page_data);
+  }
+
 }
