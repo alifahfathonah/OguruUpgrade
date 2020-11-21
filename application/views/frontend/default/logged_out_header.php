@@ -18,7 +18,7 @@
       </li>
 
       <li class="nav-item">
-        <a class="nav-link" href="#" disabled>
+        <a class="nav-link" href="<?php echo site_url().'home/obook' ?>" disabled>
           <i class="fas fa-book-open d-inline mr-2"> </i>
           <span>Obook</span>
           

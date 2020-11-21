@@ -19,32 +19,30 @@
     <div class="container">
         <div class="row" id = "cart_items_details">
             <div class="col-lg-9">
-
-                <div class="in-cart-box">
-                    <?php
+                <?php
                     $total_price  = $course_details['price'];
                     $instructor_details = $this->user_model->get_all_user($course_details['user_id'])->row_array();
                     $jumlah_sertif = 1;
                         ?>
-                    <div class="cart-course-wrapper">
-                        <div class="image">
-                            <a href="<?php echo site_url('home/'.$parent.'_/'.slugify($course_details['title']).'/'.$course_details['id']); ?>">
+                <div class="row">
+                    <div class="col-md-3 mb-3">
+                        <a href="<?php echo site_url('home/'.$parent.'_/'.slugify($course_details['title']).'/'.$course_details['id']); ?>">
                                 <img src="<?php echo $this->crud_model->get_course_thumbnail_url($course_details['id']);?>" alt="" class="img-fluid">
                             </a>
-                        </div>
-                        <div class="details">
-                            <a href="<?php echo site_url('home/'.$parent.'_/'.slugify($course_details['title']).'/'.$course_details['id']); ?>">
-                                <div class="name"><?php echo $course_details['title']; ?></div>
+                    </div>
+                    <div class="col-md-4">
+                        <a href="<?php echo site_url('home/'.$parent.'_/'.slugify($course_details['title']).'/'.$course_details['id']); ?>">
+                                <h5 class="text-dark"><b><?php echo $course_details['title']; ?></b></h5>
                             </a>
                             <a href="<?php echo site_url('home/edukator_info/'.$instructor_details['id']); ?>">
-                                <div class="instructor">
+                                <small class="text-secondary">
                                     <?php echo get_phrase('by'); ?>
                                     <span class="instructor-name"><?php echo $instructor_details['first_name'].' '.$instructor_details['last_name']; ?></span>,
-                                </div>
+                                </small>
                             </a>
-                        </div>
-                        <div class="price">
-                            <a href="">
+                    </div>
+                    <div class="col-md-3">
+                        <a href="" class="text-right"><h5><b>
                                 <?php if ($course_details['discount_flag'] == 1): ?>
                                     <div class="current-price">
                                         <?php
@@ -64,19 +62,20 @@
                                         ?>
                                     </div>
                                 <?php endif; ?>
+                                </b></h5>
                             </a>
-                        </div>
-                        <div class="price">
-                            <div class="current-price">
+                    </div>
+                    <div class="col-md-2">
+                        <div class="current-price">
                                 <input class="form-control text-center" type="text" size="25" value="1" id="count">
                                 <div class="form-control text-center">
                                     <input type="button" value="-" id="moins" onclick="minus()">
                                     <input type="button" value="+" id="plus" onclick="plus()">
                                 </div>
                             </div>
-                        </div>
                     </div>
                 </div>
+                
                 <br>
                 <form id="payment-form" method="post" action="<?=site_url()?>/snap/finish">
                     <div id="all_form_nama" class="in-cart-box">

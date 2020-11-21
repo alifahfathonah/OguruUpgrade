@@ -47,9 +47,9 @@ if (isset($sub_category_id)) {
     <div class="container">
         <div class="category-filter-box filter-box clearfix">
             <span>Menampilkan : <?php echo count($courses); ?></span>
-            <a href="javascript::" onclick="toggleLayout('grid')" style="float: right; font-size: 19px; margin-left: 5px;"><i class="fas fa-th"></i></a>
-            <a href="javascript::" onclick="toggleLayout('list')" style="float: right; font-size: 19px;"><i class="fas fa-th-list"></i></a>
-            <a href="<?php echo site_url('home/'.$page_title); ?>" style="float: right; font-size: 19px; margin-right: 5px;"><i class="fas fa-sync-alt"></i></a>
+            <a id="tampilan1" href="javascript::" onclick="toggleLayout('grid')" style="float: right; font-size: 19px; margin-left: 5px;"><i class="fas fa-th"></i></a>
+            <a id="tampilan2" href="javascript::" onclick="toggleLayout('list')" style="float: right; font-size: 19px;"><i class="fas fa-th-list"></i></a>
+            <a id="tampilan3" href="<?php echo site_url('home/'.$page_title); ?>" style="float: right; font-size: 19px; margin-right: 5px;"><i class="fas fa-sync-alt"></i></a>
         </div>
         <div class="row">
             <div class="col-lg-3 filter-area">
@@ -112,30 +112,7 @@ if (isset($sub_category_id)) {
                                     </ul>
                                 </div>
                             </div>
-                            <!-- <hr> -->
-                            <!-- <div class="filter_type">
-                                <h6><?php echo get_phrase('level'); ?></h6>
-                                <ul>
-                                    <li>
-                                        <div class="">
-                                            <input type="radio" id="all" name="level" class="level custom-radio" value="all" onclick="filter(this)" <?php if($selected_level == 'all') echo 'checked'; ?>>
-                                            <label for="all">Semua</label>
-                                        </div>
-                                        <div class="">
-                                            <input type="radio" id="beginner" name="level" class="level custom-radio" value="beginner" onclick="filter(this)" <?php if($selected_level == 'beginner') echo 'checked'; ?>>
-                                            <label for="beginner"><?php echo get_phrase('beginner'); ?></label>
-                                        </div>
-                                        <div class="">
-                                            <input type="radio" id="advanced" name="level" class="level custom-radio" value="advanced" onclick="filter(this)" <?php if($selected_level == 'advanced') echo 'checked'; ?>>
-                                            <label for="advanced"><?php echo get_phrase('advanced'); ?></label>
-                                        </div>
-                                        <div class="">
-                                            <input type="radio" id="intermediate" name="level" class="level custom-radio" value="intermediate" onclick="filter(this)" <?php if($selected_level == 'intermediate') echo 'checked'; ?>>
-                                            <label for="intermediate"><?php echo get_phrase('intermediate'); ?></label>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div> -->
+                            
                             <hr>
                             <div class="filter_type">
                                 <h6><?php echo get_phrase('ratings'); ?></h6>
@@ -185,6 +162,13 @@ if (isset($sub_category_id)) {
 </section>
 
 <script type="text/javascript">
+
+if( $(window).width() < 500 )
+{
+    $("#tampilan1").hide();
+    $("#tampilan2").hide();
+    $("#tampilan3").hide();
+}
 
 function get_url() {
     var urlPrefix 	= "<?php echo site_url('home/'.$page_title.'?'); ?>"

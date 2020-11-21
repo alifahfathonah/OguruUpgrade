@@ -3,7 +3,26 @@
 ?>
 <section class="page-header-area">
     <div class="container-fluid">
-        <div class="form-group text-left">
+      <div class="container-fluid">
+        <h2 class="text-center mb-4"><b>Channel Saya</b></h2>
+      </div>
+      <div class="row">
+        <div class="col-sm-2 text-center my-auto">
+            <img src="<?php echo base_url().'uploads/user_image/'.$this->session->userdata('user_id').'.jpg';?>" alt="" width = "90">
+
+        </div>
+        <div class="col-sm-7 mb-3 mt-4">
+            <h4 class="form-group"><?php echo $user_details['first_name'].' '.$user_details['last_name']; ?></h4>
+                <i><h6 class="form-group"><?php echo $jumlah_follower; ?> Pengikut</h6></i>
+                <h6 class="form-group"><?php echo $user_details['deskripsi_channel']; ?>  <a href="javascript::" data-target="#deskripsi" data-toggle="modal"><i class="fas fa-pencil-alt d-inline"> </i></a></h6>
+        </div>
+
+              <div id="unfollow" class="col-sm-3 text-center  my-auto " >
+                <button data-target="#upload" data-toggle="modal" class="btn btn-primary"> Upload Ovidi </button>
+              </div> 
+        </div>
+
+        <!-- <div class="form-group text-left">
             <h5>Channel Saya</h5>
         </div>
         <div class="container row" style="margin-left: 5%;">
@@ -22,7 +41,7 @@
         		<button data-target="#upload" data-toggle="modal" class="btn btn-primary"> Upload Ovidi </button>
         	</div>
         </div>
-    </div>
+    </div> -->
 </section>
 
 <section class="category-course-list-area">

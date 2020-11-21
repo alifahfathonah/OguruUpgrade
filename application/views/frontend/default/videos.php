@@ -69,6 +69,7 @@
                     <?php include 'list_video.php'; ?>
                     <?php if (count($video) == 0): ?>
                         <?php echo get_phrase('no_result_found'); ?>
+
                     <?php endif; ?>
                 </div>
                 <nav>

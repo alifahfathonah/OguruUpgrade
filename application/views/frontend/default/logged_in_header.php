@@ -25,7 +25,7 @@ $user_details = $this->user_model->get_user($this->session->userdata('user_id'))
             </li>
 
             <li class="nav-item">
-              <a class="nav-link" href="#">
+              <a class="nav-link" href="<?php echo site_url().'home/obook' ?>">
                 <i class="fas fa-book-open d-inline mr-2"> </i>
                 <span>Obook</span>
                 
@@ -96,7 +96,7 @@ $user_details = $this->user_model->get_user($this->session->userdata('user_id'))
                 <?php } ?>
                 
                 <hr class="mt-1 mb-2">  
-                <a class="dropdown-item pt-1 pb-1" href="<?php echo site_url('profil/profil_saya'); ?>">
+                <a class="dropdown-item pt-1 pb-1" href="<?php echo site_url('home/profil/profil_saya'); ?>">
                   <span class="icon text-center" style="display: inline-block;width: 20px"><i class="far fa-user text-muted"></i></span>
                   <span class="text-dark ml-3" style="font-size: 14px;">Profil Saya</span>
                 </a>

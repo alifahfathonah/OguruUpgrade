@@ -6,7 +6,7 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <h1 class="page-title"><?php echo get_phrase('my_courses'); ?></h1>
+                <h1 class="page-title"><?php echo get_phrase('purchase_history'); ?></h1>
                 <ul>
                   <li><a href="<?php echo site_url('home/kelas_saya'); ?>"><?php echo get_phrase('all_courses'); ?></a></li>
                   <!-- <li><a href="<?php echo site_url('home/pesan'); ?>"><?php echo get_phrase('my_messages'); ?></a></li> -->
@@ -18,6 +18,56 @@
     </div>
 </section>
 
+<section class="purchase-history-list-area">
+    <div class="container">
+        <div class="table-responsive rounded">
+    <table class="table table-striped">
+      <thead class="text-white bg-primary">
+        <tr>
+          <th><?php echo get_phrase('purchase_history');?></th>
+          <th><?php echo get_phrase('date'); ?></th>
+          <th><?php echo get_phrase('total_price'); ?></th>
+          <th><?php echo get_phrase('payment_type'); ?> </th>
+          <th>Order Id </th>
+          
+        </tr>
+      </thead>
+      <tbody>
+        <?php if ($purchase_history->num_rows() > 0):
+        foreach($purchase_history->result_array() as $each_purchase):
+        $course_details = $this->crud_model->get_course_by_id($each_purchase['id_course'])->row_array();
+        $parent = 'Akademik_';
+        if($course_details['parent_category'] == '1'){
+            $parent = 'Vokasional_';
+        }
+        ?>
+        <tr class="bg-white">
+          <td class="text-center">
+                <img style="width: 130px; height: auto;" src="<?php echo $this->crud_model->get_course_thumbnail_url($each_purchase['id_course']);?>" class="img-fluid" >
+                <h5>
+                    <a href="<?php echo site_url('home/'.$parent.'/'.slugify($course_details['title']).'/'.$course_details['id']); ?>"><h5 class="m-3 font-weight-bold text-dark"><?php echo $course_details['title']; ?></h5></a>
+                </h5>
+                
+          </td>
+          <td><?php echo date_format(date_create($each_purchase['transaction_time']),"j F Y H:i");  ?></td>
+          <td class="font-weight-bold "><?php echo currency($each_purchase['gross_amount']); ?></td>
+          <td><?php echo ucfirst($each_purchase['payment_type']); ?></td>
+          <td><?php echo ucfirst($each_purchase['order_id']); ?></td>
+          
+          
+        </tr>
+
+        
+        <?php endforeach; ?>
+        <?php else: ?>
+            <p class="text-center"><?php echo get_phrase('no_records_found'); ?></p>
+        <?php endif; ?>
+      </tbody>
+    </table>
+  </div>
+</div>
+    </div>
+<!-- </section>
 
         <section class="purchase-history-list-area">
             <div class="container">
@@ -87,7 +137,7 @@
                     </div>
                 </div>
             </div>
-        </section>
+        </section> -->
         <nav>
             <?php echo $this->pagination->create_links(); ?>
         </nav>

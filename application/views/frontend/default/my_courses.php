@@ -29,7 +29,7 @@ foreach ($my_courses as $my_course) {
 <section class="my-courses-area">
     <div class="container">
         <div class="row align-items-baseline">
-            <div class="col-lg-6">
+            <div class="col-lg-9">
                 <div class="my-course-filter-bar filter-box">
                     <span><?php echo get_phrase('filter_by'); ?></span>
                     <div class="btn-group">
@@ -60,14 +60,11 @@ foreach ($my_courses as $my_course) {
                     </div>
                 </div>
             </div>
-            <div class="col-lg-6">
-                <div class="my-course-search-bar">
+            <div class="col-lg-3">
+                <div class="my-course-search-bar ">
                     <form action="">
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="<?php echo get_phrase('search_my_courses'); ?>" onkeyup="getCoursesBySearchString(this.value)">
-                            <div class="input-group-append">
-                                <button class="btn" type="submit"><i class="fas fa-search"></i></button>
-                            </div>
+                        <div class="input-group mt-3" style="width: 100%;">
+                            <input type="text" class="form-control rounded"  placeholder="<?php echo get_phrase('search_my_courses'); ?>" onkeyup="getCoursesBySearchString(this.value)">
                         </div>
                     </form>
                 </div>
@@ -113,11 +110,11 @@ foreach ($my_courses as $my_course) {
                                     </div>
                                 </div>
                                 <div class="row" style="padding: 5px;">
-                                    <div class="col-md-6">
-                                        <a href="<?php echo site_url('home/'.$parent.'_/'.slugify($course_details['title']).'/'.$my_course['course_id']); ?>" class="btn btn-primary"><?php echo get_phrase('course_detail'); ?></a>
+                                    <div class="col-sm-6 mb-2 text-center">
+                                        <a style="width: 98%" href="<?php echo site_url('home/'.$parent.'_/'.slugify($course_details['title']).'/'.$my_course['course_id']); ?>" class="btn btn-primary"><?php echo get_phrase('course_detail'); ?></a>
                                     </div>
-                                    <div class="col-md-6">
-                                         <a href="<?php echo site_url('home/belajar/'.slugify($course_details['title']).'/'.$my_course['course_id']); ?>" class="btn btn-primary"><?php echo get_phrase('start_lesson'); ?></a>
+                                    <div class="col-sm-6  text-center">
+                                         <a style="width: 98%" href="<?php echo site_url('home/belajar/'.slugify($course_details['title']).'/'.$my_course['course_id']); ?>" class="btn btn-primary"><?php echo get_phrase('start_lesson'); ?></a>
                                     </div>
                                 </div>
                             </div>

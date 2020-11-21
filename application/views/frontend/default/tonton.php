@@ -15,7 +15,7 @@
                         </li>
                         <li class="breadcrumb-item">
                             <a href="#">
-                                <?php echo $page_title; ?>
+                                <?php echo $video['judul']; ?>
                             </a>
                         </li>
                     </ol>
@@ -26,11 +26,11 @@
 </section>
 
 <section class="mb-4 mt-4" style="background: #ffff;">
-    <div class="">
-        <div class="row">
-            <iframe class = "border-0 " src="<?php echo $video['link'] ?>" style="width: 80%; height: 450px; margin: auto;" >
-            </iframe>
+    <div class="container">
+      <div class="video-container mt-3">
+            <iframe width="560" height="315" src="<?php echo $video['link']; ?>" frameborder="0" ></iframe>
         </div>
+        
     </div>
 </section>
 

@@ -18,6 +18,8 @@ class Home extends CI_Controller {
         if (!$this->session->userdata('cart_items')) {
             $this->session->set_userdata('cart_items', array());
         }
+        $this->load->helper(array('url'));
+        $this->load->model('Obook_model');
         // $this->finish();
     }
 
@@ -54,7 +56,7 @@ class Home extends CI_Controller {
 
     public function akademik() {
         if (!$this->session->userdata('layout')) {
-            $this->session->set_userdata('layout', 'list');
+            $this->session->set_userdata('layout', 'grid');
         }
         $layout = $this->session->userdata('layout');
         $selected_category_id = "all";
@@ -114,7 +116,7 @@ class Home extends CI_Controller {
 
     public function vokasional() {
         if (!$this->session->userdata('layout')) {
-            $this->session->set_userdata('layout', 'list');
+            $this->session->set_userdata('layout', 'grid');
         }
         $layout = $this->session->userdata('layout');
         $selected_category_id = "all";
@@ -486,7 +488,7 @@ class Home extends CI_Controller {
         }
 
         if (!$this->session->userdata('layout')) {
-            $this->session->set_userdata('layout', 'list');
+            $this->session->set_userdata('layout', 'grid');
         }
         $page_data['layout']     = $this->session->userdata('layout');
         $page_data['page_name'] = 'courses_page';
@@ -860,9 +862,9 @@ class Home extends CI_Controller {
         if ($selected_category_id == "all") {
             $total_rows = $this->db->get('video')->num_rows();
             $config = array();
-            $config = pagintaion($total_rows, 6);
+            $config = pagintaion($total_rows, 1);
             $config['base_url']  = site_url('home/ovidi');
-            $page_data['video'] = $this->db->where('status', 1)->get('video', $config['per_page'], $this->uri->segment(6))->result_array();
+            $page_data['video'] = $this->db->where('status', 1)->get('video', $config['per_page'], $this->uri->segment(1))->result_array();
         }else {
             $video = $this->crud_model->filter_video($selected_category_id);
             $page_data['video'] = $video;
@@ -1033,21 +1035,69 @@ class Home extends CI_Controller {
 
     public function obook()
     {
-        
+        $this->load->database();
+        $jumlah_data = $this->Obook_model->jumlah_data();
+        $this->load->library('pagination');
+        $config['base_url'] = base_url().'home/obook';
+        $config['total_rows'] = $jumlah_data;
+        $config['per_page'] = 1;
+        $from = $this->uri->segment(3);
+        $this->pagination->initialize($config);     
+        $page_data['book'] = $this->Obook_model->data($config['per_page'],$from);
 
-        $page_data['page_name']  = "obook";
-        $page_data['page_title'] = "Ovidi(Online Video)";
+        $config['next_link'] = 'Selanjutnya';
+        $config['prev_link'] = 'Sebelumnya';
+        $config['first_link'] = 'Awal';
+        $config['last_link'] = 'Akhir';
+        $config['full_tag_open'] = '<ul class="pagination justify-content-center">';
+        $config['full_tag_close'] = '</ul>';
+        $config['num_tag_open'] = '<li class="page-item">';
+        $config['num_tag_close'] = '</li>';
+        $config['cur_tag_open'] = '<li class="active page-item"><a href="#" class="page-link">';
+        $config['cur_tag_close'] = '</a></li>';
+        $config['prev_tag_open'] = '<li class="page-item">';
+        $config['prev_tag_close'] = '</li>';
+        $config['next_tag_open'] = '<li class="page-item">';
+        $config['next_tag_close'] = '</li>';
+        $config['last_tag_open'] = '<li class="page-item">';
+        $config['last_tag_open'] = '<li class="page-item">';
+        $config['first_tag_open'] = '<li class="page-item">';
+        $config['first_tag_open'] = '<li class="page-item">';
+        $this->pagination->initialize($config);
+
+        $page_data['page_name']  = "Obook";
+        $page_data['page_title'] = "Obook";
         $page_data['selected_category_id'] = $selected_category_id;
         $this->load->view('frontend/'.get_frontend_settings('theme').'/index', $page_data);
     }
 
     public function lihat_obook($param1='')
     {
-        
+        $buku = $this->db->get_where('buku', array('id' => $param1))->row_array();
 
-        $page_data['page_name']  = "obook";
-        $page_data['page_title'] = "Ovidi(Online Video)";
+        $page_data['book'] = $buku;
+        $page_data['page_name']  = "lihat_obook";
+        $page_data['page_title'] = "Obook";
         $page_data['selected_category_id'] = $selected_category_id;
         $this->load->view('frontend/'.get_frontend_settings('theme').'/index', $page_data);
     }
+
+    // public function tonton($param1='')
+    // {
+    //     $video = $this->db->get_where('video', array('id' => $param1))->row_array();
+    //     $get_follow = $this->db->get_where('follower_video', array('id_user' => $this->session->userdata('user_id')));
+    //     // echo '<script type="text/javascript"> console.log("'.$get_follow->num_rows().'")</script>';
+    //     if($get_follow->num_rows() > 0){
+    //         foreach ($get_follow->result_array() as $follow) {
+    //             if($follow['id_channel'] == $video['id_user']){
+    //                 $page_data['id_follow'] = $follow['id'];
+    //                 $page_data['is_follower'] = true;
+    //             }
+    //         }
+    //     }
+    //     $page_data['video'] = $video;
+    //     $page_data['page_title'] = "Tonton Ovidi";
+    //     $page_data['page_name']  = "tonton";
+    //     $this->load->view('frontend/'.get_frontend_settings('theme').'/index', $page_data);
+    // }
 }
