@@ -42,15 +42,15 @@
                         <input type="text" id ="font_awesome_class" name="font_awesome_class" class="form-control icon-picker" autocomplete="off">
                     </div>
 
-                    <div class="form-group" id = "thumbnail-picker-area">
-                        <label> <?php echo get_phrase('category_thumbnail'); ?> <small>(<?php echo get_phrase('the_image_size_should_be'); ?>: 400 X 255)</small> </label>
-                        <div class="input-group">
-                            <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="category_thumbnail" name="category_thumbnail" accept="image/*" onchange="changeTitleOfImageUploader(this)">
-                                <label class="custom-file-label" for="category_thumbnail"><?php echo get_phrase('choose_thumbnail'); ?></label>
-                            </div>
-                        </div>
-                    </div>
+                    <!--<div class="form-group" id = "thumbnail-picker-area">-->
+                    <!--    <label> <?php echo get_phrase('category_thumbnail'); ?> <small>(<?php echo get_phrase('the_image_size_should_be'); ?>: 400 X 255)</small> </label>-->
+                    <!--    <div class="input-group">-->
+                    <!--        <div class="custom-file">-->
+                    <!--            <input type="file" class="custom-file-input" id="category_thumbnail" name="category_thumbnail" accept="image/*" onchange="changeTitleOfImageUploader(this)">-->
+                    <!--            <label class="custom-file-label" for="category_thumbnail"><?php echo get_phrase('choose_thumbnail'); ?></label>-->
+                    <!--        </div>-->
+                    <!--    </div>-->
+                    <!--</div>-->
 
                     <button type="button" class="btn btn-primary" onclick="checkRequiredFields()"><?php echo get_phrase("submit"); ?></button>
                 </form>

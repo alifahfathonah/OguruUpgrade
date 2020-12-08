@@ -213,7 +213,7 @@
                           <div class="content-box">
                               <div class="basic-group">
                               	<div class="form-group">
-                                  <label for="bank"><span class="input-field-icon"></span> Bank :</label>
+                                  <label for="kategori"><span class="input-field-icon"></span> Kategori :</label>
                                   <select id="pilih_kategori" class="form-control" name="pilih_kategori">
                                   	<option style="display: none;">Pilih kategori</option>
                                   <?php 

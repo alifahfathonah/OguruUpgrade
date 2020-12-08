@@ -16,44 +16,14 @@
                     <div class="notification-list">
                         <?php 
                             if(count($notifikasi) == 0){
-                                echo '<div class="container text-center">Tidak ada notifikasi</div><br><br>';
+                                echo '<br><br><br><div class="container text-center">Tidak ada notifikasi</div><br><br><br><br><br><br>';
                             }else{
                          ?>
                         <ul>
                             <?php 
                             foreach ($notifikasi as $notif) {
-                                // if($notif['tipe'] == 'message'){
-                                //     $data = $this->crud_model->get_message_notif($notif['id_target']);
-                                //     $jumlah = 0;
-                                //     $sender_id = '';
-                                //     foreach ($data as $d) {
-                                //         if($d['sender'] != $this->session->userdata('user_id')){
-                                //             $jumlah++;
-                                //             $sender_id = $d['sender'];
-                                //         }
-                                //      }
-                                     
-                                //     $user_detail = $this->db->get_where('users', array('id' => $sender_id))->row_array();
-                                //     $go = 'home/pesan/baca_pesan/'.$notif['id_target'];
-                                //     if($jumlah > 0){
                                 ?>
-                                    <!-- <li>
-                                        <a href="<?php echo site_url($go); ?>">
-                                            <div class="notification clearfix">
-                                                <div class="notification-details">
-                                                    <p class="notification-text">
-                                                        <b><?php echo $jumlah.' pesan baru dari '.$user_detail['first_name'].' '.$user_detail['last_name']; ?></b>
-                                                    </p>
-                                                    <p class="notification-time">
-                                                        <?php echo date('D, d-M-Y', $notif['date_add']); ?>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </li> -->
                             <?php    
-                                //     }
-                                // }
                                 if($notif['tipe'] == 'pembayaran') {
                                     ?>
                                     <li>
@@ -71,8 +41,47 @@
                                         </a>
                                     </li>
                             <?php
+                                }
+                                elseif ($notif['tipe'] == 'edukator') { 
+                                    if ($notif['id_target'] == 'terima') {
+                                    ?>
+                                    <li>
+                                        <a href="<?php echo site_url().'home/update_notif_accept/'.$notif['id']; ?>">
+                                            <div class="notification clearfix">
+                                                <div class="notification-details">
+                                                    <p class="notification-text">
+                                                        <b>Selamat !!
+                                                        akunmu disetujui admin Oguru, kamu sekarang seorang edukator.</b>
+                                                    </p>
+                                                    <p class="notification-time">
+                                                        <?php echo date('D, d-M-Y', $notif['date_add']); ?>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                            <?php
+                                    }
+                                    else{ ?>
+                                    <li>
+                                        <a <?php echo $notif['link']; ?>>
+                                            <div class="notification clearfix">
+                                                <div class="notification-details">
+                                                    <p class="notification-text">
+                                                        <b>Mohon maaf !!
+                                                        akunmu belum disetujui admin Oguru untuk menjadi edukator.</b>
+                                                    </p>
+                                                    <p class="notification-time">
+                                                        <?php echo date('D, d-M-Y', $notif['date_add']); ?>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                            <?php
                                     }
                                 }
+                            }
                              ?>
                         </ul>
                         <?php } ?>
@@ -104,7 +113,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <a href="<?php echo $kls[0]['pdf_url'] ?>" target="_blank"><button class="btn btn-primary">Cara Pembayaran</button></a>
+                    <a id="cara_bayar" href="#" target="_blank"><button class="btn btn-primary">Cara Pembayaran</button></a>
                 </div>
             </div>
         </div>
@@ -137,12 +146,16 @@
     $('#wait').on('show.bs.modal', function(e) {
         var kelas = $(e.relatedTarget).data('kelas');
         var jumlah = $(e.relatedTarget).data('jumlah');
+        var link_pdf = $(e.relatedTarget).data('link_pdf');
         document.getElementById("jumlah_ticket").innerHTML = jumlah;
         document.getElementById("nama_kelas").innerHTML = kelas;
+        $('#cara_bayar').attr('href', link_pdf);
     });
 
     $('#tolak').on('show.bs.modal', function(e) {
         var id = $(e.relatedTarget).data('id');
+        var pesan = $(e.relatedTarget).data('pesan');
+        document.getElementById("pesan_penolakan").innerHTML = pesan;
         $('#hapus_notif').attr('href', '<?php echo site_url()."home/delete_notif/" ?>'+id);
     });
 </script>

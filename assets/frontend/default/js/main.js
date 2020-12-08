@@ -86,24 +86,24 @@ if($('div').hasClass('course-sidebar')){
 
 $(window).scroll(function () {
 
-    if(checkWindowWidth(1200)){
-        var scrollTop = $(window).scrollTop();
-        var offsetBottom = footer.offset().top - ( margin*2 + courseSidebar.height());
-        if (scrollTop > offsetTop && courseSidebar.hasClass('natural')) {
-            courseSidebar.removeClass('natural').addClass('fixed').css('top', margin);
-            courseHeader.clone().addClass('duplicated').insertAfter(".course-header-area");
-        }
-        if (offsetTop > scrollTop && courseSidebar.hasClass('fixed')) {
-            courseSidebar.removeClass('fixed').addClass('natural').css('top', 'auto');
-            $(".course-header-area.duplicated").remove();
-        }
-        if (scrollTop > offsetBottom && courseSidebar.hasClass('fixed')) {
-            courseSidebar.removeClass('fixed').addClass('bottom').css('top', (offsetBottom+margin) - 400);
-        }
-        if (offsetBottom > scrollTop && courseSidebar.hasClass('bottom')) {
-            courseSidebar.removeClass('bottom').addClass('fixed').css('top', margin);
-        }
-    }
+    // if(checkWindowWidth(1200)){
+    //     var scrollTop = $(window).scrollTop();
+    //     var offsetBottom = footer.offset().top - ( margin*2 + courseSidebar.height());
+    //     if (scrollTop > offsetTop && courseSidebar.hasClass('natural')) {
+    //         courseSidebar.removeClass('natural').addClass('fixed').css('top', margin);
+    //         courseHeader.clone().addClass('duplicated').insertAfter(".course-header-area");
+    //     }
+    //     if (offsetTop > scrollTop && courseSidebar.hasClass('fixed')) {
+    //         courseSidebar.removeClass('fixed').addClass('natural').css('top', 'auto');
+    //         $(".course-header-area.duplicated").remove();
+    //     }
+    //     if (scrollTop > offsetBottom && courseSidebar.hasClass('fixed')) {
+    //         courseSidebar.removeClass('fixed').addClass('bottom').css('top', (offsetBottom+margin) - 400);
+    //     }
+    //     if (offsetBottom > scrollTop && courseSidebar.hasClass('bottom')) {
+    //         courseSidebar.removeClass('bottom').addClass('fixed').css('top', margin);
+    //     }
+    // }
 
 });
 

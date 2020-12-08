@@ -27,13 +27,31 @@ class Email_model extends CI_Model {
 			return false;
 		}
 	}
+	
+	public function send_mail_edukator_aktif($to='', $status ="", $pesan = "")
+	{
+		$redirect_url = site_url('home');
+		if ($status != 'tolak') {
+			$subject 		= "Verifikasi Edukator";
+			$email_msg		= "<b>Halo, Sobat Oguru</b>";
+			$email_msg		.= "<p>Selamat akun anda diterima menjadi edukator.</p>";
+			$email_msg		.= "<a href = ".$redirect_url." target = '_blank'>Masuk</a>";	
+		}else{
+			$subject 		= "Verifikasi Edukator";
+			$email_msg		= "<b>Halo, Sobat Oguru</b>";
+			$email_msg		.= "<p>Mohon maaf untuk akun anda belum terverifikasi oleh tim oguru.</p>";
+			$email_msg      .= "<p>".$pesan."</p>";
+			$email_msg		.= "<a href = ".$redirect_url." target = '_blank'>Masuk</a>";
+		}
+		$this->send_smtp_mail($email_msg, $subject, $to);
+	}
 
 	public function send_email_verification_mail($to = "", $verification_code = "") {
 		$redirect_url = site_url('login/verify_email_address/'.$verification_code);
 		$subject 		= "Verifikasi Email";
-		$email_msg	=	"<b>Halo,</b>";
-		$email_msg	.=	"<p>Silahkan klik link dibawah ini untuk memverifikasi email anda..</p>";
-		$email_msg	.=	"<a href = ".$redirect_url." target = '_blank'>Verifikasi email anda.</a>";
+		$email_msg	=	"<b>Halo, Sobat Oguru</b>";
+		$email_msg	.=	"<p>Silahkan klik link dibawah ini untuk memverifikasi emailmu !</p>";
+		$email_msg	.=	"<a href = ".$redirect_url." class='btn btn-primmary' target = '_blank'>Verifikasi email anda.</a>";
 		$this->send_smtp_mail($email_msg, $subject, $to);
 	}
 
@@ -61,10 +79,10 @@ class Email_model extends CI_Model {
 		//SMTP & mail configuration
 		$config = array(
 			'protocol'  => "smtp",
-			'smtp_host' => "ssl://smtp.gmail.com",
+			'smtp_host' => "ssl://mail.oguruindonesia.com",
 			'smtp_port' => "465",
-			'smtp_user' => "indonesiaoguru@gmail.com",
-			'smtp_pass' => "oguru2019",
+			'smtp_user' => "admin@oguruindonesia.com",
+			'smtp_pass' => "Oguru123456789",
 			'mailtype'  => 'html',
 			'charset'   => 'utf-8',
 			'smtp_timeout' => '400',

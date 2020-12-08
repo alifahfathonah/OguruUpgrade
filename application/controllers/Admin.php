@@ -289,7 +289,7 @@ class Admin extends CI_Controller {
       redirect(site_url('admin/system_settings'), 'refresh');
     }
 
-    $page_data['languages']	 = $this->get_all_languages();
+    $page_data['languages']  = $this->get_all_languages();
     $page_data['page_name'] = 'system_settings';
     $page_data['page_title'] = get_phrase('system_settings');
     $this->load->view('backend/index', $page_data);
@@ -451,7 +451,7 @@ class Admin extends CI_Controller {
     }
 
     if ($param1 == 'add_course') {
-      $page_data['languages']	= $this->get_all_languages();
+      $page_data['languages'] = $this->get_all_languages();
       $page_data['categories'] = $this->crud_model->get_categories();
       $page_data['page_name'] = 'course_add';
       $page_data['page_title'] = get_phrase('add_course');
@@ -462,7 +462,7 @@ class Admin extends CI_Controller {
       $page_data['page_name'] = 'course_edit';
       $page_data['course_id'] =  $param2;
       $page_data['page_title'] = get_phrase('edit_course');
-      $page_data['languages']	= $this->get_all_languages();
+      $page_data['languages'] = $this->get_all_languages();
       $page_data['categories'] = $this->crud_model->get_categories();
       $this->load->view('backend/index', $page_data);
     }
@@ -578,9 +578,9 @@ class Admin extends CI_Controller {
       $page_data['edit_profile'] = $param2;
     }
 
-    $page_data['languages']				= $this->get_all_languages();
-    $page_data['page_name']				=	'manage_language';
-    $page_data['page_title']			=	get_phrase('multi_language_settings');
+    $page_data['languages']       = $this->get_all_languages();
+    $page_data['page_name']       = 'manage_language';
+    $page_data['page_title']      = get_phrase('multi_language_settings');
     $this->load->view('backend/index', $page_data);
   }
 
@@ -847,5 +847,145 @@ class Admin extends CI_Controller {
   public function ajax_sort_question() {
     $question_json = $this->input->post('itemJSON');
     $this->crud_model->sort_question($question_json);
+  }
+
+  public function edukator()
+  {
+    if ($this->session->userdata('admin_login') != 1)
+    redirect(site_url('login'), 'refresh');
+
+    $page_data['page_name'] = 'edukator';
+    $page_data['page_title'] = "Edukator";
+    $page_data['users'] = $this->user_model->get_edukator();
+    $this->load->view('backend/index', $page_data);
+  }
+
+  public function konfirmasi_edukator($param1 = '')
+  {
+    if ($this->session->userdata('admin_login') != 1)
+    redirect(site_url('login'), 'refresh');
+
+    if ($param1 != '') {
+      $this->crud_model->add_notif_edukator();
+      $this->session->set_flashdata('flash_message', 'Berhasil konfirmasi edukator');
+      redirect(site_url('admin/konfirmasi_edukator'), 'refresh');
+    }
+    $page_data['page_name'] = 'konfirmasi_edukator';
+    $page_data['page_title'] = "Konfirmasi Edukator";
+    $page_data['users'] = $this->user_model->get_edukator('konfirmasi');
+    $this->load->view('backend/index', $page_data);
+  }
+
+  public function saldo()
+  {
+    if ($this->session->userdata('admin_login') != 1)
+    redirect(site_url('login'), 'refresh');
+
+    $user = $this->db->distinct()->select('id_penerima')->get_where('payment_mid', array('transaction_status' => 'settlement'))->result_array();
+    foreach ($user as $i => $us) {
+      $payment = $this->db->get_where('payment_mid', array('id_penerima' => $us['id_penerima'], 'transaction_status' => 'settlement'))->result_array();
+      $saldo = 0;
+      foreach ($payment as $pay) {
+          $saldo = $saldo + $pay['edukator_revenue'];
+      }
+      $tarik = $this->db->get_where('saldo_history', array('id_user' => $us['id_penerima'], 'status' => 1))->result_array();
+      $saldo_tarik = 0;
+      foreach ($tarik as $tr) {
+          $saldo_tarik = $saldo_tarik + $tr['jumlah'];
+      }
+      $saldo = $saldo - $saldo_tarik;
+      $data[$i] = array(
+        'id_user' => $us['id_penerima'],
+        'saldo'   => $saldo
+      );
+    }
+
+    $page_data['saldo'] = $data;
+    $page_data['page_name'] = 'saldo';
+    $page_data['page_title'] = "Saldo";
+    $this->load->view('backend/index', $page_data);
+  }
+
+  public function penarikan_saldo($param1 = '')
+  {
+    if ($this->session->userdata('admin_login') != 1)
+    redirect(site_url('login'), 'refresh');
+
+    if ($param1 != '') {
+      $data_h['status'] = 1;
+      $data_h['terima'] = strtotime(date('D, d-M-Y'));
+      $this->db->where('id', $param1)->update('saldo_history', $data_h);
+    }
+    $data = $this->db->get_where('saldo_history', array('status' => 0))->result_array();
+    $page_data['saldo'] = $data;
+    $page_data['page_name'] = 'penarikan_saldo';
+    $page_data['page_title'] = "Penarikan Saldo";
+    $this->load->view('backend/index', $page_data);
+  }
+
+  public function riwayat_penarikan($param1 = '')
+  {
+    if ($this->session->userdata('admin_login') != 1)
+    redirect(site_url('login'), 'refresh');
+
+    if ($param1 != '') {
+      $data_h['status'] = 1;
+      $this->db->where('id', $param1)->delete('saldo_history');
+    }
+    $data = $this->db->get_where('saldo_history', array('status' => 1))->result_array();
+    $page_data['saldo'] = $data;
+    $page_data['page_name'] = 'riwayat_penarikan';
+    $page_data['page_title'] = "Riwayat Penarikan";
+    $this->load->view('backend/index', $page_data);
+  }
+
+  public function ovidi($param1 = '')
+  {
+    if ($this->session->userdata('admin_login') != 1)
+      redirect(site_url('home'), 'refresh');
+
+    if ($param1 != '') {
+      $this->crud_model->add_ovidi_admin();
+    }
+    $data = $this->crud_model->get_ovidi_admin();
+    $follower = $this->db->get_where('follower_video', array('id_channel' => $this->session->userdata('user_id')))->num_rows();
+    $page_data['jumlah_follower'] = $follower;
+    $page_data['data'] = $data;
+    $page_data['page_name'] = 'ovidi';
+    $page_data['page_title'] = "Ovidi";
+    $this->load->view('backend/index', $page_data);
+  }
+
+  public function ubah_deskripsi()
+  {
+      if ($this->session->userdata('admin_login') != 1){
+          redirect('home', 'refresh');
+      }
+      $deskripsi['deskripsi_channel'] = $_POST['deskripsi'];
+      $this->db->where('id', $this->session->userdata('user_id'));
+      $this->db->update('users', $deskripsi);
+      redirect(site_url('admin/ovidi'), 'refresh');
+  }
+
+  public function konfirmasi_ovidi($param1='')
+  {
+    if ($this->session->userdata('admin_login') != 1)
+      redirect(site_url('home'), 'refresh');
+
+    if ($param1 != '') {
+      $this->crud_model->konfirmasi_ovidi_admin();
+      redirect(site_url('admin/konfirmasi_ovidi'), 'refresh');
+    }
+    $data = $this->crud_model->get_konfir_ovidi_admin();
+    $page_data['data'] = $data;
+    $page_data['page_name'] = 'konfirmasi_ovidi';
+    $page_data['page_title'] = "Konfirmasi Ovidi";
+    $this->load->view('backend/index', $page_data);
+  }
+
+  public function download_ovidi($param1)
+  {
+    $data = $this->db->get_where('video', array('id' => $param1))->row();
+    force_download('uploads/ovidi/'.$data->link, NULL);
   }
 }

@@ -178,6 +178,7 @@ class Snap extends CI_Controller {
         }
 
         $this->db->insert('payment_mid', $data);
+        $this->session->set_flashdata('flash_message', 'Pembelian berhasil, silahkan cek notifikasi');
         // $url = substr($this->input->post('id_url'), 26);
         $this->session->set_flashdata('flash_message', 'Pembelian berhasil');
         redirect(site_url('home/finish_payment'), 'refresh');

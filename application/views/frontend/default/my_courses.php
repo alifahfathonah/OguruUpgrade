@@ -92,7 +92,7 @@ foreach ($my_courses as $my_course) {
                                     <a href="<?php echo site_url('home/'.$parent.'_/'.slugify($course_details['title']).'/'.$my_course['course_id']); ?>"><h5 class="title"><?php echo ellipsis($course_details['title']); ?></h5></a>
                                     <a href="<?php echo site_url('home/edukator_info/'.$instructor_details['id']); ?>"><p class="instructors"><?php echo $instructor_details['first_name'].' '.$instructor_details['last_name']; ?></p></a>
 
-                                    <div class="rating your-rating-box" onclick="event.preventDefault();" data-toggle="modal" data-target="#EditRatingModal">
+                                    <div class="rating your-rating-box" onclick="event.preventDefault()" data-toggle="modal" data-target="#EditRatingModal">
 
                                         <?php
                                          $get_my_rating = $this->crud_model->get_user_specific_rating('course', $my_course['course_id']);
@@ -161,7 +161,6 @@ function getCourseDetailsForRatingModal(course_id) {
             $('#course_thumbnail_2').attr('src', "<?php echo base_url().'uploads/thumbnails/course_thumbnails/';?>"+course_id+".jpg");
             $('#course_id_for_rating').val(course_id);
             // $('#instructor_details').text(course_id);
-            console.log(response);
         }
     });
 }

@@ -55,6 +55,23 @@
 				</a>
 			</li>
 
+			<li class="side-nav-item <?php if ($page_name == 'edukator' || $page_name == 'konfirmasi_edukator'): ?> active <?php endif; ?>">
+				<a href="javascript: void(0);" class="side-nav-link <?php if ($page_name == 'edukator' || $page_name == 'konfirmasi_edukator'): ?> active <?php endif; ?>">
+					<i class="dripicons-user"></i>
+					<span> Edukator </span>
+					<span class="menu-arrow"></span>
+				</a>
+				<ul class="side-nav-second-level" aria-expanded="false">
+					<li class = "<?php if($page_name == 'edukator') echo 'active'; ?>">
+						<a href="<?php echo site_url('admin/edukator'); ?>">Daftar Edukator</a>
+					</li>
+
+					<li class = "<?php if($page_name == 'konfirmasi_edukator') echo 'active'; ?>">
+						<a href="<?php echo site_url('admin/konfirmasi_edukator'); ?>">Konfirmasi Edukator</a>
+					</li>
+				</ul>
+			</li>
+
 			<li class="side-nav-item <?php if ($page_name == 'enrol_history' || $page_name == 'enrol_student'): ?> active <?php endif; ?>">
 				<a href="javascript: void(0);" class="side-nav-link <?php if ($page_name == 'enrol_history' || $page_name == 'enrol_student'): ?> active <?php endif; ?>">
 					<i class="dripicons-network-3"></i>
@@ -87,6 +104,36 @@
 									</a>
 							</li>
 					<?php endif; ?>
+				</ul>
+			</li>
+
+			<li class="side-nav-item">
+				<a href="javascript: void(0);" class="side-nav-link <?php if ($page_name == 'saldo' || $page_name == 'penarikan_saldo' || $page_name == 'riwayat_penarikan'): ?> active <?php endif; ?>">
+					<i class="fas fa-wallet"></i>
+					<span> <?php echo get_phrase('saldo'); ?> </span>
+					<span class="menu-arrow"></span>
+				</a>
+				<ul class="side-nav-second-level" aria-expanded="false">
+					<li class = "<?php if($page_name == 'saldo') echo 'active'; ?>" > <a href="<?php echo site_url('admin/saldo'); ?>"><?php echo get_phrase('saldo'); ?></a> </li>
+					<li class = "<?php if($page_name == 'penarikan_saldo') echo 'active'; ?>" > <a href="<?php echo site_url('admin/penarikan_saldo'); ?>">Penarikan Saldo</a> </li>
+					<li class = "<?php if($page_name == 'riwayat_penarikan') echo 'active'; ?>" > <a href="<?php echo site_url('admin/riwayat_penarikan'); ?>">Riwayat Penarikan</a> </li>
+				</ul>
+			</li>
+
+			<li class="side-nav-item <?php if ($page_name == 'ovidi' || $page_name == 'konfirmasi_ovidi'): ?> active <?php endif; ?>">
+				<a href="javascript: void(0);" class="side-nav-link <?php if ($page_name == 'ovidi' || $page_name == 'konfirmasi_ovidi'): ?> active <?php endif; ?>">
+					<i class="fas fa-video"></i>
+					<span> Ovidi </span>
+					<span class="menu-arrow"></span>
+				</a>
+				<ul class="side-nav-second-level" aria-expanded="false">
+					<li class = "<?php if($page_name == 'ovidi') echo 'active'; ?>">
+						<a href="<?php echo site_url('admin/ovidi'); ?>">Daftar Ovidi</a>
+					</li>
+
+					<li class = "<?php if($page_name == 'konfirmasi_ovidi') echo 'active'; ?>">
+						<a href="<?php echo site_url('admin/konfirmasi_ovidi'); ?>">Konfirmasi Ovidi</a>
+					</li>
 				</ul>
 			</li>
 

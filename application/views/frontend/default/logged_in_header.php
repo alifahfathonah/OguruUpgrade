@@ -190,9 +190,9 @@ $user_details = $this->user_model->get_user($this->session->userdata('user_id'))
 <script type="text/javascript">
   $(document).ready(function () {
   $('.navbar-light .dmenu').hover(function () {
-          $(this).find('.sm-menu').first().stop(true, true).slideDown(250);
+          $(this).find('.sm-menu').first().stop(true, true).slideDown(150);
       }, function () {
-          $(this).find('.sm-menu').first().stop(true, true).slideUp(250)
+          $(this).find('.sm-menu').first().stop(true, true).slideUp(0)
       });
   });
 

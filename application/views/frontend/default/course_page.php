@@ -1,6 +1,6 @@
 <?php
-$course_details = $this->crud_model->get_course_by_id($course_id)->row_array();
-$instructor_details = $this->user_model->get_all_user($course_details['user_id'])->row_array();
+  $course_details = $this->crud_model->get_course_by_id($course_id)->row_array();
+  $instructor_details = $this->user_model->get_all_user($course_details['user_id'])->row_array();
 ?>
 <section class="course-header-area">
   <div class="container">

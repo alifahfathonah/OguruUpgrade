@@ -9,7 +9,7 @@
 </div>
 
 <div class="row">
-    <div class="col-xl-7">
+    <div class="container">
         <div class="card">
             <div class="card-body">
                 <div class="col-lg-12">
@@ -28,7 +28,7 @@
 
                         <div class="form-group">
                             <label for="website_keywords"><?php echo get_phrase('website_keywords'); ?></label>
-                            <input type="text" class="form-control bootstrap-tag-input" id = "website_keywords" name="website_keywords" data-role="tagsinput" style="width: 100%;" value="<?php echo get_settings('website_keywords');  ?>"/>
+                            <input type="text" class="form-control bootstrap-tag-input container" id = "website_keywords" name="website_keywords" value="<?php echo get_settings('website_keywords');  ?>"/>
                         </div>
 
                         <div class="form-group">
@@ -39,11 +39,6 @@
                         <div class="form-group">
                             <label for="author"><?php echo get_phrase('author'); ?></label>
                             <input type="text" name = "author" id = "author" class="form-control" value="<?php echo get_settings('author');  ?>">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="slogan"><?php echo get_phrase('slogan'); ?><span class="required">*</span></label>
-                            <input type="text" name = "slogan" id = "slogan" class="form-control" value="<?php echo get_settings('slogan');  ?>" required>
                         </div>
 
                         <div class="form-group">
@@ -62,27 +57,18 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="youtube_api_key"><?php echo get_phrase('youtube_API_key'); ?><span class="required">*</span> &nbsp; <a href = "https://developers.google.com/youtube/v3/getting-started" target = "_blank" style="color: #a7a4a4">(<?php echo get_phrase('get_YouTube_API_key'); ?>)</a></label>
-                            <input type="text" name = "youtube_api_key" id = "youtube_api_key" class="form-control" value="<?php echo get_settings('youtube_api_key');  ?>" required>
+                            <label for="phone">Link whatsapp</label>
+                            <input type="text" name = "link_wa" id = "link_wa" class="form-control" value="<?php echo get_settings('whatsapp_link');  ?>">
                         </div>
 
                         <div class="form-group">
-                            <label for="vimeo_api_key"><?php echo get_phrase('vimeo_API_key'); ?><span class="required">*</span> &nbsp; <a href = "https://www.youtube.com/watch?v=Wwy9aibAd54" target = "_blank" style="color: #a7a4a4">(<?php echo get_phrase('get_Vimeo_API_key'); ?>)</a></label>
-                            <input type="text" name = "vimeo_api_key" id = "vimeo_api_key" class="form-control" value="<?php echo get_settings('vimeo_api_key');  ?>" required>
+                            <label for="phone">Link instagram</label>
+                            <input type="text" name = "link_ig" id = "link_ig" class="form-control" value="<?php echo get_settings('instagram_link');  ?>">
                         </div>
 
                         <div class="form-group">
-                            <label for="purchase_code"><?php echo get_phrase('purchase_code'); ?><span class="required">*</span></label>
-                            <input type="text" name = "purchase_code" id = "purchase_code" class="form-control" value="<?php echo get_settings('purchase_code');  ?>" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="language"><?php echo get_phrase('system_language'); ?></label>
-                            <select class="form-control select2" data-toggle="select2" name="language" id="language">
-                                <?php foreach ($languages as $language): ?>
-                                    <option value="<?php echo $language; ?>" <?php if(get_settings('language') == $language) echo 'selected'; ?>><?php echo ucfirst($language); ?></option>
-                                <?php endforeach; ?>
-                            </select>
+                            <label for="phone">Link youtube</label>
+                            <input type="text" name = "link_yt" id = "link_yt" class="form-control" value="<?php echo get_settings('youtube_link');  ?>">
                         </div>
 
                         <div class="form-group">
@@ -93,38 +79,10 @@
                             </select>
                         </div>
 
-                        <div class="form-group">
-                            <label for="footer_link"><?php echo get_phrase('footer_link'); ?></label>
-                            <input type="text" name = "footer_link" id = "footer_link" class="form-control" value="<?php echo get_settings('footer_link');  ?>">
-                        </div>
-
                         <button type="button" class="btn btn-primary" onclick="checkRequiredFields()"><?php echo get_phrase('save'); ?></button>
                     </form>
                 </div>
             </div> <!-- end card body-->
         </div> <!-- end card -->
     </div><!-- end col-->
-    <div class="col-xl-5">
-        <div class="card">
-            <div class="card-body">
-                <div class="col-lg-12">
-                    <h4 class="mb-3 header-title"><?php echo get_phrase('update_product');?></h4>
-
-                    <form action="<?php echo site_url('updater/update'); ?>" method="post" enctype="multipart/form-data">
-                        <div class="form-group mb-2">
-                            <label><?php echo get_phrase('file'); ?></label>
-                            <div class="input-group">
-                                <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="file_name" name="file_name" required onchange="changeTitleOfImageUploader(this)">
-                                    <label class="custom-file-label" for="file_name"><?php echo get_phrase('update_product'); ?></label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <button type="submit" class="btn btn-primary"><?php echo get_phrase('update'); ?></button>
-                    </form>
-                </div>
-            </div> <!-- end card body-->
-        </div>
-    </div>
 </div>

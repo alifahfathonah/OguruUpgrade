@@ -167,24 +167,6 @@ $course_details = $this->crud_model->get_course_by_id($course_id)->row_array();
                                                     </div>
                                                 </div>
                                             </div>
-                                            <!-- <div class="form-group row mb-3 hidden">
-                                                <label class="col-md-2 col-form-label" for="language_made_in"><?php echo get_phrase('language_made_in'); ?></label>
-                                                <div class="col-md-10">
-                                                    <select class="form-control select2" data-toggle="select2" name="language_made_in" id="language_made_in">
-                                                        <?php foreach ($languages as $language): ?>
-                                                            <option value="<?php echo $language; ?>" <?php if ($course_details['language'] == $language)echo 'selected';?>><?php echo ucfirst($language); ?></option>
-                                                        <?php endforeach; ?>
-                                                    </select>
-                                                </div>
-                                            </div> -->
-                                            <!-- <div class="form-group row mb-3 hidden">
-                                                <div class="offset-md-2 col-md-10">
-                                                    <div class="custom-control custom-checkbox">
-                                                        <input type="checkbox" class="custom-control-input" name="is_top_course" id="is_top_course" value="1" <?php if($course_details['is_top_course'] == 1) echo 'checked'; ?>>
-                                                        <label class="custom-control-label" for="is_top_course"><?php echo get_phrase('check_if_this_course_is_top_course'); ?></label>
-                                                    </div>
-                                                </div>
-                                            </div> -->
                                         </div> <!-- end col -->
                                     </div> <!-- end row -->
                                 </div> <!-- end tab pane -->
@@ -371,8 +353,6 @@ $course_details = $this->crud_model->get_course_by_id($course_id)->row_array();
                                         <div class="col-md-10">
                                             <select class="form-control select2" data-toggle="select2" name="course_overview_provider" id="course_overview_provider">
                                                 <option value="youtube" <?php if ($course_details['course_overview_provider'] == 'youtube')echo 'selected';?>><?php echo get_phrase('youtube'); ?></option>
-                                                <!-- <option value="vimeo" <?php if ($course_details['course_overview_provider'] == 'vimeo')echo 'selected';?>><?php echo get_phrase('vimeo'); ?></option>
-                                                <option value="html5"><?php echo get_phrase('HTML5'); ?></option> -->
                                             </select>
                                         </div>
                                     </div>
@@ -406,61 +386,81 @@ $course_details = $this->crud_model->get_course_by_id($course_id)->row_array();
                             </div> <!-- end row -->
                         </div>
                         <div class="tab-pane" id="mediab">
-                                    <div class="row justify-content-center">
-                                        <div class="col-xl-8">
-                                            <div class="form-group row mb-3">
-                                                <label class="col-md-2 col-form-label" for="grup_chat">Grup Chat</label>
-                                                <div class="col-md-10">
-                                                    <select class="form-control select2" data-toggle="select2" name="grup_chat" id="grup_chat">
-                                                        <option value="whatsapp" <?php if($course_details['grupchat'] == 'whatsapp') { echo "selected"; } ?>>Whatsapp</option>
-                                                        <option value="telegram" <?php if($course_details['grupchat'] == 'telegram') { echo "selected"; } ?>>Telegram</option>
-                                                        <option value="line" <?php if($course_details['grupchat'] == 'line') { echo "selected"; } ?>>Line</option>
-                                                        <!-- <option value="vimeo"><?php echo get_phrase('vimeo'); ?></option>
-                                                        <option value="html5"><?php echo get_phrase('HTML5'); ?></option> -->
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div> <!-- end col -->
-
-                                        <div class="col-xl-8">
-                                            <div class="form-group row mb-3">
-                                                <label class="col-md-2 col-form-label" for="link_chat">Link Grup Chat</label>
-                                                <div class="col-md-10">
-                                                    <input type="text" class="form-control" name="link_chat" id="link_chat" placeholder="Isikan link sesuai pilihan grup chat" value="<?php echo $course_details['linkgrup'] ?>">
-                                                </div>
-                                            </div>
-                                        </div> <!-- end col -->
-
-                                        <div class="col-xl-8">
-                                            <div class="form-group row mb-3">
-                                                <label class="col-md-2 col-form-label" for="live">Live Webinar</label>
-                                                <div class="col-md-10">
-                                                    <select class="form-control select2" data-toggle="select2" name="live" id="live">
-                                                        <option value="Zoom" <?php if($course_details['live'] == 'zoom') { echo "selected"; } ?>>Zoom</option>
-                                                        <option value="gmeet" <?php if($course_details['live'] == 'gmeet') { echo "selected"; } ?>>Gmeet</option>
-                                                    </select>
-                                                    <span class="text-muted">Link live webinar dibagikan dalam grup chat.</span>
-                                                </div>
-                                            </div>
+                            <div class="row justify-content-center">
+                                <div class="col-xl-8">
+                                    <div class="form-group row mb-3">
+                                        <label class="col-md-2 col-form-label" for="course_overview_provider"><?php echo get_phrase('course_overview_provider'); ?></label>
+                                        <div class="col-md-10">
+                                            <select class="form-control select2" data-toggle="select2" name="course_overview_provider" id="course_overview_provider">
+                                                <option value="youtube" <?php if ($course_details['course_overview_provider'] == 'youtube')echo 'selected';?>><?php echo get_phrase('youtube'); ?></option>
+                                            </select>
                                         </div>
+                                    </div>
+                                </div> <!-- end col -->
 
-                                        <div class="col-xl-8">
-                                            <div class="form-group row mb-3">
-                                                <label class="col-md-2 col-form-label" for="course_thumbnail_label"><?php echo get_phrase('course_thumbnail'); ?></label>
-                                                <div class="col-md-10">
-                                                    <div class="wrapper-image-preview" style="margin-left: -6px;">
-                                                        <div class="box" style="width: 250px;">
-                                                            <div class="upload-options">
-                                                                <label for="course_thumbnailb" class="btn"> <i class="mdi mdi-camera"></i> <?php echo get_phrase('course_thumbnail'); ?> <br> <small>(600 X 600)</small> </label>
-                                                                <input id="course_thumbnailb" type="file" class="image-upload" name="course_thumbnailb" accept="image/*">
-                                                            </div>
-                                                        </div>
+                                <div class="col-xl-8">
+                                    <div class="form-group row mb-3">
+                                        <label class="col-md-2 col-form-label" for="course_overview_url"><?php echo get_phrase('course_overview_url'); ?></label>
+                                        <div class="col-md-10">
+                                            <input type="text" class="form-control" name="course_overview_url" id="course_overview_url" placeholder="E.g: https://www.youtube.com/watch?v=oBtf8Yglw2w" value="<?php echo $course_details['video_url'] ?>">
+                                        </div>
+                                    </div>
+                                </div> <!-- end col -->
+                                
+                                <div class="col-xl-8">
+                                    <div class="form-group row mb-3">
+                                        <label class="col-md-2 col-form-label" for="grup_chat">Grup Chat</label>
+                                        <div class="col-md-10">
+                                            <select class="form-control select2" data-toggle="select2" name="grup_chat" id="grup_chat">
+                                                <option value="whatsapp" <?php if($course_details['grupchat'] == 'whatsapp') { echo "selected"; } ?>>Whatsapp</option>
+                                                <option value="telegram" <?php if($course_details['grupchat'] == 'telegram') { echo "selected"; } ?>>Telegram</option>
+                                                <option value="line" <?php if($course_details['grupchat'] == 'line') { echo "selected"; } ?>>Line</option>
+                                                <!-- <option value="vimeo"><?php echo get_phrase('vimeo'); ?></option>
+                                                <option value="html5"><?php echo get_phrase('HTML5'); ?></option> -->
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div> <!-- end col -->
+
+                                <div class="col-xl-8">
+                                    <div class="form-group row mb-3">
+                                        <label class="col-md-2 col-form-label" for="link_chat">Link Grup Chat</label>
+                                        <div class="col-md-10">
+                                            <input type="text" class="form-control" name="link_chat" id="link_chat" placeholder="Isikan link sesuai pilihan grup chat" value="<?php echo $course_details['linkgrup'] ?>">
+                                        </div>
+                                    </div>
+                                </div> <!-- end col -->
+
+                                <div class="col-xl-8">
+                                    <div class="form-group row mb-3">
+                                        <label class="col-md-2 col-form-label" for="live">Live Webinar</label>
+                                        <div class="col-md-10">
+                                            <select class="form-control select2" data-toggle="select2" name="live" id="live">
+                                                <option value="Zoom" <?php if($course_details['live'] == 'zoom') { echo "selected"; } ?>>Zoom</option>
+                                                <option value="gmeet" <?php if($course_details['live'] == 'gmeet') { echo "selected"; } ?>>Gmeet</option>
+                                            </select>
+                                            <span class="text-muted">Link live webinar dibagikan dalam grup chat.</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-8">
+                                    <div class="form-group row mb-3">
+                                        <label class="col-md-2 col-form-label" for="course_thumbnail_label"><?php echo get_phrase('course_thumbnail'); ?></label>
+                                        <div class="col-md-10">
+                                            <div class="wrapper-image-preview" style="margin-left: -6px;">
+                                                <div class="box" style="width: 250px;">
+                                                    <div class="upload-options">
+                                                        <label for="course_thumbnailb" class="btn"> <i class="mdi mdi-camera"></i> <?php echo get_phrase('course_thumbnail'); ?> <br> <small>(600 X 600)</small> </label>
+                                                        <input id="course_thumbnailb" type="file" class="image-upload" name="course_thumbnailb" accept="image/*">
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div> <!-- end col -->
-                                    </div> <!-- end row -->
-                                </div>
+                                        </div>
+                                    </div>
+                                </div> <!-- end col -->
+                            </div> <!-- end row -->
+                        </div>
                         <div class="tab-pane" id="seo">
                             <div class="row justify-content-center">
                                 <div class="col-xl-8">

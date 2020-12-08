@@ -302,8 +302,6 @@
                                                 <div class="col-md-10">
                                                     <select class="form-control select2" data-toggle="select2" name="course_overview_provider" id="course_overview_provider">
                                                         <option value="youtube"><?php echo get_phrase('youtube'); ?></option>
-                                                        <!-- <option value="vimeo"><?php echo get_phrase('vimeo'); ?></option>
-                                                        <option value="html5"><?php echo get_phrase('HTML5'); ?></option> -->
                                                     </select>
                                                 </div>
                                             </div>
@@ -340,14 +338,32 @@
                                     <div class="row justify-content-center">
                                         <div class="col-xl-8">
                                             <div class="form-group row mb-3">
+                                                <label class="col-md-2 col-form-label" for="course_overview_provider"><?php echo get_phrase('course_overview_provider'); ?></label>
+                                                <div class="col-md-10">
+                                                    <select class="form-control select2" data-toggle="select2" name="course_overview_provider" id="course_overview_provider">
+                                                        <option value="youtube"><?php echo get_phrase('youtube'); ?></option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div> <!-- end col -->
+
+                                        <div class="col-xl-8">
+                                            <div class="form-group row mb-3">
+                                                <label class="col-md-2 col-form-label" for="course_overview_url"><?php echo get_phrase('course_overview_url'); ?></label>
+                                                <div class="col-md-10">
+                                                    <input type="text" class="form-control" name="course_overview_url" id="course_overview_url" placeholder="Contoh. https://www.youtube.com/watch?v=oBtf8Yglw2w">
+                                                </div>
+                                            </div>
+                                        </div> <!-- end col -->
+                                        
+                                        <div class="col-xl-8">
+                                            <div class="form-group row mb-3">
                                                 <label class="col-md-2 col-form-label" for="grup_chat">Grup Chat</label>
                                                 <div class="col-md-10">
                                                     <select class="form-control select2" data-toggle="select2" name="grup_chat" id="grup_chat">
                                                         <option value="whatsapp">Whatsapp</option>
                                                         <option value="telegram">Telegram</option>
                                                         <option value="line">Line</option>
-                                                        <!-- <option value="vimeo"><?php echo get_phrase('vimeo'); ?></option>
-                                                        <option value="html5"><?php echo get_phrase('HTML5'); ?></option> -->
                                                     </select>
                                                 </div>
                                             </div>

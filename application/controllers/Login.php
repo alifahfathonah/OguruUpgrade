@@ -68,7 +68,7 @@ class Login extends CI_Controller {
         $data['email']  = html_escape($this->input->post('email'));
         $data['password']  = sha1($this->input->post('password'));
 
-        $verification_code =  md5(rand(100000000, 200000000));
+        $verification_code =  random_string('alpha', 32);
         $data['verification_code'] = $verification_code;
 
         if (get_settings('student_email_verification') == 'enable') {
@@ -77,7 +77,7 @@ class Login extends CI_Controller {
             $data['status'] = 1;
         }
 
-        $data['wishlist'] = json_encode(array());
+        $data['title'] = json_encode(array());
         $data['watch_history'] = json_encode(array());
         $data['date_added'] = strtotime(date("Y-m-d H:i:s"));
         $social_links = array(

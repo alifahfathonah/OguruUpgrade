@@ -40,15 +40,15 @@ class Crud_model extends CI_Model {
         }
 
         // category thumbnail adding
-        if (!file_exists('uploads/thumbnails/category_thumbnails')) {
-            mkdir('uploads/thumbnails/category_thumbnails', 0777, true);
-        }
-        if ($_FILES['category_thumbnail']['name'] == "") {
-            $data['thumbnail'] = 'category-thumbnail.png';
-        }else {
-            $data['thumbnail'] = md5(rand(10000000, 20000000)).'.jpg';
-            move_uploaded_file($_FILES['category_thumbnail']['tmp_name'], 'uploads/thumbnails/category_thumbnails/'.$data['thumbnail']);
-        }
+        // if (!file_exists('uploads/thumbnails/category_thumbnails')) {
+        //     mkdir('uploads/thumbnails/category_thumbnails', 0777, true);
+        // }
+        // if ($_FILES['category_thumbnail']['name'] == "") {
+        //     $data['thumbnail'] = 'category-thumbnail.png';
+        // }else {
+        //     $data['thumbnail'] = md5(rand(10000000, 20000000)).'.jpg';
+        //     move_uploaded_file($_FILES['category_thumbnail']['tmp_name'], 'uploads/thumbnails/category_thumbnails/'.$data['thumbnail']);
+        // }
         $data['date_added'] = strtotime(date('D, d-M-Y'));
         $this->db->insert('category', $data);
     }
@@ -64,15 +64,15 @@ class Crud_model extends CI_Model {
             $data['font_awesome_class'] = 'fas fa-chess';
         }
 
-        echo '<script type="text/javascript"> console.log("icon = '.$this->input->post('font_awesome_class').'")</script>';
+        // echo '<script type="text/javascript"> console.log("icon = '.$this->input->post('font_awesome_class').'")</script>';
         // category thumbnail adding
-        if (!file_exists('uploads/category_thumbnails')) {
-            mkdir('uploads/category_thumbnails', 0777, true);
-        }
-        if ($_FILES['category_thumbnail']['name'] != "") {
-            $data['thumbnail'] = md5(rand(10000000, 20000000)).'.jpg';
-            move_uploaded_file($_FILES['category_thumbnail']['tmp_name'], 'uploads/thumbnails/category_thumbnails/'.$data['thumbnail']);
-        }
+        // if (!file_exists('uploads/category_thumbnails')) {
+        //     mkdir('uploads/category_thumbnails', 0777, true);
+        // }
+        // if ($_FILES['category_thumbnail']['name'] != "") {
+        //     $data['thumbnail'] = md5(rand(10000000, 20000000)).'.jpg';
+        //     move_uploaded_file($_FILES['category_thumbnail']['tmp_name'], 'uploads/thumbnails/category_thumbnails/'.$data['thumbnail']);
+        // }
         $data['last_modified'] = strtotime(date('D, d-M-Y'));
         $this->db->where('id', $param1);
         $this->db->update('category', $data);
@@ -141,22 +141,8 @@ class Crud_model extends CI_Model {
     }
 
     public function get_instructor_revenue($timestamp_start = "", $timestamp_end = "") {
-        // $course_ids = array();
-        // $courses    = array();
 
         $this->db->where('id_penerima', $this->session->userdata('user_id'));
-        // $this->db->select('id');
-        // $courses = $this->db->get('course')->result_array();
-        // foreach ($courses as $course) {
-        //     if (!in_array($course['id'], $course_ids)) {
-        //         array_push( $course_ids, $course['id'] );
-        //     }
-        // }
-        // if (sizeof($course_ids)) {
-        //     $this->db->where_in('course_id', $course_ids);
-        // }else {
-        //     return array();
-        // }
 
         $this->db->order_by('date_added' , 'desc');
         $this->db->where('date_added >=' , $timestamp_start);
@@ -206,10 +192,6 @@ class Crud_model extends CI_Model {
         $this->db->where('key', 'slogan');
         $this->db->update('settings', $data);
 
-        $data['value'] = html_escape($this->input->post('language'));
-        $this->db->where('key', 'language');
-        $this->db->update('settings', $data);
-
         $data['value'] = html_escape($this->input->post('text_align'));
         $this->db->where('key', 'text_align');
         $this->db->update('settings', $data);
@@ -226,13 +208,13 @@ class Crud_model extends CI_Model {
         $this->db->where('key', 'phone');
         $this->db->update('settings', $data);
 
-        $data['value'] = html_escape($this->input->post('youtube_api_key'));
-        $this->db->where('key', 'youtube_api_key');
-        $this->db->update('settings', $data);
+        // $data['value'] = html_escape($this->input->post('youtube_api_key'));
+        // $this->db->where('key', 'youtube_api_key');
+        // $this->db->update('settings', $data);
 
-        $data['value'] = html_escape($this->input->post('vimeo_api_key'));
-        $this->db->where('key', 'vimeo_api_key');
-        $this->db->update('settings', $data);
+        // $data['value'] = html_escape($this->input->post('vimeo_api_key'));
+        // $this->db->where('key', 'vimeo_api_key');
+        // $this->db->update('settings', $data);
 
         $data['value'] = html_escape($this->input->post('purchase_code'));
         $this->db->where('key', 'purchase_code');
@@ -252,6 +234,18 @@ class Crud_model extends CI_Model {
 
         $data['value'] = html_escape($this->input->post('website_description'));
         $this->db->where('key', 'website_description');
+        $this->db->update('settings', $data);
+
+        $data['value'] = html_escape($this->input->post('link_wa'));
+        $this->db->where('key', 'whatsapp_link');
+        $this->db->update('settings', $data);
+
+        $data['value'] = html_escape($this->input->post('link_ig'));
+        $this->db->where('key', 'instagram_link');
+        $this->db->update('settings', $data);
+
+        $data['value'] = html_escape($this->input->post('link_yt'));
+        $this->db->where('key', 'youtube_link');
         $this->db->update('settings', $data);
 
         $data['value'] = html_escape($this->input->post('student_email_verification'));
@@ -1271,7 +1265,299 @@ class Crud_model extends CI_Model {
         $header[] = 'Authorization: ' . $bearer;
 
         $verify_url = 'https://api.envato.com/v1/market/private/user/verify-purchase:'.$product_code.'.json';
-            $ch_verify = curl_init( $verify_url . '?code=' . $product_code );
+        $ch_verify = curl_init( $verify_url . '?code=' . $product_code );
+
+        curl_setopt( $ch_verify, CURLOPT_HTTPHEADER, $header );
+        curl_setopt( $ch_verify, CURLOPT_SSL_VERIFYPEER, false );
+        curl_setopt( $ch_verify, CURLOPT_RETURNTRANSFER, 1 );
+        curl_setopt( $ch_verify, CURLOPT_CONNECTTIMEOUT, 5 );
+        curl_setopt( $ch_verify, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.13) Gecko/20080311 Firefox/2.0.0.13');
+
+        $cinit_verify_data = curl_exec( $ch_verify );
+        curl_close( $ch_verify );
+
+        $response = json_decode($cinit_verify_data, true);
+
+        if (count($response['verify-purchase']) > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
+    // version 1.3
+    function get_currencies() {
+        return $this->db->get('currency')->result_array();
+    }
+
+    function get_paypal_supported_currencies() {
+        $this->db->where('paypal_supported', 1);
+        return $this->db->get('currency')->result_array();
+    }
+
+    function get_stripe_supported_currencies() {
+        $this->db->where('stripe_supported', 1);
+        return $this->db->get('currency')->result_array();
+    }
+
+    // version 1.4
+    function filter_course($selected_category_id = "", $selected_price = "", $selected_rating = ""){
+        //echo $selected_category_id.' '.$selected_price.' '.$selected_level.' '.$selected_language.' '.$selected_rating;
+
+        $course_ids = array();
+        if ($selected_category_id != "all") {
+            $this->db->where('category_id', $selected_category_id);
+        }
+
+        if ($selected_price != "all") {
+            if ($selected_price == "paid") {
+                $this->db->where('is_free_course', null);
+            }elseif ($selected_price == "free") {
+                $this->db->where('is_free_course', 1);
+            }
+        }
+        $this->db->where('status', 'active');
+        $courses = $this->db->get('course')->result_array();
+
+        foreach ($courses as $course) {
+            if ($selected_rating != "all") {
+                $total_rating =  $this->get_ratings('course', $course['id'], true)->row()->rating;
+                $number_of_ratings = $this->get_ratings('course', $course['id'])->num_rows();
+                if ($number_of_ratings > 0) {
+                    $average_ceil_rating = ceil($total_rating / $number_of_ratings);
+                    if ($average_ceil_rating == $selected_rating) {
+                        array_push($course_ids, $course['id']);
+                    }
+                }
+            }else {
+                array_push($course_ids, $course['id']);
+            }
+        }
+
+        if (count($course_ids) > 0) {
+            $this->db->where_in('id', $course_ids);
+            return $this->db->get('course')->result_array();
+        }else {
+            return array();
+        }
+    }
+
+    public function get_courses($category_id = "") {
+        return $this->db->get_where('course', array('category_id' => $category_id));
+    }
+
+    public function get_courses_admin()
+    {
+        return $this->db->get_where('course', array('status' => 'active'));
+    }
+
+    public function filter_course_for_backend($category_id, $instructor_id, $price, $status, $tipe) {
+        if ($category_id != "all") {
+            $this->db->where('category_id', $category_id);
+        }
+
+        if ($price != "all") {
+            if ($price == "paid") {
+                $this->db->where('is_free_course', null);
+            }elseif ($price == "free") {
+                $this->db->where('is_free_course', 1);
+            }
+        }
+
+        if ($instructor_id != "all") {
+            $this->db->where('user_id', $instructor_id);
+        }
+
+        if ($status != "all") {
+            $this->db->where('status', $status);
+        }
+
+        if ($tipe != "all") {
+            $this->db->where('tipe', $tipe);
+        }
+
+        return $this->db->get('course')->result_array();
+    }
+
+    public function sort_section($section_json) {
+        $sections = json_decode($section_json);
+        foreach ($sections as $key => $value) {
+            $updater = array(
+                'order' => $key + 1
+            );
+            $this->db->where('id', $value);
+            $this->db->update('section', $updater);
+        }
+    }
+
+    public function sort_lesson($lesson_json) {
+        $lessons = json_decode($lesson_json);
+        foreach ($lessons as $key => $value) {
+            $updater = array(
+                'order' => $key + 1
+            );
+            $this->db->where('id', $value);
+            $this->db->update('lesson', $updater);
+        }
+    }
+    public function sort_question($question_json) {
+        $questions = json_decode($question_json);
+        foreach ($questions as $key => $value) {
+            $updater = array(
+                'order' => $key + 1
+            );
+            $this->db->where('id', $value);
+            $this->db->update('question', $updater);
+        }
+    }
+
+    public function get_free_and_paid_courses($price_status = "", $instructor_id = "") {
+        $this->db->where('status', 'active');
+        if ($price_status == 'free') {
+            $this->db->where('is_free_course', 1);
+        }else {
+            $this->db->where('is_free_course', null);
+        }
+
+        if ($instructor_id > 0) {
+            $this->db->where('user_id', $instructor_id);
+        }
+        return $this->db->get('course');
+    }
+
+    // Adding quiz functionalities
+    public function add_quiz($course_id = "") {
+        $data['course_id'] = $course_id;
+        $data['title'] = html_escape($this->input->post('title'));
+        $data['section_id'] = html_escape($this->input->post('section_id'));
+
+        $data['lesson_type'] = 'quiz';
+        $data['duration'] = '00:00:00';
+        $data['date_added'] = strtotime(date('D, d-M-Y'));
+        $data['summary'] = html_escape($this->input->post('summary'));
+        $this->db->insert('lesson', $data);
+    }
+
+    // updating quiz functionalities
+    public function edit_quiz($lesson_id = "") {
+        $data['title'] = html_escape($this->input->post('title'));
+        $data['section_id'] = html_escape($this->input->post('section_id'));
+        $data['last_modified'] = strtotime(date('D, d-M-Y'));
+        $data['summary'] = html_escape($this->input->post('summary'));
+        $this->db->where('id', $lesson_id);
+        $this->db->update('lesson', $data);
+    }
+
+    // Get quiz questions
+    public function get_quiz_questions($quiz_id) {
+        $this->db->order_by("order", "asc");
+        $this->db->where('quiz_id', $quiz_id);
+        return $this->db->get('question');
+    }
+
+    public function get_quiz_question_by_id($question_id) {
+        $this->db->order_by("order", "asc");
+        $this->db->where('id', $question_id);
+        return $this->db->get('question');
+    }
+
+    // Add Quiz Questions
+    public function add_quiz_questions($quiz_id) {
+        $question_type = $this->input->post('question_type');
+        if ($question_type == 'mcq') {
+            $response = $this->add_multiple_choice_question($quiz_id);
+            return $response;
+        }
+    }
+
+    public function update_quiz_questions($question_id) {
+        $question_type = $this->input->post('question_type');
+        if ($question_type == 'mcq') {
+            $response = $this->update_multiple_choice_question($question_id);
+            return $response;
+        }
+    }
+    // multiple_choice_question crud functions
+    function add_multiple_choice_question($quiz_id){
+        if (sizeof($this->input->post('options')) != $this->input->post('number_of_options')) {
+            return false;
+        }
+        foreach ($this->input->post('options') as $option) {
+            if ($option == "") {
+                return false;
+            }
+        }
+        if (sizeof($this->input->post('correct_answers')) == 0) {
+            $correct_answers = [""];
+        }
+        else{
+            $correct_answers = $this->input->post('correct_answers');
+        }
+        $data['quiz_id']            = $quiz_id;
+        $data['title']              = html_escape($this->input->post('title'));
+        $data['number_of_options']  = html_escape($this->input->post('number_of_options'));
+        $data['type']               = 'multiple_choice';
+        $data['options']            = json_encode($this->input->post('options'));
+        $data['correct_answers']    = json_encode($correct_answers);
+        $this->db->insert('question', $data);
+        return true;
+    }
+    // update multiple choice question
+    function update_multiple_choice_question($question_id){
+        if (sizeof($this->input->post('options')) != $this->input->post('number_of_options')) {
+            return false;
+        }
+        foreach ($this->input->post('options') as $option) {
+            if ($option == "") {
+                return false;
+            }
+        }
+
+        if (sizeof($this->input->post('correct_answers')) == 0) {
+            $correct_answers = [""];
+        }
+        else{
+            $correct_answers = $this->input->post('correct_answers');
+        }
+
+        $data['title']              = html_escape($this->input->post('title'));
+        $data['number_of_options']  = html_escape($this->input->post('number_of_options'));
+        $data['type']               = 'multiple_choice';
+        $data['options']            = json_encode($this->input->post('options'));
+        $data['correct_answers']    = json_encode($correct_answers);
+        $this->db->where('id', $question_id);
+        $this->db->update('question', $data);
+        return true;
+    }
+
+    function delete_quiz_question($question_id) {
+        $this->db->where('id', $question_id);
+        $this->db->delete('question');
+        return true;
+    }
+
+    function get_application_details() {
+        $purchase_code = get_settings('purchase_code');
+        $returnable_array = array(
+            'purchase_code_status' => get_phrase('not_found'),
+            'support_expiry_date'  => get_phrase('not_found'),
+            'customer_name'        => get_phrase('not_found')
+        );
+
+        $personal_token = "gC0J1ZpY53kRpynNe4g2rWT5s4MW56Zg";
+        $url = "https://api.envato.com/v3/market/author/sale?code=".$purchase_code;
+        $curl = curl_init($url);
+
+        //setting the header for the rest of the api
+        $bearer   = 'bearer ' . $personal_token;
+        $header   = array();
+        $header[] = 'Content-length: 0';
+        $header[] = 'Content-type: application/json; charset=utf-8';
+        $header[] = 'Authorization: ' . $bearer;
+
+        $verify_url = 'https://api.envato.com/v1/market/private/user/verify-purchase:'.$purchase_code.'.json';
+            $ch_verify = curl_init( $verify_url . '?code=' . $purchase_code );
 
             curl_setopt( $ch_verify, CURLOPT_HTTPHEADER, $header );
             curl_setopt( $ch_verify, CURLOPT_SSL_VERIFYPEER, false );
@@ -1285,478 +1571,251 @@ class Crud_model extends CI_Model {
             $response = json_decode($cinit_verify_data, true);
 
             if (count($response['verify-purchase']) > 0) {
-                return true;
-            } else {
-                return false;
-            }
-        }
 
+                //print_r($response);
+                $item_name              = $response['verify-purchase']['item_name'];
+                $purchase_time          = $response['verify-purchase']['created_at'];
+                $customer               = $response['verify-purchase']['buyer'];
+                $licence_type           = $response['verify-purchase']['licence'];
+                $support_until          = $response['verify-purchase']['supported_until'];
+                $customer               = $response['verify-purchase']['buyer'];
 
-        // version 1.3
-        function get_currencies() {
-            return $this->db->get('currency')->result_array();
-        }
+                $purchase_date          = date("d M, Y", strtotime($purchase_time));
 
-        function get_paypal_supported_currencies() {
-            $this->db->where('paypal_supported', 1);
-            return $this->db->get('currency')->result_array();
-        }
+                $todays_timestamp       = strtotime(date("d M, Y"));
+                $support_expiry_timestamp = strtotime($support_until);
 
-        function get_stripe_supported_currencies() {
-            $this->db->where('stripe_supported', 1);
-            return $this->db->get('currency')->result_array();
-        }
+                $support_expiry_date    = date("d M, Y", $support_expiry_timestamp);
 
-        // version 1.4
-        function filter_course($selected_category_id = "", $selected_price = "", $selected_rating = ""){
-            //echo $selected_category_id.' '.$selected_price.' '.$selected_level.' '.$selected_language.' '.$selected_rating;
+                if ($todays_timestamp > $support_expiry_timestamp)
+                $support_status     = get_phrase('expired');
+                else
+                $support_status     = get_phrase('valid');
 
-            $course_ids = array();
-            if ($selected_category_id != "all") {
-                $this->db->where('category_id', $selected_category_id);
-            }
-
-            if ($selected_price != "all") {
-                if ($selected_price == "paid") {
-                    $this->db->where('is_free_course', null);
-                }elseif ($selected_price == "free") {
-                    $this->db->where('is_free_course', 1);
-                }
-            }
-            $this->db->where('status', 'active');
-            $courses = $this->db->get('course')->result_array();
-
-            foreach ($courses as $course) {
-                if ($selected_rating != "all") {
-                    $total_rating =  $this->get_ratings('course', $course['id'], true)->row()->rating;
-                    $number_of_ratings = $this->get_ratings('course', $course['id'])->num_rows();
-                    if ($number_of_ratings > 0) {
-                        $average_ceil_rating = ceil($total_rating / $number_of_ratings);
-                        if ($average_ceil_rating == $selected_rating) {
-                            array_push($course_ids, $course['id']);
-                        }
-                    }
-                }else {
-                    array_push($course_ids, $course['id']);
-                }
-            }
-
-            if (count($course_ids) > 0) {
-                $this->db->where_in('id', $course_ids);
-                return $this->db->get('course')->result_array();
-            }else {
-                return array();
-            }
-        }
-
-        public function get_courses($category_id = "") {
-            return $this->db->get_where('course', array('category_id' => $category_id));
-        }
-
-        public function get_courses_admin()
-        {
-            return $this->db->get_where('course', array('status' => 'active'));
-        }
-
-        public function filter_course_for_backend($category_id, $instructor_id, $price, $status, $tipe) {
-            if ($category_id != "all") {
-                $this->db->where('category_id', $category_id);
-            }
-
-            if ($price != "all") {
-                if ($price == "paid") {
-                    $this->db->where('is_free_course', null);
-                }elseif ($price == "free") {
-                    $this->db->where('is_free_course', 1);
-                }
-            }
-
-            if ($instructor_id != "all") {
-                $this->db->where('user_id', $instructor_id);
-            }
-
-            if ($status != "all") {
-                $this->db->where('status', $status);
-            }
-
-            if ($tipe != "all") {
-                $this->db->where('tipe', $tipe);
-            }
-
-            return $this->db->get('course')->result_array();
-        }
-
-        public function sort_section($section_json) {
-            $sections = json_decode($section_json);
-            foreach ($sections as $key => $value) {
-                $updater = array(
-                    'order' => $key + 1
+                $returnable_array = array(
+                    'purchase_code_status' => $support_status,
+                    'support_expiry_date'  => $support_expiry_date,
+                    'customer_name'        => $customer
                 );
-                $this->db->where('id', $value);
-                $this->db->update('section', $updater);
             }
-        }
-
-        public function sort_lesson($lesson_json) {
-            $lessons = json_decode($lesson_json);
-            foreach ($lessons as $key => $value) {
-                $updater = array(
-                    'order' => $key + 1
+            else {
+                $returnable_array = array(
+                    'purchase_code_status' => 'invalid',
+                    'support_expiry_date'  => 'invalid',
+                    'customer_name'        => 'invalid'
                 );
-                $this->db->where('id', $value);
-                $this->db->update('lesson', $updater);
-            }
-        }
-        public function sort_question($question_json) {
-            $questions = json_decode($question_json);
-            foreach ($questions as $key => $value) {
-                $updater = array(
-                    'order' => $key + 1
-                );
-                $this->db->where('id', $value);
-                $this->db->update('question', $updater);
-            }
-        }
-
-        public function get_free_and_paid_courses($price_status = "", $instructor_id = "") {
-            $this->db->where('status', 'active');
-            if ($price_status == 'free') {
-                $this->db->where('is_free_course', 1);
-            }else {
-                $this->db->where('is_free_course', null);
             }
 
-            if ($instructor_id > 0) {
-                $this->db->where('user_id', $instructor_id);
-            }
-            return $this->db->get('course');
+            return $returnable_array;
         }
 
-        // Adding quiz functionalities
-        public function add_quiz($course_id = "") {
-            $data['course_id'] = $course_id;
-            $data['title'] = html_escape($this->input->post('title'));
-            $data['section_id'] = html_escape($this->input->post('section_id'));
+    public function perklik($id_course)
+    {
+        $old = $this->db->get_where('course', array('id' => $id_course))->result_array();
+        $new = $old[0]['perklik'] + 1;
+        $data['perklik'] = $new;
+        $this->db->where('id', $id_course)->update('course', $data);
+    }
 
-            $data['lesson_type'] = 'quiz';
-            $data['duration'] = '00:00:00';
-            $data['date_added'] = strtotime(date('D, d-M-Y'));
-            $data['summary'] = html_escape($this->input->post('summary'));
-            $this->db->insert('lesson', $data);
+    public function get_message_notif($param1='')
+    {
+        $data = $this->db->get_where('message', array('message_thread_code' => $param1, 'read_status' => null))->result_array();
+
+        return $data;
+    }
+
+    public function get_notif_sum()
+    {
+        $user_id = $this->session->userdata('user_id');
+        return $this->db->get_where('notifikasi', array('id_user' => $user_id, 'status' => 0))->num_rows();
+        // return $notifikasi;
+        // $jumlah = 0;
+        // foreach ($notifikasi as $notif) {
+        //     if($notif['tipe'] == 'message'){
+        //         $data = $this->crud_model->get_message_notif($notif['id_target']);
+        //         foreach ($data as $d) {
+        //             if($d['sender'] != $user_id){
+        //                 $jumlah++;
+        //             }
+        //          }
+        //      }
+        //     else if($notif['tipe'] == 'pembayaran'){
+        //         $cek_notif = $this->db->get_where('payment_mid', array('order_id' => $notif['id_target']))->result_array();
+        //         foreach ($cek_notif as $ck) {
+        //             if($ck['transaction_status'] == 'pending'){
+        //                 $jumlah++;
+        //             }
+        //         }
+        //     }
+        //     else if($notif['tipe'] == 'edukator'){
+        //         $jumlah++;
+        //     }
+        // }
+
+        // if($jumlah == 0){
+        //     return '';
+        // }
+        // else{
+        //     return $jumlah;
+        // }
+    }
+
+    public function get_payment($id_user)
+    {
+        return $this->db->get_where('payment_mid', array('id_pengirim' => $id_user, 'transaction_status' => 'pending'))->row_array();
+    }
+
+    public function get_enrol($id_course, $user_id)
+    {
+        $data['user_id'] = $user_id;
+        $data['course_id'] = $id_course;
+        $data['date_added'] = strtotime(date('D, d-M-Y'));
+
+        $this->db->insert('enrol', $data);
+    }
+
+    public function upload_ktp()
+    {
+        $data['nik']        = $this->input->post('nik');
+        $data['is_edukator'] = 2;
+        $fileName           = $_FILES['ktp']['name'];
+        // echo '<script type="text/javascript"> console.log("'.$filename.'")</script>';
+        $tmp                = explode('.', $fileName);
+        $fileExtension      = end($tmp);
+        echo '<script type="text/javascript"> console.log("'.$tmp.'")</script>';
+        $uploadable_file    =  md5(uniqid(rand(), true)).'.'.$fileExtension;
+        $data['ktp']        = $uploadable_file;
+
+        if (!file_exists('uploads/edukator_file')) {
+            mkdir('uploads/edukator_file', 0777, true);
+        }
+        move_uploaded_file($_FILES['ktp']['tmp_name'], 'uploads/edukator_file/'.$uploadable_file);
+        $this->db->where('id', $this->session->userdata('user_id'))->update('users', $data);
+        $this->session->set_flashdata('flash_message', 'Berhasil mendaftar, tunggu konfirmasi dari admin');
+    }
+
+    public function filter_video($param1 = "")
+    {
+        $video = $this->db->get_where('video', array('id_kategori' => $param1, 'status' => 1));
+        if($video->num_rows() > 0){
+            return $video->result_array();
+        }
+        else{
+            return array();
+        }
+    }
+
+    public function filter_video_channel($param1 = "", $param2 = "")
+    {
+        $video = $this->db->get_where('video', array('id_kategori' => $param1, 'status' => 1, 'id_user' => $param2));
+        if($video->num_rows() > 0){
+            return $video->result_array();
+        }
+        else{
+            return array();
+        }
+    }
+
+    public function get_ovidi_admin()
+    {
+        $this->db->select('video.*, users.id, users.first_name, users.last_name, users.deskripsi_channel');
+        $this->db->from('users');
+        $this->db->join('video','users.id = video.id_user','LEFT');
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+    public function get_konfir_ovidi_admin()
+    {
+        $this->db->select('video.*, users.first_name, users.last_name, category.name');
+        $this->db->from('video');
+        $this->db->join('users','users.id = video.id_user','LEFT');
+        $this->db->join('category','category.id = video.id_kategori','LEFT');
+        $this->db->where('video.status', '0');
+        $this->db->order_by('video.date_added');
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+    public function add_ovidi($param1 = '', $param2 = '', $param3 = '', $param4 = '')
+    {
+        $data['id_kategori'] = $param1;
+        $data['judul'] = $param2;
+        $data['deskripsi'] = $param3;
+        $data['id_user'] = $param4;
+        $data['date_added'] = strtotime(date("Y-m-d H:i:s"));
+        if (!file_exists('uploads/ovidi')) {
+            mkdir('uploads/ovidi', 0777, true);
+        }
+        if ($_FILES['file_ovidi']['name'] != "") {
+            $data['link'] = $_FILES['file_ovidi']['name'];
+            move_uploaded_file($_FILES['file_ovidi']['tmp_name'], 'uploads/ovidi/'.$data['link']);
+        }
+        $this->db->insert('video', $data);
+    }
+
+    public function follow($param1='', $param2 = '')
+    {
+        $data['id_user'] = $param1;
+        $data['id_channel'] = $param2;
+        $data['date_added'] = strtotime(date("Y-m-d H:i:s"));
+        $this->db->insert('follower_video', $data);
+    }
+
+    public function add_notif_edukator()
+    {
+        $data['id_user'] = $_POST['id_user'];
+        $data['id_target'] = $_POST['konfir'];
+        $data['tipe'] = 'edukator';
+        $data['pesan'] = $_POST['pesan'];
+        $data['status'] = 0;
+        $data['date_add'] = strtotime(date('D, d-M-Y'));
+        $this->db->insert('notifikasi', $data);
+
+        $id = $this->db->insert_id();
+        $status = 1;
+        if($data['id_target'] == 'tolak'){
+            $data1['link'] = 'href="#" data-target="#tolak" data-toggle="modal" data-id="'.$id.'" data-pesan="'.$data['pesan'].'"';
+            $status = 0;
+            $this->db->where('id', $id)->update('notifikasi', $data1);
         }
 
-        // updating quiz functionalities
-        public function edit_quiz($lesson_id = "") {
-            $data['title'] = html_escape($this->input->post('title'));
-            $data['section_id'] = html_escape($this->input->post('section_id'));
-            $data['last_modified'] = strtotime(date('D, d-M-Y'));
-            $data['summary'] = html_escape($this->input->post('summary'));
-            $this->db->where('id', $lesson_id);
-            $this->db->update('lesson', $data);
+        $user_details = $this->user_model->get_user($data['id_user'])->row_array();
+        $this->email_model->send_mail_edukator_aktif($user_details['email'],$data['id_target'],$data['pesan']);
+        $data_user['is_edukator'] = $status;
+        $this->db->where('id', $data['id_user'])->update('users', $data_user);
+    }
+
+    public function add_ovidi_admin()
+    {
+        $data['id_kategori']  = $_POST['pilih_kategori'];
+        $data['judul']     = $_POST['judul_ovidi'];
+        $data['deskripsi'] = $_POST['deskripsi_ovidi'];
+        $data['link']      = $_POST['link_ovidi'];
+        $data['id_user']   = $this->session->userdata('user_id');
+        $data['date_added'] = strtotime(date("Y-m-d H:i:s"));
+        $data['status']     = 1;
+        $this->db->insert('video', $data);
+    }
+
+    public function konfirmasi_ovidi_admin()
+    {
+        $data['status']  = $_POST['konfirm'];
+        if ($data['status'] == '1') {
+            $data['link'] = $_POST['link'];
         }
+        $data['date_edit'] = strtotime(date('D, d-M-Y'));
+        $this->db->where('id', $_POST['id'])->update('video', $data);
+        $this->session->set_flashdata('flash_message', 'berhasil konfirmasi');
+    }
 
-        // Get quiz questions
-        public function get_quiz_questions($quiz_id) {
-            $this->db->order_by("order", "asc");
-            $this->db->where('quiz_id', $quiz_id);
-            return $this->db->get('question');
-        }
-
-        public function get_quiz_question_by_id($question_id) {
-            $this->db->order_by("order", "asc");
-            $this->db->where('id', $question_id);
-            return $this->db->get('question');
-        }
-
-        // Add Quiz Questions
-        public function add_quiz_questions($quiz_id) {
-            $question_type = $this->input->post('question_type');
-            if ($question_type == 'mcq') {
-                $response = $this->add_multiple_choice_question($quiz_id);
-                return $response;
-            }
-        }
-
-        public function update_quiz_questions($question_id) {
-            $question_type = $this->input->post('question_type');
-            if ($question_type == 'mcq') {
-                $response = $this->update_multiple_choice_question($question_id);
-                return $response;
-            }
-        }
-        // multiple_choice_question crud functions
-        function add_multiple_choice_question($quiz_id){
-            if (sizeof($this->input->post('options')) != $this->input->post('number_of_options')) {
-                return false;
-            }
-            foreach ($this->input->post('options') as $option) {
-                if ($option == "") {
-                    return false;
-                }
-            }
-            if (sizeof($this->input->post('correct_answers')) == 0) {
-                $correct_answers = [""];
-            }
-            else{
-                $correct_answers = $this->input->post('correct_answers');
-            }
-            $data['quiz_id']            = $quiz_id;
-            $data['title']              = html_escape($this->input->post('title'));
-            $data['number_of_options']  = html_escape($this->input->post('number_of_options'));
-            $data['type']               = 'multiple_choice';
-            $data['options']            = json_encode($this->input->post('options'));
-            $data['correct_answers']    = json_encode($correct_answers);
-            $this->db->insert('question', $data);
-            return true;
-        }
-        // update multiple choice question
-        function update_multiple_choice_question($question_id){
-            if (sizeof($this->input->post('options')) != $this->input->post('number_of_options')) {
-                return false;
-            }
-            foreach ($this->input->post('options') as $option) {
-                if ($option == "") {
-                    return false;
-                }
-            }
-
-            if (sizeof($this->input->post('correct_answers')) == 0) {
-                $correct_answers = [""];
-            }
-            else{
-                $correct_answers = $this->input->post('correct_answers');
-            }
-
-            $data['title']              = html_escape($this->input->post('title'));
-            $data['number_of_options']  = html_escape($this->input->post('number_of_options'));
-            $data['type']               = 'multiple_choice';
-            $data['options']            = json_encode($this->input->post('options'));
-            $data['correct_answers']    = json_encode($correct_answers);
-            $this->db->where('id', $question_id);
-            $this->db->update('question', $data);
-            return true;
-        }
-
-        function delete_quiz_question($question_id) {
-            $this->db->where('id', $question_id);
-            $this->db->delete('question');
-            return true;
-        }
-
-        function get_application_details() {
-            $purchase_code = get_settings('purchase_code');
-            $returnable_array = array(
-                'purchase_code_status' => get_phrase('not_found'),
-                'support_expiry_date'  => get_phrase('not_found'),
-                'customer_name'        => get_phrase('not_found')
-            );
-
-            $personal_token = "gC0J1ZpY53kRpynNe4g2rWT5s4MW56Zg";
-            $url = "https://api.envato.com/v3/market/author/sale?code=".$purchase_code;
-            $curl = curl_init($url);
-
-            //setting the header for the rest of the api
-            $bearer   = 'bearer ' . $personal_token;
-            $header   = array();
-            $header[] = 'Content-length: 0';
-            $header[] = 'Content-type: application/json; charset=utf-8';
-            $header[] = 'Authorization: ' . $bearer;
-
-            $verify_url = 'https://api.envato.com/v1/market/private/user/verify-purchase:'.$purchase_code.'.json';
-                $ch_verify = curl_init( $verify_url . '?code=' . $purchase_code );
-
-                curl_setopt( $ch_verify, CURLOPT_HTTPHEADER, $header );
-                curl_setopt( $ch_verify, CURLOPT_SSL_VERIFYPEER, false );
-                curl_setopt( $ch_verify, CURLOPT_RETURNTRANSFER, 1 );
-                curl_setopt( $ch_verify, CURLOPT_CONNECTTIMEOUT, 5 );
-                curl_setopt( $ch_verify, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.13) Gecko/20080311 Firefox/2.0.0.13');
-
-                $cinit_verify_data = curl_exec( $ch_verify );
-                curl_close( $ch_verify );
-
-                $response = json_decode($cinit_verify_data, true);
-
-                if (count($response['verify-purchase']) > 0) {
-
-                    //print_r($response);
-                    $item_name 				= $response['verify-purchase']['item_name'];
-                    $purchase_time 			= $response['verify-purchase']['created_at'];
-                    $customer 				= $response['verify-purchase']['buyer'];
-                    $licence_type 			= $response['verify-purchase']['licence'];
-                    $support_until			= $response['verify-purchase']['supported_until'];
-                    $customer 				= $response['verify-purchase']['buyer'];
-
-                    $purchase_date			= date("d M, Y", strtotime($purchase_time));
-
-                    $todays_timestamp 		= strtotime(date("d M, Y"));
-                    $support_expiry_timestamp = strtotime($support_until);
-
-                    $support_expiry_date	= date("d M, Y", $support_expiry_timestamp);
-
-                    if ($todays_timestamp > $support_expiry_timestamp)
-                    $support_status		= get_phrase('expired');
-                    else
-                    $support_status		= get_phrase('valid');
-
-                    $returnable_array = array(
-                        'purchase_code_status' => $support_status,
-                        'support_expiry_date'  => $support_expiry_date,
-                        'customer_name'        => $customer
-                    );
-                }
-                else {
-                    $returnable_array = array(
-                        'purchase_code_status' => 'invalid',
-                        'support_expiry_date'  => 'invalid',
-                        'customer_name'        => 'invalid'
-                    );
-                }
-
-                return $returnable_array;
-            }
-
-        public function perklik($id_course)
-        {
-            $old = $this->db->get_where('course', array('id' => $id_course))->result_array();
-            $new = $old[0]['perklik'] + 1;
-            $data['perklik'] = $new;
-            $this->db->where('id', $id_course)->update('course', $data);
-        }
-
-        public function get_message_notif($param1='')
-        {
-            $data = $this->db->get_where('message', array('message_thread_code' => $param1, 'read_status' => null))->result_array();
-
-            return $data;
-        }
-
-        public function get_notif_sum()
-        {
-            $user_id = $this->session->userdata('user_id');
-            return $this->db->get_where('notifikasi', array('id_user' => $user_id, 'status' => 0))->num_rows();
-            // return $notifikasi;
-            // $jumlah = 0;
-            // foreach ($notifikasi as $notif) {
-            //     if($notif['tipe'] == 'message'){
-            //         $data = $this->crud_model->get_message_notif($notif['id_target']);
-            //         foreach ($data as $d) {
-            //             if($d['sender'] != $user_id){
-            //                 $jumlah++;
-            //             }
-            //          }
-            //      }
-            //     else if($notif['tipe'] == 'pembayaran'){
-            //         $cek_notif = $this->db->get_where('payment_mid', array('order_id' => $notif['id_target']))->result_array();
-            //         foreach ($cek_notif as $ck) {
-            //             if($ck['transaction_status'] == 'pending'){
-            //                 $jumlah++;
-            //             }
-            //         }
-            //     }
-            //     else if($notif['tipe'] == 'edukator'){
-            //         $jumlah++;
-            //     }
-            // }
-
-            // if($jumlah == 0){
-            //     return '';
-            // }
-            // else{
-            //     return $jumlah;
-            // }
-        }
-
-        public function delete_notif($param1='')
-        {
-            $data_notif['id_target'] = 'delete';
-            $this->db->where('id', $param1)->delete('notifikasi');
-        }
-
-        public function get_payment($id_user)
-        {
-            return $this->db->get_where('payment_mid', array('id_pengirim' => $id_user, 'transaction_status' => 'pending'))->row_array();
-        }
-
-        public function get_enrol($id_course, $user_id)
-        {
-            $data['user_id'] = $user_id;
-            $data['course_id'] = $id_course;
-            $data['date_added'] = strtotime(date('D, d-M-Y'));
-
-            $this->db->insert('enrol', $data);
-        }
-
-        public function upload_ktp()
-        {
-            $data['nik']        = $this->input->post('nik');
-            $data['is_edukator'] = 2;
-            $fileName           = $_FILES['ktp']['name'];
-            // echo '<script type="text/javascript"> console.log("'.$filename.'")</script>';
-            $tmp                = explode('.', $fileName);
-            $fileExtension      = end($tmp);
-            echo '<script type="text/javascript"> console.log("'.$tmp.'")</script>';
-            $uploadable_file    =  md5(uniqid(rand(), true)).'.'.$fileExtension;
-            $data['ktp']        = $uploadable_file;
-
-            if (!file_exists('uploads/edukator_file')) {
-                mkdir('uploads/edukator_file', 0777, true);
-            }
-            move_uploaded_file($_FILES['ktp']['tmp_name'], 'uploads/edukator_file/'.$uploadable_file);
-            $this->db->where('id', $this->session->userdata('user_id'))->update('users', $data);
-            $this->session->set_flashdata('flash_message', 'Berhasil mendaftar, tunggu konfirmasi dari admin');
-
-            $data_notif['id_user'] = $this->session->userdata('user_id');
-            $data_notif['tipe'] = 'edukator';
-            $data_notif['id_target'] = 'wait';
-            $data_notif['date_add'] = strtotime(date("Y-m-d H:i:s"));
-            $this->db->insert('notifikasi', $data_notif);
-        }
-
-        public function filter_video($param1 = "")
-        {
-            $video = $this->db->get_where('video', array('id_kategori' => $param1, 'status' => 1));
-            if($video->num_rows() > 0){
-                return $video->result_array();
-            }
-            else{
-                return array();
-            }
-        }
-
-        public function filter_video_channel($param1 = "", $param2 = "")
-        {
-            $video = $this->db->get_where('video', array('id_kategori' => $param1, 'status' => 1, 'id_user' => $param2));
-            if($video->num_rows() > 0){
-                return $video->result_array();
-            }
-            else{
-                return array();
-            }
-        }
-
-        public function add_ovidi($param1 = '', $param2 = '', $param3 = '', $param4 = '')
-        {
-            $data['id_kategori'] = $param1;
-            $data['judul'] = $param2;
-            $data['deskripsi'] = $param3;
-            $data['id_user'] = $param4;
-            $data['date_added'] = strtotime(date("Y-m-d H:i:s"));
-            if (!file_exists('uploads/ovidi')) {
-                mkdir('uploads/ovidi', 0777, true);
-            }
-            if ($_FILES['file_ovidi']['name'] != "") {
-                $data['link'] = $_FILES['file_ovidi']['name'];
-                move_uploaded_file($_FILES['file_ovidi']['tmp_name'], 'uploads/ovidi/'.$data['link']);
-            }
-            $this->db->insert('video', $data);
-        }
-
-        public function follow($param1='', $param2 = '')
-        {
-            $data['id_user'] = $param1;
-            $data['id_channel'] = $param2;
-            $data['date_added'] = strtotime(date("Y-m-d H:i:s"));
-            $this->db->insert('follower_video', $data);
-        }
+    public function get_sertif_sum($id_order)
+    {
+        $this->db->select('*');
+        $this->db->from('sertifikat');
+        $this->db->where('order_id', $id_order);
+        $query = $this->db->get();
+        return $query->row();
+    }
 }
 

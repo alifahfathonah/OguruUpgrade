@@ -20,7 +20,7 @@ class Home extends CI_Controller {
         }
         $this->load->helper(array('url'));
         $this->load->model('Obook_model');
-        // $this->finish();
+        $this->finish();
     }
 
     public function index() {
@@ -806,7 +806,7 @@ class Home extends CI_Controller {
                                 'id_user' => $data['id_pengirim'],
                                 'id_target' => $data['order_id'],
                                 'pesan' => 'Menunggu pembayaran untuk kelas '.$kelas['title'],
-                                'link' => 'href="#" data-target="#wait" data-toggle="modal" data-kelas="'.$kelas['title'].'" data-jumlah="'.$jumlah_sertif.'"',
+                                'link' => 'href="#" data-target="#wait" data-toggle="modal" data-kelas="'.$kelas['title'].'" data-jumlah="'.$jumlah_sertif.'" data-link_pdf="'.$data['pdf_url'].'"',
                                 'tipe' => 'pembayaran',
                                 'status' => 0,
                                 'date_add' => strtotime(date("Y-m-d H:i:s"))
@@ -819,7 +819,10 @@ class Home extends CI_Controller {
                         $notif['status'] = 1;
                         $this->db->where('id', $data_cek_notif['id'])->update('notifikasi', $notif);
 
-                        $this->crud_model->get_enrol($data['id_course'], $data['id_pengirim']);
+                        $total = $this->crud_model->get_sertif_sum($data['order_id']);
+                        for ($i=0; $i < count($total); $i++) { 
+                            $this->crud_model->get_enrol($data['id_course'], $data['id_pengirim']);
+                        }
                     }
                 }
             }
@@ -1065,9 +1068,8 @@ class Home extends CI_Controller {
         $config['first_tag_open'] = '<li class="page-item">';
         $this->pagination->initialize($config);
 
-        $page_data['page_name']  = "Obook";
+        $page_data['page_name']  = "obook";
         $page_data['page_title'] = "Obook";
-        $page_data['selected_category_id'] = $selected_category_id;
         $this->load->view('frontend/'.get_frontend_settings('theme').'/index', $page_data);
     }
 
@@ -1080,6 +1082,14 @@ class Home extends CI_Controller {
         $page_data['page_title'] = "Obook";
         $page_data['selected_category_id'] = $selected_category_id;
         $this->load->view('frontend/'.get_frontend_settings('theme').'/index', $page_data);
+    }
+    
+    public function update_notif_accept($id = '')
+    {
+        $this->session->set_userdata('is_edukator', 1);
+        $data_notif['status'] = 1;
+        $this->db->where('id', $id)->update('notifikasi', $data_notif);
+        redirect(site_url('user'), 'refresh');
     }
 
     // public function tonton($param1='')
